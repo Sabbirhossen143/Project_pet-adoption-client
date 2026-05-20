@@ -41,7 +41,7 @@ const PetDetailsPage = ({ params }) => {
     try {
 
       const res = await axios.get(
-        `http://localhost:5000/pets/${params.id}`
+        `https://project-pet-adoption-server.onrender.com/pets/${params.id}`
       );
 
       setPet(res.data);

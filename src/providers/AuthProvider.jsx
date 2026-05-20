@@ -52,7 +52,7 @@ const AuthProvider = ({ children }) => {
 if (currentUser?.email) {
 
   axios.post(
-    "http://localhost:5000/jwt",
+    "https://project-pet-adoption-server.onrender.com/jwt",
     {
       email: currentUser.email,
     },
@@ -64,7 +64,7 @@ if (currentUser?.email) {
 } else {
 
   axios.post(
-    "http://localhost:5000/logout",
+    "https://project-pet-adoption-server.onrender.com/logout",
     {},
     {
       withCredentials: true,

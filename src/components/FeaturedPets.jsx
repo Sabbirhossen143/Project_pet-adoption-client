@@ -23,7 +23,7 @@ const FeaturedPets = () => {
     try {
 
       const res = await axios.get(
-        "http://localhost:5000/pets"
+        "https://project-pet-adoption-server.onrender.com/pets"
       );
 
       setPets(res.data.slice(0, 6));

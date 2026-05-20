@@ -31,7 +31,7 @@ const AllPetsPage = () => {
     try {
 
       const res = await axios.get(
-        `http://localhost:5000/pets?search=${search}&species=${species}`
+        `https://project-pet-adoption-server.onrender.com/pets?search=${search}&species=${species}`
       );
 
       setPets(res.data);
