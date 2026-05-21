@@ -37,7 +37,7 @@ const Navbar = () => {
 
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#16C6C0] backdrop-blur-md shadow-md">
+    <nav className="sticky top-0 z-50 bg-white/20 backdrop-blur-xl border-b border-white/20 backdrop-blur-md shadow-md">
 
       <div className="max-w-7xl mx-auto px-1 md:px-4">
 
@@ -66,7 +66,7 @@ const Navbar = () => {
         Paw
       </span>
 
-      <span className="text-[#FF6B35]">
+      <span className="text-[#F9B000]">
         Connect
       </span>
 
@@ -89,8 +89,8 @@ const Navbar = () => {
     px-2.5 sm:px-4 md:px-3 lg:px-4 py-[5px] sm:py-[6px] md:py-2 rounded-full transition duration-300
     ${
       pathname === "/"
-        ? "bg-[#FF6B35] text-white"
-        : "hover:bg-[#FF6B35] hover:text-white"
+        ? "bg-[#F9B000] text-white"
+        : "hover:bg-[#e5a400] hover:text-white"
     }
   `}
 >
@@ -111,8 +111,8 @@ const Navbar = () => {
     px-2.5 sm:px-4 md:px-3 lg:px-4 py-[5px] sm:py-[6px] md:py-2 rounded-full transition duration-300
     ${
       pathname === "/all-pets"
-        ? "bg-[#FF6B35] text-white"
-        : "hover:bg-[#FF6B35] hover:text-white"
+        ? "bg-[#F9B000] text-white"
+        : "hover:bg-[#e5a400] hover:text-white"
     }
   `}
 >
@@ -139,7 +139,7 @@ const Navbar = () => {
     px-2 sm:px-2 md:px-3 lg:px-4
     py-[3px] sm:py-1 md:py-2
     rounded-full
-    hover:bg-[#FF6B35]
+    hover:bg-[#e5a400]
     transition
     duration-300
     flex items-center justify-center
@@ -174,12 +174,15 @@ const Navbar = () => {
                     className="cursor-pointer"
                   >
 
-                    <img
+                    <Image
                       src={
                         user?.photoURL ||
                         "https://i.ibb.co/4pDNDk1/avatar.png"
                       }
                       alt="profile"
+                      width={0}
+                      height={0}
+                      sizes="100vw"
                       className="w-12 h-12 rounded-full border-2 border-[#FF6B35]"
                     />
 

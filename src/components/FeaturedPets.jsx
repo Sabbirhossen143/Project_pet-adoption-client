@@ -12,11 +12,15 @@ const FeaturedPets = () => {
 
   const [loading, setLoading] = useState(true);
 
+
+
   useEffect(() => {
 
     fetchPets();
 
   }, []);
+
+
 
   const fetchPets = async () => {
 
@@ -26,7 +30,7 @@ const FeaturedPets = () => {
         "https://project-pet-adoption-server.onrender.com/pets"
       );
 
-      setPets(res.data.slice(0, 6));
+      setPets(res.data.slice(0, 8));
 
       setLoading(false);
 
@@ -38,45 +42,118 @@ const FeaturedPets = () => {
     }
   };
 
+
+
   if (loading) {
+
     return (
+
       <div className="py-20 flex justify-center">
-        <span className="loading loading-spinner loading-lg"></span>
+
+        <span className="loading loading-spinner loading-lg text-[#16C6C0]"></span>
+
       </div>
     );
   }
 
+
+
   return (
-    <section className="py-20 bg-white">
 
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-16 sm:py-20 bg-[#f8fbfb]">
 
-        <div className="text-center mb-14">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
 
-          <h2 className="text-4xl font-bold">
+        {/* SECTION TITLE */}
+        <div className="text-center mb-12 md:mb-16">
+
+          <p
+            className="
+              text-[#16C6C0]
+              font-bold
+              uppercase
+              tracking-[4px]
+              text-sm
+              sm:text-base
+            "
+          >
+
+            Meet Your Companion
+
+          </p>
+
+
+
+          <h2
+            className="
+              mt-4
+              text-3xl
+              sm:text-4xl
+              md:text-5xl
+              font-extrabold
+              text-[#111827]
+            "
+          >
+
             Featured Pets
+
           </h2>
 
-          <p className="text-gray-600 mt-4">
-            Meet adorable pets waiting for adoption
+
+
+          <p
+            className="
+              text-gray-500
+              mt-5
+              text-sm
+              sm:text-base
+              md:text-lg
+              max-w-2xl
+              mx-auto
+              leading-8
+            "
+          >
+
+            Discover adorable pets waiting
+            for a loving family and forever home.
+
           </p>
 
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+
+        {/* PET GRID */}
+        <div
+          className="
+            grid
+            grid-cols-1
+            sm:grid-cols-2
+            md:grid-cols-3
+            lg:grid-cols-4
+            gap-5
+            sm:gap-6
+            md:gap-7
+            lg:gap-8
+            
+          "
+        >
 
           {
             pets.map((pet) => (
+
               <PetCard
                 key={pet._id}
                 pet={pet}
               />
+
             ))
           }
 
         </div>
 
       </div>
+
     </section>
   );
 };
