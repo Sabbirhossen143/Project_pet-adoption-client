@@ -57,10 +57,10 @@ const Navbar = () => {
   width={0}
   height={0}
   sizes="100vw"
-  className="object-contain w-6 h-6 md:w-10 md:h-10"
+  className="object-contain w-8 h-8 sm:w-10 sm:h-10  md:w-10 md:h-10"
 />
 
-    <h1 className="text-[12px] md:text-[15px] font-extrabold gap-0.5 flex">
+    <h1 className="text-[13px] md:text-[15px] font-extrabold gap-0.5 flex">
 
       <span className="text-[#0F172A]">
         Paw
@@ -79,14 +79,14 @@ const Navbar = () => {
           {/* CENTER MENU */}
 <div className="navbar-center">
 
-  <ul className="flex items-center gap-1 sm:gap-3 md:gap-6 lg:gap-10 font-semibold text-[12px] sm:text-[14px] md:text-base lg:text-[16px]">
+  <ul className="flex items-center gap-1 sm:gap-3 md:gap-5 lg:gap-10 font-semibold text-[13px] sm:text-[15px] md:text-base lg:text-[16px]">
 
     <li>
 
       <Link
   href="/"
   className={`
-    px-2 sm:px-4 md:px-3 lg:px-4 py-[4px] sm:py-[6px] md:py-2 rounded-full transition duration-300
+    px-2.5 sm:px-4 md:px-3 lg:px-4 py-[5px] sm:py-[6px] md:py-2 rounded-full transition duration-300
     ${
       pathname === "/"
         ? "bg-[#FF6B35] text-white"
@@ -108,7 +108,7 @@ const Navbar = () => {
       <Link
   href="/all-pets"
   className={`
-    px-2 sm:px-4 md:px-3 lg:px-4 py-[4px] sm:py-[6px] md:py-2 rounded-full transition duration-300
+    px-2.5 sm:px-4 md:px-3 lg:px-4 py-[5px] sm:py-[6px] md:py-2 rounded-full transition duration-300
     ${
       pathname === "/all-pets"
         ? "bg-[#FF6B35] text-white"
@@ -130,7 +130,7 @@ const Navbar = () => {
 
 
           {/* RIGHT SIDE */}
-          <div className="navbar-end flex items-center gap-2 sm:gap-4 md:gap-3">
+          <div className="navbar-end flex items-center gap-1 sm:gap-4 md:gap-3">
 
           
             {/* DARK MODE */}
@@ -251,8 +251,8 @@ const Navbar = () => {
       flex items-center gap-1 sm:gap-2
       bg-[#F9C62B]
       text-black
-      px-2 sm:px-4 md:px-3 lg:px-4
-      py-[4px] sm:py-[6px] md:py-2
+      px-3 sm:px-4 md:px-3 lg:px-4
+      py-[5px] sm:py-[6px] md:py-2
       rounded-full
       hover:bg-[#eab308]
       transition
