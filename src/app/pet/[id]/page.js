@@ -1,6 +1,10 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 import axios from "axios";
 
@@ -14,6 +18,7 @@ import axiosSecure from "@/hooks/useAxiosSecure";
 
 const PetDetailsPage = ({ params }) => {
 
+   const id = React.use(params).id;
   const { user } = useContext(AuthContext);
 
   const [pet, setPet] = useState(null);
@@ -41,7 +46,7 @@ const PetDetailsPage = ({ params }) => {
     try {
 
       const res = await axios.get(
-        `https://project-pet-adoption-server.onrender.com/pets/${params.id}`
+        `https://project-pet-adoption-server.onrender.com/pets/${id}`
       );
 
       setPet(res.data);
@@ -151,6 +156,12 @@ const PetDetailsPage = ({ params }) => {
             </p>
 
             <p className="mt-2">
+
+  Gender: {pet.gender}
+
+</p>
+
+            <p className="mt-2">
               Age: {pet.age}
             </p>
 
@@ -173,7 +184,18 @@ const PetDetailsPage = ({ params }) => {
 
 
         {/* Adoption Form */}
-        <div className="bg-white p-8 rounded-2xl shadow-lg h-fit">
+        <div
+  className="
+    bg-white/80
+    backdrop-blur-xl
+    p-8
+    rounded-[30px]
+    shadow-2xl
+    h-fit
+    border
+    border-white/20
+  "
+>
 
           <h2 className="text-3xl font-bold mb-6">
             Adoption Request
@@ -229,7 +251,7 @@ const PetDetailsPage = ({ params }) => {
 
 
 
-            <button className="bg-blue-600 text-white py-4 rounded-xl w-full hover:bg-blue-700">
+            <button className="bg-[#F9C62B] text-black font-bold py-4 rounded-xl w-full hover:bg-[#eab308]">
 
               Adopt Now
 

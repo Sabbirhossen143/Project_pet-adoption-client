@@ -174,17 +174,22 @@ const Navbar = () => {
                     className="cursor-pointer"
                   >
 
-                    <Image
-                      src={
-                        user?.photoURL ||
-                        "https://i.ibb.co/4pDNDk1/avatar.png"
-                      }
-                      alt="profile"
-                      width={0}
-                      height={0}
-                      sizes="100vw"
-                      className="w-12 h-12 rounded-full border-2 border-[#FF6B35]"
-                    />
+                    <img
+  src={
+    user?.photoURL ||
+    "https://i.ibb.co/4pDNDk1/avatar.png"
+  }
+  alt="profile"
+  className="
+    w-10 h-10
+    sm:w-11 sm:h-11
+    md:w-12 md:h-12
+    rounded-full
+    border-2
+    border-[#F9B000]
+    object-cover
+  "
+/>
 
                   </div>
 

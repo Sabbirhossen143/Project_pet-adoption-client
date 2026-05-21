@@ -101,6 +101,31 @@ const AddPetPage = () => {
               required
             />
 
+            <select
+  {...register("gender")}
+  className="
+    border
+    p-4
+    rounded-xl
+    bg-white
+  "
+  required
+>
+
+  <option value="">
+    Select Gender
+  </option>
+
+  <option value="Male">
+    Male
+  </option>
+
+  <option value="Female">
+    Female
+  </option>
+
+</select>
+
             <input
               {...register("age")}
               placeholder="Age"
