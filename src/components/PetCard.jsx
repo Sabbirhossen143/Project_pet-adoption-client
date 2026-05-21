@@ -50,8 +50,9 @@ const PetCard = ({ pet }) => {
             right-4
             bg-[#16C6C0]
             text-white
-            text-xs
-            sm:text-sm
+            text-[11px]
+            sm:text-[12px]
+            md:text-[13px]
             px-4
             py-1
             rounded-full
@@ -84,8 +85,9 @@ const PetCard = ({ pet }) => {
 
           <h2
             className="
-              text-2xl
-              sm:text-3xl
+              text-[18px]
+sm:text-xl
+md:text-2xl
               font-extrabold
               text-white
             "
@@ -97,7 +99,7 @@ const PetCard = ({ pet }) => {
 
 
 
-          <p className="text-white/90 text-sm sm:text-base mt-1">
+          <p className="text-white/90 text-[11px] sm:text-sm md:text-base mt-1">
 
             {pet.species}
 
@@ -110,36 +112,42 @@ const PetCard = ({ pet }) => {
 
 
       {/* CONTENT */}
-      <div className="p-5 sm:p-6 bg-[#0f172a] text-white">
+      <div className="p-4 sm:p-6 bg-[#16C6C0] text-white">
 
         {/* INFO */}
-        <div className="space-y-5">
+        <div className="space-y-2.5
+sm:space-y-3 md:space-y-3">
 
-  {/* TOP BADGES */}
-  <div className="flex items-center justify-between gap-3">
+  {/* FIRST ROW */}
+  <div className="flex items-center justify-between">
 
-    {/* GENDER BADGE */}
+    {/* GENDER */}
     <div
       className="
+        flex
+        items-center
+        gap-1
         bg-[#16C6C0]/20
         border
         border-[#16C6C0]/30
         text-[#5eead4]
-        px-4
-        py-2
+        px-3
+        py-1
         rounded-full
-        text-sm
+        text-[10px]
+        sm:text-[12px]
+        md:text-[13px]
         font-semibold
       "
     >
 
-      {pet.gender || "Unknown"}
+      {pet.gender === "Male" ? "♂️ Male" : "♀️ Female"}
 
     </div>
 
 
 
-    {/* LOCATION BADGE */}
+    {/* LOCATION */}
     <div
       className="
         flex
@@ -148,10 +156,12 @@ const PetCard = ({ pet }) => {
         bg-white/10
         border
         border-white/10
-        px-4
-        py-2
+        px-3
+        py-1
         rounded-full
-        text-sm
+        text-[10px]
+        sm:text-[12px]
+        md:text-[13px]
       "
     >
 
@@ -169,38 +179,72 @@ const PetCard = ({ pet }) => {
 
 
 
-  {/* BREED */}
-  <div>
+  {/* SECOND ROW */}
+  <div className="flex items-center justify-between">
 
-    <p className="text-gray-400 text-sm">
+    {/* BREED */}
+<div
+  className="
+    flex
+    items-center
+    gap-1
+    text-[11px]
+    sm:text-sm
+    md:text-base
+  "
+>
 
-      Breed
+  <span className="text-gray-400">
 
-    </p>
+    Breed:
+
+  </span>
 
 
 
-    <h3
-      className="
-        text-lg
-        font-bold
-        text-white
-        mt-1
-      "
-    >
+  <span className="font-bold text-white text-[12px]
+    sm:text-[14px]
+    md:text-[16px]">
 
-      {pet.breed || "Unknown"}
+    {pet.breed || "Unknown"}
 
-    </h3>
+  </span>
+
+</div>
+
+
+{/* AGE */}
+<div
+  className="
+    flex
+    items-center
+    gap-2
+    text-gray-300
+    text-[11px]
+    sm:text-sm
+    md:text-base
+    font-medium
+  "
+>
+
+  🐾
+
+  <span>
+
+    {pet.age} Years Old
+
+  </span>
+
+</div>
 
   </div>
 
 
 
   {/* FEE */}
-  <div className="flex items-center justify-between">
+  <div className="flex items-center justify-between pt-1">
 
-    <span className="text-gray-400">
+    <span className="text-gray-400 text-[13px] sm:text-[14px] md:text-[16px]">
 
       Adoption Fee
 
@@ -212,7 +256,9 @@ const PetCard = ({ pet }) => {
       className="
         text-[#F9C62B]
         font-extrabold
-        text-2xl
+        text-lg
+        sm:text-xl
+        md:text-2xl
       "
     >
 
@@ -242,16 +288,21 @@ const PetCard = ({ pet }) => {
             <button
               className="
                 w-full
-                py-3
+                py-1.5
+                sm:py-2.5
+                md:py-3
                 rounded-2xl
                 bg-white/10
                 hover:bg-white/20
-                border
-                border-white/10
+                border-1
+                border-[#F9C62B]
                 text-white
                 font-semibold
                 transition
                 duration-300
+                text-[13px]
+sm:text-[13px]
+md:text-[14px]
               "
             >
 
@@ -269,7 +320,9 @@ const PetCard = ({ pet }) => {
             <button
               className="
                 w-full
-                py-3
+                py-1.5
+                sm:py-2.5
+                md:py-3
                 rounded-2xl
                 bg-[#F9C62B]
                 hover:bg-[#eab308]
@@ -278,6 +331,9 @@ const PetCard = ({ pet }) => {
                 transition
                 duration-300
                 shadow-lg
+                text-[13px]
+sm:text-[13px]
+md:text-[14px]
               "
             >
 

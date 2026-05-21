@@ -133,6 +133,20 @@ const AddPetPage = () => {
               required
             />
 
+<input
+  {...register("vaccinationStatus")}
+  placeholder="Vaccination Status"
+  className="border p-4 rounded-xl"
+  required
+/>
+
+            <input
+  {...register("healthStatus")}
+  placeholder="Health Status"
+  className="border p-4 rounded-xl"
+  required
+/>
+
             <input
               {...register("image")}
               placeholder="Image URL"
@@ -146,6 +160,19 @@ const AddPetPage = () => {
               className="border p-4 rounded-xl"
               required
             />
+
+            <input
+  {...register("ownerEmail")}
+  defaultValue={user?.email}
+  readOnly
+  className="
+    border
+    p-4
+    rounded-xl
+    bg-gray-100
+    text-gray-500
+  "
+/>
 
             <input
               type="number"
