@@ -73,8 +73,10 @@ router.push("/");
       items-center
       justify-center
       bg-[#F6E7D5]
-      px-2
-      py-10
+      px-5
+      md:px-2
+      pt-0
+pb-10
     "
   >
 
