@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
-
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "@/providers/AuthProvider";
 
 import toast from "react-hot-toast";
@@ -13,6 +13,7 @@ const LoginPage = () => {
   const { loginUser, googleLogin } = useContext(AuthContext);
 
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e) => {
@@ -61,8 +62,12 @@ router.push("/");
 router.push("/");
 
     } catch (err) {
-      setError(err.message);
-    }
+
+  console.log(err);
+
+  setError("Google login failed");
+
+}
   };
 
   return (
@@ -172,28 +177,54 @@ pb-10
 
 
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter your password"
-          className="
-  w-full
-  bg-[#F4F4F4]
-  border
-  border-transparent
-  focus:border-[#F9B000]
-  focus:ring-2
-  focus:ring-[#F9B000]/10
-  outline-none
-  px-4
-  py-3
-  rounded-xl
-  transition
-  duration-300
-  text-sm
-"
-          required
-        />
+        <div className="relative">
+
+  <input
+    type={showPassword ? "text" : "password"}
+    name="password"
+    placeholder="Enter your password"
+    className="
+      w-full
+      bg-[#F4F4F4]
+      border
+      border-transparent
+      focus:border-[#F9B000]
+      focus:ring-2
+      focus:ring-[#F9B000]/10
+      outline-none
+      px-4
+      py-3
+      pr-12
+      rounded-xl
+      transition
+      duration-300
+      text-sm
+    "
+    required
+  />
+
+
+
+  <button
+    type="button"
+    onClick={() => setShowPassword(!showPassword)}
+    className="
+      absolute
+      right-4
+      top-1/2
+      -translate-y-1/2
+      text-gray-500
+      hover:text-[#F9B000]
+      transition
+      duration-300
+    "
+  >
+
+    {showPassword ? <FaEye /> : <FaEyeSlash />}
+
+  </button>
+
+</div>
 
 
 
