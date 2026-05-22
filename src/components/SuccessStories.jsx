@@ -34,12 +34,12 @@ const SuccessStories = () => {
 
   return (
 
-    <section className="py-24 bg-[#111827] overflow-hidden">
+    <section className="py-16 md:py-24 bg-[#111827] overflow-hidden">
 
       <div className="max-w-7xl mx-auto px-4">
 
         {/* HEADING */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 md:mb-16">
 
           <p className="text-[#F9C62B] uppercase tracking-widest font-semibold">
 
@@ -103,12 +103,13 @@ const SuccessStories = () => {
                   border-2
                   border-[#16C6C0]
                   rounded-[30px]
-                  p-8
+                  p-5
+                  md:p-8
                   backdrop-blur-xl
                   transition
                   duration-500
                   w-full
-min-h-[240px]
+min-h-[200px]
 sm:min-h-[260px]
 md:min-h-[300px]
 flex
@@ -117,7 +118,7 @@ justify-between
                 "
               >
 
-                <div className="text-5xl">
+                <div className="text-4xl md:text-5xl">
 
                   ⭐
 
@@ -128,7 +129,8 @@ justify-between
                 <p
                   className="
                     text-gray-300
-                    mt-6
+                    mt-2
+                    md:mt-6
                     leading-relaxed
                     text-sm
                     sm:text-base
@@ -144,7 +146,8 @@ justify-between
 
                 <h4
                   className="
-                    mt-8
+                    mt-2
+                    md:mt-8
                     text-white
                     font-bold
                     text-lg

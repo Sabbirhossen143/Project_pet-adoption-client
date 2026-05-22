@@ -2,11 +2,11 @@ const VolunteerSection = () => {
 
   return (
 
-    <section className="py-24 bg-[#F9C62B]">
+    <section className="py-16 md:py-24 bg-[#F9C62B]">
 
       <div className="max-w-5xl mx-auto px-4 text-center">
 
-        <p className="uppercase tracking-widest font-bold text-black/70">
+        <p className="uppercase tracking-widest font-bold text-[#16C6C0]">
           Join Our Mission
         </p>
 
@@ -19,7 +19,8 @@ const VolunteerSection = () => {
             md:text-6xl
             font-extrabold
             text-black
-            mt-5
+            mt-3
+            md:mt-5
           "
         >
 
@@ -31,7 +32,8 @@ const VolunteerSection = () => {
 
         <p
           className="
-            mt-6
+            mt-5
+            md:mt-6
             text-black/80
             text-lg
             max-w-2xl
@@ -48,7 +50,8 @@ const VolunteerSection = () => {
 
         <button
           className="
-            mt-10
+            mt-8
+            md:mt-10
             bg-black
             hover:bg-[#0f172a]
             text-white
@@ -59,6 +62,8 @@ const VolunteerSection = () => {
             transition
             duration-300
             shadow-xl
+            border-2
+            border-[#16C6C0]
           "
         >
 

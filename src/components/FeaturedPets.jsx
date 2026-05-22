@@ -104,7 +104,8 @@ const FeaturedPets = () => {
           <p
             className="
               text-gray-500
-              mt-5
+              mt-2
+              md:mt-5
               text-sm
               sm:text-base
               md:text-lg

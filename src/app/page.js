@@ -122,22 +122,40 @@ export default function Home() {
         className="relative flex justify-center"
       >
 
-        {/* YELLOW SHAPE */}
-        <div
-          className="
-            absolute
-            w-[260px]
-            h-[260px]
-            sm:w-[320px]
-            sm:h-[320px]
-            md:w-[420px]
-            md:h-[420px]
-            bg-[#F9B000]
-            rounded-[40%]
-            rotate-12
-            z-0
-          "
-        />
+        {/* ANIMATED YELLOW SHAPE */}
+<motion.div
+  animate={{
+    y: [0, -20, 0],
+    rotate: [12, 18, 12],
+    borderRadius: [
+      "40%",
+      "45%",
+      "38%",
+      "40%",
+    ],
+  }}
+
+  transition={{
+    duration: 6,
+    repeat: Infinity,
+    ease: "easeInOut",
+  }}
+
+  className="
+    absolute
+    w-[260px]
+    h-[260px]
+    sm:w-[320px]
+    sm:h-[320px]
+    md:w-[420px]
+    md:h-[420px]
+    bg-[#F9B000]
+    rounded-[40%]
+    rotate-12
+    z-0
+    blur-[2px]
+  "
+/>
 
 
 

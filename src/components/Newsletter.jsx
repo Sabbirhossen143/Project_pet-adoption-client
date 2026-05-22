@@ -2,7 +2,7 @@ const Newsletter = () => {
 
   return (
 
-    <section className="py-24 bg-[#16C6C0]">
+    <section className="py-16 md:py-24 bg-[#16C6C0]">
 
       <div className="max-w-5xl mx-auto px-4">
 
@@ -13,7 +13,8 @@ const Newsletter = () => {
             border
             border-white/20
             rounded-[40px]
-            p-8
+            p-5
+            md:p-8
             sm:p-12
             shadow-2xl
             text-center
@@ -27,6 +28,7 @@ const Newsletter = () => {
               text-[#F9C62B]
               font-semibold
               text-sm
+              mt-4
             "
           >
 
@@ -43,7 +45,8 @@ const Newsletter = () => {
               md:text-5xl
               font-extrabold
               text-white
-              mt-5
+              mt-4
+              md:mt-5
             "
           >
 
@@ -55,7 +58,8 @@ const Newsletter = () => {
 
           <p
             className="
-              mt-6
+              mt-4
+              md:mt-6
               text-white/80
               max-w-2xl
               mx-auto
@@ -79,6 +83,7 @@ const Newsletter = () => {
               flex-col
               md:flex-row
               gap-4
+              md:gap-6
               items-center
               justify-center
             "
@@ -111,6 +116,10 @@ duration-300
 
             <button
               className="
+                mt-2
+                md:mt-0
+                mb-3
+                md:mb-4
                 bg-[#F9C62B]
                 hover:bg-[#eab308]
                 text-black

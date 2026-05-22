@@ -24,12 +24,12 @@ const WhyAdopt = () => {
 
   return (
 
-    <section className="py-24 bg-[#16C6C0]">
+    <section className="py-16 md:py-24 bg-[#16C6C0]">
 
       <div className="max-w-7xl mx-auto px-4">
 
         {/* HEADING */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 md:mb-16">
 
           <p className="text-[#F9C62B] font-semibold tracking-widest uppercase">
             Why Choose Adoption
@@ -42,7 +42,8 @@ const WhyAdopt = () => {
               md:text-5xl
               font-extrabold
               text-white
-              mt-4
+              mt-3
+              md:mt-4
             "
           >
 
@@ -55,7 +56,8 @@ const WhyAdopt = () => {
           <p
             className="
               text-black/70
-              mt-5
+              mt-4
+              md:mt-5
               max-w-2xl
               mx-auto
               text-sm
@@ -87,7 +89,8 @@ const WhyAdopt = () => {
                 backdrop-blur-3xl
                 shadow-2xl
                 rounded-[30px]
-                p-8
+                p-5
+                md:p-8
                 hover:-translate-y-2
                 border-[#F9C62B]
                 transition
@@ -97,14 +100,17 @@ const WhyAdopt = () => {
 
               <div
                 className="
-                  w-16
-                  h-16
+                  w-12
+                  h-12
+                  md:w-16
+                  md:h-16
                   rounded-2xl
                   bg-[#F9C62B]
                   flex
                   items-center
                   justify-center
-                  text-3xl
+                  text-2xl
+                  md:text-3xl
                   shadow-lg
                 "
               >
@@ -120,7 +126,8 @@ const WhyAdopt = () => {
                   text-2xl
                   font-bold
                   text-white
-                  mt-6
+                  mt-3
+                  md:mt-6
                 "
               >
 
@@ -133,7 +140,8 @@ const WhyAdopt = () => {
               <p
                 className="
                   text-black/70
-                  mt-4
+                  mt-2
+                  md:mt-4
                   leading-relaxed
                 "
               >

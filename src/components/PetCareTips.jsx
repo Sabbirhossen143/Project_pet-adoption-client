@@ -24,11 +24,11 @@ const PetCareTips = () => {
 
   return (
 
-    <section className="py-24 bg-[#16C6C0]">
+    <section className="py-16 md:py-24 bg-[#16C6C0]">
 
       <div className="max-w-7xl mx-auto px-4">
 
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 md:mb-16">
 
           <p className="text-[#F9C62B] font-semibold uppercase tracking-widest">
             Care Guide
@@ -62,7 +62,8 @@ const PetCareTips = () => {
               className="
                 bg-white/10
                 rounded-[30px]
-                p-8
+                p-5
+                md:p-8
                 border-2
                 border-[#F9C62B]
                 hover:-translate-y-2
@@ -73,7 +74,7 @@ const PetCareTips = () => {
               "
             >
 
-              <div className="text-5xl">
+              <div className="text-4xl md:text-5xl">
 
                 {tip.icon}
 
@@ -86,7 +87,8 @@ const PetCareTips = () => {
                   text-2xl
                   font-bold
                   text-white
-                  mt-6
+                  mt-3
+                  md:mt-6
                 "
               >
 
@@ -96,7 +98,7 @@ const PetCareTips = () => {
 
 
 
-              <p className="text-black/70 mt-4 leading-relaxed">
+              <p className="text-black/70 mt-3 md:mt-4 leading-relaxed">
 
                 {tip.desc}
 

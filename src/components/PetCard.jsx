@@ -226,7 +226,7 @@ text-black/90
   "
 >
 
-  🐾
+   Age :
 
   <span>
 

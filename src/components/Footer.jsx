@@ -54,7 +54,7 @@ const Footer = () => {
 
 
 
-          <p className="mt-5 text-white/70 leading-relaxed">
+          <p className="mt-3 md:mt-5 text-white/70 leading-relaxed">
 
             Helping pets find loving homes and creating
             happier families every single day.
@@ -73,7 +73,8 @@ const Footer = () => {
     className="
       text-xl
       font-bold
-      mb-6
+      mb-4
+      md:mb-6
       text-[#F9C62B]
     "
   >
@@ -223,7 +224,8 @@ const Footer = () => {
             className="
               text-xl
               font-bold
-              mb-5
+              mb-4
+              md:mb-6
               text-[#F9C62B]
             "
           >
@@ -350,7 +352,8 @@ const Footer = () => {
             className="
               text-xl
               font-bold
-              mb-5
+              mb-4
+              md:mb-6
               text-[#F9C62B]
             "
           >

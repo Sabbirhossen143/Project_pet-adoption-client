@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useContext, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { AuthContext } from "@/providers/AuthProvider";
 
@@ -12,6 +13,7 @@ const LoginPage = () => {
   const { loginUser, googleLogin } = useContext(AuthContext);
 
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleLogin = async (e) => {
 
@@ -27,12 +29,25 @@ const LoginPage = () => {
     try {
 
       await loginUser(email, password);
+      setError("");
 
       toast.success("Login Successful");
 
+router.push("/");
+
     } catch (err) {
-      setError(err.message);
-    }
+
+  if (err.code === "auth/invalid-credential") {
+
+    setError("Incorrect email or password");
+
+  } else {
+
+    setError("Login failed. Please try again.");
+
+  }
+
+}
   };
 
   const handleGoogleLogin = async () => {
@@ -43,73 +58,262 @@ const LoginPage = () => {
 
       toast.success("Google Login Successful");
 
+router.push("/");
+
     } catch (err) {
       setError(err.message);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+  <div
+    className="
+      min-h-screen
+      flex
+      items-center
+      justify-center
+      bg-[#F6E7D5]
+      px-2
+      py-10
+    "
+  >
 
-      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
+    <div
+      className="
+        w-full
+        max-w-sm
+        bg-white/90
+        backdrop-blur-xl
+        rounded-[35px]
+        shadow-[0_20px_60px_rgba(249,176,0,0.25)]
+        p-6
+      "
+    >
 
-        <h2 className="text-3xl font-bold text-center mb-6">
-          Login
-        </h2>
+      {/* LOGO IMAGE */}
+      <div className="flex justify-center mb-2">
 
-        <form onSubmit={handleLogin} className="space-y-4">
-
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            className="w-full border p-3 rounded-lg"
-            required
-          />
-
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            className="w-full border p-3 rounded-lg"
-            required
-          />
-
-          {error && (
-            <p className="text-red-500 text-sm">
-              {error}
-            </p>
-          )}
-
-          <button className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700">
-            Login
-          </button>
-
-        </form>
-
-        <button
-          onClick={handleGoogleLogin}
-          className="w-full mt-4 border py-3 rounded-lg hover:bg-gray-100"
-        >
-          Continue With Google
-        </button>
-
-        <p className="text-center mt-5">
-
-          Don&apos;t have an account?
-
-          <Link
-            href="/register"
-            className="text-blue-600 ml-2"
-          >
-            Register
-          </Link>
-
-        </p>
+        <img
+          src="/images/login-pet.png"
+          alt="Login"
+          className="
+            w-16
+            h-16
+            object-contain
+          "
+        />
 
       </div>
+
+
+
+      {/* TITLE */}
+      <h2
+        className="
+          text-2xl
+          font-extrabold
+          text-center
+          text-[#0f172a]
+        "
+      >
+
+        Welcome Back
+
+      </h2>
+
+
+
+      <p
+        className="
+  text-center
+  text-gray-500
+  mt-2
+  mb-4
+  text-sm
+"
+      >
+
+        Login to continue your pet journey
+
+      </p>
+
+
+
+      {/* FORM */}
+      <form
+        onSubmit={handleLogin}
+        className="space-y-4"
+      >
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter your email"
+          className="
+  w-full
+  bg-[#F4F4F4]
+  border
+  border-transparent
+  focus:border-[#F9B000]
+  focus:ring-2
+  focus:ring-[#F9B000]/10
+  outline-none
+  px-4
+  py-3
+  rounded-xl
+  transition
+  duration-300
+  text-sm
+"
+          required
+        />
+
+
+
+        <input
+          type="password"
+          name="password"
+          placeholder="Enter your password"
+          className="
+  w-full
+  bg-[#F4F4F4]
+  border
+  border-transparent
+  focus:border-[#F9B000]
+  focus:ring-2
+  focus:ring-[#F9B000]/10
+  outline-none
+  px-4
+  py-3
+  rounded-xl
+  transition
+  duration-300
+  text-sm
+"
+          required
+        />
+
+
+
+        {error && (
+          <p className="text-red-500 text-sm">
+            {error}
+          </p>
+        )}
+
+
+
+        {/* LOGIN BUTTON */}
+        <button
+          className="
+  w-full
+  bg-[#F9B000]
+  hover:bg-[#e0a100]
+  text-white
+  py-3
+  rounded-xl
+  font-semibold
+  text-sm
+  transition
+  duration-300
+  shadow-md
+  mt-2
+"
+        >
+
+          Login
+
+        </button>
+
+      </form>
+
+
+
+      {/* DIVIDER */}
+      <div
+        className="
+          text-center
+          text-gray-400
+          my-6
+          text-sm
+          mt-4
+          mb-4
+        "
+      >
+
+        OR CONTINUE WITH
+
+      </div>
+
+
+
+      {/* GOOGLE LOGIN */}
+      <button
+        onClick={handleGoogleLogin}
+        className="
+  w-full
+  border
+  border-gray-200
+  hover:border-[#F9B000]
+  py-3
+  rounded-xl
+  text-sm
+  font-medium
+  flex
+  items-center
+  justify-center
+  gap-2
+  transition
+  duration-300
+  hover:bg-[#FFF8E6]
+"
+      >
+
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/281/281764.png"
+          alt="Google"
+          className="w-4 h-4"
+        />
+
+        Continue With Google
+
+      </button>
+
+
+
+      {/* REGISTER */}
+      <p
+        className="
+          text-center
+          mt-4
+          text-gray-500
+          text-sm
+        "
+      >
+
+        Don&apos;t have an account?
+
+        <Link
+          href="/register"
+          className="
+            text-[#F9B000]
+            font-semibold
+            ml-2
+            hover:underline
+          "
+        >
+
+          Register
+
+        </Link>
+
+      </p>
+
     </div>
-  );
+
+  </div>
+);
+
 };
 
 export default LoginPage;
