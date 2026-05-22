@@ -11,8 +11,9 @@ const PetCard = ({ pet }) => {
         group
         bg-white/10
         backdrop-blur-xl
-        border
-        border-white/20
+        border-2
+        border-[#F9C62B]
+        
         rounded-[30px]
         overflow-hidden
         shadow-xl
@@ -112,7 +113,7 @@ md:text-2xl
 
 
       {/* CONTENT */}
-      <div className="p-5 sm:p-3 bg-[#16C6C0] text-white">
+      <div className="p-5 sm:p-2 bg-[#16C6C0] text-white">
 
         {/* INFO */}
         <div className="space-y-2.5
@@ -151,7 +152,7 @@ text-black/90
       className="
         flex
         items-center
-        gap-2
+        gap-1
         bg-[#0f172a]
         border-[#F9C62B]
         px-3
@@ -275,6 +276,8 @@ text-black/90
           className="
             mt-3
             md:mt-5
+            mb-0
+            md:mb-3 
             grid
             grid-cols-2
             gap-3

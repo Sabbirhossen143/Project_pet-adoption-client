@@ -105,7 +105,6 @@ const SuccessStories = () => {
                   rounded-[30px]
                   p-8
                   backdrop-blur-xl
-                  hover:-translate-y-2
                   transition
                   duration-500
                   w-full
