@@ -1,3 +1,11 @@
+"use client";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import { Autoplay } from "swiper/modules";
+
+import "swiper/css";
+
 const SuccessStories = () => {
 
   const stories = [
@@ -10,20 +18,33 @@ const SuccessStories = () => {
       text: "Adopting Max changed our lives completely. He’s playful, loving, and loyal.",
       name: "Tanvir Hasan",
     },
+
+    {
+      text: "Charlie brought endless joy into our lives. We can’t imagine life without him.",
+      name: "Nusrat Jahan",
+    },
+
+    {
+      text: "Lucy transformed our home with happiness and unconditional love.",
+      name: "Rakib Hasan",
+    },
   ];
 
 
 
   return (
 
-    <section className="py-24 bg-[#111827]">
+    <section className="py-24 bg-[#111827] overflow-hidden">
 
       <div className="max-w-7xl mx-auto px-4">
 
+        {/* HEADING */}
         <div className="text-center mb-16">
 
           <p className="text-[#F9C62B] uppercase tracking-widest font-semibold">
+
             Happy Families
+
           </p>
 
 
@@ -47,67 +68,102 @@ const SuccessStories = () => {
 
 
 
-        <div className="grid md:grid-cols-2 gap-8">
+        {/* SLIDER */}
+        <Swiper
+          modules={[Autoplay]}
+          spaceBetween={24}
+          loop={true}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+            },
+
+            768: {
+              slidesPerView: 2,
+            },
+
+            1024: {
+              slidesPerView: 3,
+            },
+          }}
+        >
 
           {stories.map((story, index) => (
 
-            <div
-              key={index}
-              className="
-                bg-white/5
-                border
-                rounded-[30px]
-                p-8
-                backdrop-blur-xl
-                border-2
-                border-[#16C6C0]
-                transition
-                duration-500
-                hover:translate-x-2
-              "
-            >
+            <SwiperSlide key={index} className="flex h-auto">
 
-              <div className="text-5xl">
+              <div
+                className="
+                  bg-white/5
+                  border-2
+                  border-[#16C6C0]
+                  rounded-[30px]
+                  p-8
+                  backdrop-blur-xl
+                  hover:-translate-y-2
+                  transition
+                  duration-500
+                  w-full
+min-h-[240px]
+sm:min-h-[260px]
+md:min-h-[300px]
+flex
+flex-col
+justify-between
+                "
+              >
 
-                ⭐
+                <div className="text-5xl">
+
+                  ⭐
+
+                </div>
+
+
+
+                <p
+                  className="
+                    text-gray-300
+                    mt-6
+                    leading-relaxed
+                    text-sm
+                    sm:text-base
+                    md:text-lg
+                  "
+                >
+
+                  “{story.text}”
+
+                </p>
+
+
+
+                <h4
+                  className="
+                    mt-8
+                    text-white
+                    font-bold
+                    text-lg
+                    sm:text-xl
+                  "
+                >
+
+                  — {story.name}
+
+                </h4>
 
               </div>
 
-
-
-              <p
-                className="
-                  text-gray-300
-                  mt-6
-                  leading-relaxed
-                  text-lg
-                "
-              >
-
-                “{story.text}”
-
-              </p>
-
-
-
-              <h4
-                className="
-                  mt-8
-                  text-white
-                  font-bold
-                  text-xl
-                "
-              >
-
-                — {story.name}
-
-              </h4>
-
-            </div>
+            </SwiperSlide>
 
           ))}
 
-        </div>
+        </Swiper>
 
       </div>
 

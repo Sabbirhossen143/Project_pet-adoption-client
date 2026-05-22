@@ -60,16 +60,16 @@ const PetCareTips = () => {
             <div
               key={index}
               className="
-                bg-white/5
-                border
-                border-white/10
+                bg-white/10
                 rounded-[30px]
                 p-8
-                hover:border-2
-                hover:border-[#F9C62B]
+                border-2
+                border-[#F9C62B]
                 hover:-translate-y-2
                 transition
                 duration-500
+                shadow-2xl
+                backdrop-blur-3xl
               "
             >
 

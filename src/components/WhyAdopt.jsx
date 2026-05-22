@@ -81,10 +81,11 @@ const WhyAdopt = () => {
               key={index}
               className="
                 group
-                bg-white/5
+                bg-white/10
                 border
                 border-2
-                backdrop-blur-xl
+                backdrop-blur-3xl
+                shadow-2xl
                 rounded-[30px]
                 p-8
                 hover:-translate-y-2

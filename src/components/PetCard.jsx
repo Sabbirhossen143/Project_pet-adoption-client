@@ -112,7 +112,7 @@ md:text-2xl
 
 
       {/* CONTENT */}
-      <div className="p-4 sm:p-6 bg-[#16C6C0] text-white">
+      <div className="p-5 sm:p-3 bg-[#16C6C0] text-white">
 
         {/* INFO */}
         <div className="space-y-2.5
@@ -127,14 +127,13 @@ sm:space-y-3 md:space-y-3">
         flex
         items-center
         gap-1
-        bg-[#16C6C0]/20
-        border
-        border-[#16C6C0]/30
-        text-[#5eead4]
+        bg-white
+border-white
+text-black/90
         px-3
         py-1
         rounded-full
-        text-[10px]
+        text-[11px]
         sm:text-[12px]
         md:text-[13px]
         font-semibold
@@ -153,13 +152,12 @@ sm:space-y-3 md:space-y-3">
         flex
         items-center
         gap-2
-        bg-white/10
-        border
-        border-white/10
+        bg-[#0f172a]
+        border-[#F9C62B]
         px-3
         py-1
         rounded-full
-        text-[10px]
+        text-[11px]
         sm:text-[12px]
         md:text-[13px]
       "
@@ -167,7 +165,7 @@ sm:space-y-3 md:space-y-3">
 
       <FaLocationDot className="text-[#F9C62B]" />
 
-      <span className="text-white/90">
+      <span className="text-white font-medium">
 
         {pet.location}
 
@@ -188,13 +186,13 @@ sm:space-y-3 md:space-y-3">
     flex
     items-center
     gap-1
-    text-[11px]
+    text-[12px]
     sm:text-sm
     md:text-base
   "
 >
 
-  <span className="text-gray-400">
+  <span className="text-white font-medium">
 
     Breed:
 
@@ -202,7 +200,7 @@ sm:space-y-3 md:space-y-3">
 
 
 
-  <span className="font-bold text-white text-[12px]
+  <span className="font-bold text-white text-[13px]
     sm:text-[14px]
     md:text-[16px]">
 
@@ -219,10 +217,10 @@ sm:space-y-3 md:space-y-3">
     flex
     items-center
     gap-2
-    text-gray-300
-    text-[11px]
-    sm:text-sm
-    md:text-base
+    text-white
+    text-[12px]
+    sm:text-[13px]
+    md:text-[13px]
     font-medium
   "
 >
@@ -242,9 +240,9 @@ sm:space-y-3 md:space-y-3">
 
 
   {/* FEE */}
-  <div className="flex items-center justify-between pt-1">
+  <div className="flex items-center justify-between pt-0">
 
-    <span className="text-gray-400 text-[13px] sm:text-[14px] md:text-[16px]">
+    <span className="text-white text-[13px] sm:text-[14px] md:text-[16px]">
 
       Adoption Fee
 
@@ -275,7 +273,8 @@ sm:space-y-3 md:space-y-3">
         {/* BUTTONS */}
         <div
           className="
-            mt-6
+            mt-3
+            md:mt-5
             grid
             grid-cols-2
             gap-3

@@ -102,7 +102,7 @@ export default function Home() {
             font-bold
             transition
             duration-300
-            shadow-lg
+            shadow-2xl
           "
         >
 
@@ -147,6 +147,7 @@ export default function Home() {
           alt="Dog"
           width={0}
           height={0}
+          loading="eager"
           sizes="100vw"
           className="
             relative
