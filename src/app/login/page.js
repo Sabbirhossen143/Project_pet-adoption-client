@@ -32,7 +32,75 @@ const LoginPage = () => {
       await loginUser(email, password);
       setError("");
 
-      toast.success("Login Successful");
+      toast.success(
+
+  `Welcome back, ${
+    email.split("@")[0]
+  }.\nReady for pet adventures ?`,
+
+  {
+    duration: 3000,
+
+    position: "top-right",
+
+    icon: (
+      <img
+        src="/images/loginicon.png"
+        alt="Pet"
+        className="
+          w-5
+          h-5
+          md:w-7
+          md:h-7
+          rounded-full
+          object-cover
+        "
+      />
+    ),
+
+    style: {
+  marginTop:
+    window.innerWidth < 640
+      ? "58px"
+      : "70px",
+
+  padding:
+    window.innerWidth < 640
+      ? "8px 10px"
+      : "14px 16px",
+
+  borderRadius: "14px",
+
+  background: "#fff",
+
+  color: "#0f172a",
+
+  fontSize:
+    window.innerWidth < 640
+      ? "10px"
+      : "14px",
+
+  fontWeight: "600",
+
+  lineHeight: "1.15",
+
+  minWidth:
+    window.innerWidth < 640
+      ? "190px"
+      : "280px",
+
+  maxWidth:
+    window.innerWidth < 640
+      ? "210px"
+      : "320px",
+
+  boxShadow:
+    "0 10px 30px rgba(249,176,0,0.18)",
+},
+
+  }
+
+);
 
 router.push("/");
 
@@ -57,7 +125,75 @@ router.push("/");
 
       await googleLogin();
 
-      toast.success("Google Login Successful");
+      toast.success(
+
+  `Welcome back, ${
+    email.split("@")[0]
+  }..\nReady for pet adventures ?`,
+
+  {
+    duration: 3000,
+
+    position: "top-right",
+
+    icon: (
+      <img
+        src="/images/loginicon.png"
+        alt="Pet"
+        className="
+          w-5
+          h-5
+          md:w-7
+          md:h-7
+          rounded-full
+          object-cover
+        "
+      />
+    ),
+
+    style: {
+  marginTop:
+    window.innerWidth < 640
+      ? "58px"
+      : "70px",
+
+  padding:
+    window.innerWidth < 640
+      ? "8px 10px"
+      : "14px 16px",
+
+  borderRadius: "14px",
+
+  background: "#fff",
+
+  color: "#0f172a",
+
+  fontSize:
+    window.innerWidth < 640
+      ? "10px"
+      : "14px",
+
+  fontWeight: "600",
+
+  lineHeight: "1.15",
+
+  minWidth:
+    window.innerWidth < 640
+      ? "190px"
+      : "280px",
+
+  maxWidth:
+    window.innerWidth < 640
+      ? "210px"
+      : "320px",
+
+  boxShadow:
+    "0 10px 30px rgba(249,176,0,0.18)",
+},
+
+  }
+
+);
 
 router.push("/");
 

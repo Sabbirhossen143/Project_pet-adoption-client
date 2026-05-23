@@ -26,7 +26,73 @@ const Navbar = () => {
 
       await logoutUser();
 
-      toast.success("Logout Successful");
+      toast.success(
+
+  `Logout Successful !!\nThanks for visiting PawConnect..`,
+
+  {
+    duration: 3000,
+
+    position: "top-right",
+
+    icon: (
+      <img
+        src="/images/logout.png"
+        alt="Pet"
+        className="
+  w-5
+  h-5
+  sm:w-7
+  sm:h-7
+          rounded-full
+          object-cover
+        "
+      />
+    ),
+    style: {
+  marginTop:
+    window.innerWidth < 640
+      ? "58px"
+      : "70px",
+
+  padding:
+    window.innerWidth < 640
+      ? "8px 10px"
+      : "14px 16px",
+
+  borderRadius: "14px",
+
+  background: "#fff",
+
+  color: "#0f172a",
+
+  fontSize:
+    window.innerWidth < 640
+      ? "10px"
+      : "14px",
+
+  fontWeight: "600",
+
+  lineHeight: "1.15",
+
+  minWidth:
+    window.innerWidth < 640
+      ? "190px"
+      : "280px",
+
+  maxWidth:
+    window.innerWidth < 640
+      ? "210px"
+      : "320px",
+
+  boxShadow:
+    "0 10px 30px rgba(249,176,0,0.18)",
+},
+    
+
+  }
+
+);
 
     } catch (error) {
 
@@ -196,57 +262,145 @@ const Navbar = () => {
 
 
                   <ul
-                    tabIndex={0}
-                    className="menu menu-sm dropdown-content bg-white rounded-2xl z-[1] mt-4 w-56 p-3 shadow-xl"
-                  >
+  tabIndex={0}
+  className="
+  dropdown-content
+  z-[100]
+  mt-3
+  w-44
+  sm:w-45
+  bg-white/95
+  backdrop-blur-2xl
+  rounded-[20px]
+  border
+  border-[#F9B000]/20
+  shadow-[0_15px_40px_rgba(249,176,0,0.15)]
+  p-2
+  space-y-1
+"
+>
 
-                    <li>
+  {/* USER INFO */}
+  <li
+    className="
+      px-4
+      py-3
+      rounded-2xl
+      bg-[#FFF8E6]
+      border
+      border-[#F9B000]/20
+    "
+  >
 
-                      <Link href="/dashboard/my-requests">
+    <div
+  className="
+    flex
+    items-center
+    gap-1
+    text-[11px]
+    sm:text-xs
+  "
+>
 
-                        My Requests
+  <span className="text-[#0f172a]">
+    Name :
+  </span>
 
-                      </Link>
+  <span
+    className="
+      font-bold
+      text-[#0f172a]
+      truncate
+    "
+  >
 
-                    </li>
+    {user?.displayName || "User"}
 
+  </span>
 
+</div>
 
-                    <li>
-
-                      <Link href="/dashboard/add-pet">
-
-                        Add Pet
-
-                      </Link>
-
-                    </li>
-
-
-
-                    <li>
-
-                      <Link href="/dashboard/my-listings">
-
-                        My Listings
-
-                      </Link>
-
-                    </li>
+  </li>
 
 
 
-                    <li>
+  {/* DASHBOARD */}
+  <li>
 
-                      <button onClick={handleLogout}>
+    <Link
+      href="/dashboard"
+      className="
+        flex
+        items-center
+        gap-3
+        px-3
+py-2
+text-[12px]
+sm:text-sm
+        rounded-2xl
+        font-semibold
+        text-[#0f172a]
+        hover:bg-[#16C6C0]
+        hover:text-white
+        transition
+        duration-300
+      "
+    >
 
-                        Logout
+      <img
+        src="/images/dashboard.png"
+        alt="Dashboard"
+        className="w-4 h-4
+sm:w-5 sm:h-5 object-contain"
+      />
 
-                      </button>
+      Dashboard
 
-                    </li>
+    </Link>
 
-                  </ul>
+  </li>
+
+
+
+  {/* LOGOUT */}
+  <li>
+
+    <button
+      onClick={handleLogout}
+      className="
+        w-full
+        flex
+        items-center
+        gap-3
+        px-3
+py-2
+text-[12px]
+sm:text-sm
+        rounded-2xl
+        
+        font-semibold
+        text-[#0f172a]
+        hover:bg-red-500
+        hover:text-white
+        transition
+        duration-300
+      "
+    >
+
+      <img
+        src="/images/log-out.png"
+        alt="Logout"
+        className="w-4 h-4
+sm:w-5 sm:h-5 object-contain"
+      />
+
+      Logout
+
+    </button>
+
+  </li>
+
+</ul>
 
                 </div>
 

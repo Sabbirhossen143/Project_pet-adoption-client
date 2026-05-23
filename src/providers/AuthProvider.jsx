@@ -24,9 +24,35 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   // Register
-  const createUser = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
+  const createUser = async (
+  email,
+  password,
+  name,
+  photo
+) => {
+
+  const result =
+    await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+
+
+  await updateProfile(result.user, {
+
+    displayName: name,
+
+    photoURL: photo,
+
+  });
+
+
+
+  return result;
+
+};
 
   // Login
   const loginUser = (email, password) => {

@@ -55,9 +55,80 @@ const router = useRouter();
 
     try {
 
-      await createUser(email, password);
+      await createUser(
+  email,
+  password,
+  name,
+  photo
+);
 
-      toast.success("Registration Successful");
+      toast.success(
+
+  `Registration Successful !\nPlease login to continue..`,
+
+  {
+    duration: 3000,
+
+    position: "top-right",
+
+    icon: (
+      <img
+        src="/images/registerpet.png"
+        alt="Pet"
+        className="
+          w-5
+          h-5
+          md:w-7
+          md:h-7
+          rounded-full
+          object-cover
+        "
+      />
+    ),
+
+    style: {
+  marginTop:
+    window.innerWidth < 640
+      ? "58px"
+      : "70px",
+
+  padding:
+    window.innerWidth < 640
+      ? "8px 10px"
+      : "14px 16px",
+
+  borderRadius: "14px",
+
+  background: "#fff",
+
+  color: "#0f172a",
+
+  fontSize:
+    window.innerWidth < 640
+      ? "10px"
+      : "14px",
+
+  fontWeight: "600",
+
+  lineHeight: "1.15",
+
+  minWidth:
+    window.innerWidth < 640
+      ? "190px"
+      : "280px",
+
+  maxWidth:
+    window.innerWidth < 640
+      ? "210px"
+      : "320px",
+
+  boxShadow:
+    "0 10px 30px rgba(249,176,0,0.18)",
+},
+
+  }
+
+);
 
 await logoutUser();
 

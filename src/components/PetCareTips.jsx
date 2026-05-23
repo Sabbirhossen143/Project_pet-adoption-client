@@ -4,19 +4,19 @@ const PetCareTips = () => {
     {
       title: "Healthy Food",
       desc: "Provide nutritious meals and clean water daily.",
-      icon: "🥗",
+      icon: "/images/food.png",
     },
 
     {
       title: "Exercise",
       desc: "Keep pets active with regular walks and playtime.",
-      icon: "⚽",
+      icon: "/images/excercise.png",
     },
 
     {
       title: "Veterinary Care",
       desc: "Routine checkups ensure long-term pet health.",
-      icon: "🩺",
+      icon: "/images/vacine.png",
     },
   ];
 
@@ -64,7 +64,7 @@ const PetCareTips = () => {
                 rounded-[30px]
                 p-5
                 md:p-8
-                border-2
+                border-1
                 border-[#F9C62B]
                 hover:-translate-y-2
                 transition
@@ -76,7 +76,17 @@ const PetCareTips = () => {
 
               <div className="text-4xl md:text-5xl">
 
-                {tip.icon}
+                <img
+  src={tip.icon}
+  alt={tip.title}
+  className="
+    w-14
+    md:w-18
+    h-14
+    md:h-18
+    object-contain
+  "
+/>
 
               </div>
 

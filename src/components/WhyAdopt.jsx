@@ -4,19 +4,19 @@ const WhyAdopt = () => {
     {
       title: "Save Lives",
       desc: "Give homeless pets a second chance and a loving forever home.",
-      icon: "🐾",
+      icon: "/images/savee.png",
     },
 
     {
       title: "Reduce Stress",
       desc: "Pets provide emotional support, comfort, and happiness every day.",
-      icon: "❤️",
+      icon: "/images/love.png",
     },
 
     {
       title: "Build Happiness",
       desc: "Create unforgettable memories with your perfect companion.",
-      icon: "✨",
+      icon: "/images/happpy.png",
     },
   ];
 
@@ -85,7 +85,7 @@ const WhyAdopt = () => {
                 group
                 bg-white/10
                 border
-                border-2
+                border-1
                 backdrop-blur-3xl
                 shadow-2xl
                 rounded-[30px]
@@ -115,7 +115,17 @@ const WhyAdopt = () => {
                 "
               >
 
-                {item.icon}
+                <img
+  src={item.icon}
+  alt={item.title}
+  className="
+    w-11
+    h-11
+    md:w-15
+    md:h-15
+    object-contain
+  "
+/>
 
               </div>
 
