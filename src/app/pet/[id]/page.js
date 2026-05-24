@@ -76,16 +76,32 @@ const PetDetailsPage = ({ params }) => {
 
 
     const requestData = {
-      petId: pet._id,
-      petName: pet.petName,
-      petImage: pet.image,
-      userName: user?.displayName,
-      userEmail: user?.email,
-      pickupDate: data.pickupDate,
-      message: data.message,
-      status: "pending",
-      requestDate: new Date(),
-    };
+
+  petId: pet._id,
+
+  petName: pet.petName,
+
+  petImage: pet.image,
+
+  ownerEmail: pet.ownerEmail,
+
+  userName:
+    user?.displayName || "User",
+
+  userEmail:
+    user?.email,
+
+  pickupDate:
+    data.pickupDate,
+
+  message:
+    data.message,
+
+  status: "pending",
+
+  createdAt: new Date(),
+
+};
 
 
 

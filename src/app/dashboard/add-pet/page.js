@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { useForm } from "react-hook-form";
 
@@ -15,184 +15,633 @@ import axiosSecure from "@/hooks/useAxiosSecure";
 const AddPetPage = () => {
 
   const { user } = useContext(AuthContext);
+  const [gender, setGender] = useState("");
+  const [vaccination, setVaccination] =
+  useState("");
 
   const {
-    register,
-    handleSubmit,
-    reset,
-  } = useForm();
+  register,
+  handleSubmit,
+  reset,
+  watch,
+  setValue,
+} = useForm();
 
 
 
   const onSubmit = async (data) => {
 
-    const petData = {
-      ...data,
-      adoptionFee: parseFloat(data.adoptionFee),
-      ownerEmail: user?.email,
-      adopted: false,
-      createdAt: new Date(),
-    };
+  /* GENDER VALIDATION */
+  if (!gender) {
+
+    return toast.error(
+      "Please select gender"
+    );
+
+  }
 
 
 
-    try {
+  /* VACCINATION VALIDATION */
+  if (!vaccination) {
 
-      const res = await axiosSecure.post(
-        "/pets",
-        petData
-      );
+    return toast.error(
+      "Please select vaccination status"
+    );
+
+  }
 
 
 
-      if (res.data.insertedId) {
+  const petData = {
 
-        toast.success("Pet Added Successfully");
+    ...data,
 
-        reset();
-      }
+    gender,
 
-    } catch (error) {
+    vaccinationStatus: vaccination,
 
-      console.log(error);
+    adoptionFee: parseFloat(
+      data.adoptionFee
+    ),
 
-      toast.error("Failed To Add Pet");
-    }
+    ownerEmail: user?.email,
+
+    adopted: false,
+
+    createdAt: new Date(),
+
   };
 
 
 
+  try {
+
+    const res = await axiosSecure.post(
+      "/pets",
+      petData
+    );
+
+
+
+    if (res.data.insertedId) {
+
+      toast.success(
+        "Pet Added Successfully"
+      );
+
+
+
+      reset();
+
+      setGender("");
+
+      setVaccination("");
+
+    }
+
+  } catch (error) {
+
+    console.log(error);
+
+    toast.error(
+      "Failed To Add Pet"
+    );
+
+  }
+
+};
+
+
+  const inputStyle = `
+    w-full
+    bg-[#F8FAFC]
+    border
+    border-gray-200
+    focus:border-[#F9C62B]
+    focus:ring-4
+    focus:ring-[#F9C62B]/10
+    outline-none
+    px-4
+    py-3
+    rounded-2xl
+    transition
+    duration-300
+    text-sm
+  `;
+
+
+
   return (
+
     <PrivateRoute>
 
-      <div className="max-w-5xl mx-auto px-4 py-12">
+      <div className="max-w-5xl mx-auto px-4 py-6">
 
-        <div className="bg-white p-8 rounded-2xl shadow-lg">
+        <div
+          className="
+            bg-white/95
+            backdrop-blur-2xl
+            border
+            border-[#F9C62B]/80
+            rounded-[32px]
+            shadow-[0_20px_60px_rgba(249,198,43,0.18)]
+            p-5
+            sm:p-8
+            border-1
+          "
+        >
 
-          <h1 className="text-4xl font-bold text-center mb-8">
-            Add Pet
-          </h1>
-
-
-
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="grid md:grid-cols-2 gap-6"
+          {/* HEADER */}
+          <div
+            className="
+              flex
+              items-center
+              justify-center
+              gap-3
+              mb-4
+            "
           >
 
-            <input
-              {...register("petName")}
-              placeholder="Pet Name"
-              className="border p-4 rounded-xl"
-              required
+            <img
+              src="/images/add-pet.png"
+              alt="Add Pet"
+              className="
+                w-14
+                h-14
+                object-contain
+              "
             />
 
-            <input
-              {...register("species")}
-              placeholder="Species"
-              className="border p-4 rounded-xl"
-              required
-            />
 
-            <input
-              {...register("breed")}
-              placeholder="Breed"
-              className="border p-4 rounded-xl"
-              required
-            />
 
-            <select
+            <div>
+
+              <h1
+                className="
+                  text-3xl
+                  sm:text-4xl
+                  font-extrabold
+                  text-[#0f172a]
+                  leading-none
+                "
+              >
+
+                Add Pet
+
+              </h1>
+
+
+
+              <p
+                className="
+                  text-gray-500
+                  mt-0.5
+                  text-xs
+                  sm:text-sm
+                "
+              >
+
+                 Fill all details carefully for adoption
+
+              </p>
+
+            </div>
+
+          </div>
+
+
+
+          {/* FORM */}
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-5"
+          >
+
+            {/* ROW 1 */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+              <input
+                {...register("petName")}
+                placeholder="Pet Name"
+                className={inputStyle}
+                required
+              />
+
+
+
+              <input
+                {...register("species")}
+                placeholder="Species"
+                className={inputStyle}
+                required
+              />
+
+
+
+              <div className="dropdown w-full">
+
+  <div
+    tabIndex={0}
+    role="button"
+    className="
+      w-full
+      h-[52px]
+      bg-[#F8FAFC]
+      border
+      border-gray-200
+      rounded-2xl
+      shadow-sm
+      px-4
+      flex
+      items-center
+      justify-between
+      cursor-pointer
+      hover:border-[#F9C62B]
+      focus-within:border-[#F9C62B]
+      focus-within:border-2
+      hover:shadow-md
+      transition-all
+      duration-300
+    "
+  >
+
+    <span
+      className="
+        text-sm
+        text-[#0f172a]
+      "
+    >
+
+      {gender || "Select Gender"}
+
+    </span>
+
+
+
+    <span className="text-[#F9C62B]">
+
+      ▼
+
+    </span>
+
+  </div>
+
+
+
+  <ul
+    tabIndex={0}
+    className="
+      dropdown-content
+      z-[20]
+      menu
+      p-2
+      shadow-2xl
+      bg-white
+      rounded-2xl
+      w-full
+      mt-2
+      border
+      border-[#F9C62B]/20
+      space-y-1
+    "
+  >
+
+    <li>
+
+      <button
+        type="button"
+        className="
+          w-full
+          text-left
+          px-3
+          py-2
+          rounded-xl
+          hover:bg-[#F9C62B]
+          hover:text-black
+          transition
+          duration-300
+        "
+        onClick={() => {
+          setGender("Male");
+          document.activeElement.blur();
+        }}
+      >
+
+        Male
+
+      </button>
+
+    </li>
+
+
+
+    <li>
+
+      <button
+        type="button"
+        className="
+          w-full
+          text-left
+          px-3
+          py-2
+          rounded-xl
+          hover:bg-[#F9C62B]
+          hover:text-black
+          transition
+          duration-300
+        "
+        onClick={() => {
+          setGender("Female");
+          document.activeElement.blur();
+        }}
+      >
+
+        Female
+
+      </button>
+
+    </li>
+
+  </ul>
+
+
+
+  <input
+  type="hidden"
+  value={gender}
   {...register("gender")}
-  className="
-    border
-    p-4
-    rounded-xl
-    bg-white
-  "
-  required
->
+/>
 
-  <option value="">
-    Select Gender
-  </option>
-
-  <option value="Male">
-    Male
-  </option>
-
-  <option value="Female">
-    Female
-  </option>
-
-</select>
-
-            <input
-              {...register("age")}
-              placeholder="Age"
-              className="border p-4 rounded-xl"
-              required
-            />
+</div>
 
 <input
+  placeholder="Age"
+  value={watch("age", "")}
+  onChange={(e) =>
+    setValue("age", e.target.value)
+  }
+  className={`${inputStyle} hidden md:block lg:hidden`}
+/>
+
+</div>
+
+            {/* ROW 2 */}
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+              <input
+                {...register("breed")}
+                placeholder="Breed"
+                className={inputStyle}
+                required
+              />
+
+<div className="dropdown w-full">
+
+  <div
+    tabIndex={0}
+    role="button"
+    className="
+      w-full
+      h-[52px]
+      bg-[#F8FAFC]
+      border
+      border-gray-200
+      rounded-2xl
+      shadow-sm
+      px-4
+      flex
+      items-center
+      justify-between
+      cursor-pointer
+      hover:border-[#F9C62B]
+      focus-within:border-[#F9C62B]
+      focus-within:border-2
+      hover:shadow-md
+      transition-all
+      duration-300
+    "
+  >
+
+    <span
+      className="
+        text-sm
+        text-[#0f172a]
+      "
+    >
+
+      {vaccination ||
+        "Vaccination Status"}
+
+    </span>
+
+
+
+    <span className="text-[#F9C62B]">
+
+      ▼
+
+    </span>
+
+  </div>
+
+
+
+  <ul
+    tabIndex={0}
+    className="
+      dropdown-content
+      z-[20]
+      menu
+      p-2
+      shadow-2xl
+      bg-white
+      rounded-2xl
+      w-full
+      mt-2
+      border
+      border-[#F9C62B]/20
+      space-y-1
+    "
+  >
+
+    {[
+      "Unvaccinated",
+      "Partially Vaccinated",
+      "Fully Vaccinated",
+      "Boosted",
+      "Up-to-Date",
+    ].map((item) => (
+
+      <li key={item}>
+
+        <button
+          type="button"
+          className="
+            w-full
+            text-left
+            px-3
+            py-2
+            rounded-xl
+            hover:bg-[#F9C62B]
+            hover:text-black
+            transition
+            duration-300
+          "
+          onClick={() => {
+            setVaccination(item);
+            document.activeElement.blur();
+          }}
+        >
+
+          {item}
+
+        </button>
+
+      </li>
+
+    ))}
+
+  </ul>
+
+
+
+  <input
+  type="hidden"
+  value={vaccination}
   {...register("vaccinationStatus")}
-  placeholder="Vaccination Status"
-  className="border p-4 rounded-xl"
+/>
+
+</div>
+
+              <input
+  {...register("age")}
+  placeholder="Age"
+  className={`${inputStyle} md:hidden lg:block`}
   required
 />
 
-            <input
-  {...register("healthStatus")}
-  placeholder="Health Status"
-  className="border p-4 rounded-xl"
-  required
-/>
+            </div>
 
-            <input
-              {...register("image")}
-              placeholder="Image URL"
-              className="border p-4 rounded-xl"
-              required
-            />
 
-            <input
-              {...register("location")}
-              placeholder="Location"
-              className="border p-4 rounded-xl"
-              required
-            />
 
-            <input
-  {...register("ownerEmail")}
-  defaultValue={user?.email}
-  readOnly
-  className="
-    border
-    p-4
-    rounded-xl
-    bg-gray-100
-    text-gray-500
-  "
-/>
+            {/* ROW 3 */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 
-            <input
+              <input
               type="number"
               {...register("adoptionFee")}
               placeholder="Adoption Fee"
-              className="border p-4 rounded-xl"
+              className={inputStyle}
               required
             />
 
+
+
+              <input
+                {...register("healthStatus")}
+                placeholder="Health Status"
+                className={inputStyle}
+                required
+              />
+
+
+
+              <input
+                {...register("location")}
+                placeholder="Location"
+                className={inputStyle}
+                required
+              />
+
+              <input
+  placeholder="Image URL"
+  value={watch("image", "")}
+  onChange={(e) =>
+    setValue("image", e.target.value)
+  }
+  className={`${inputStyle} hidden md:block lg:hidden`}
+/>     
+
+            </div>
+
+
+
+            {/* ROW 4 */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+              <input
+                {...register("ownerEmail")}
+                defaultValue={user?.email}
+                readOnly
+                className="
+                  w-full
+                  bg-[#FFF8E6]
+                  border
+                  border-[#F9C62B]/30
+                  px-4
+                  py-3
+                  rounded-2xl
+                  text-sm
+                  text-gray-500
+                "
+              />
+
+
+
+              <input
+              {...register("image")}
+              placeholder="Image URL"
+               className={`${inputStyle} md:hidden lg:block`}
+              required
+            />
+
+            </div>
+
+
+
+            {/* ROW 5 */}
             <textarea
               {...register("description")}
               placeholder="Description"
               rows={5}
-              className="border p-4 rounded-xl md:col-span-2"
+              className="
+                w-full
+                bg-[#F8FAFC]
+                border
+                border-gray-200
+                focus:border-[#F9C62B]
+                focus:ring-4
+                focus:ring-[#F9C62B]/10
+                outline-none
+                p-4
+                rounded-2xl
+                text-sm
+              "
               required
             ></textarea>
 
 
 
-            <button className="bg-blue-600 text-white py-4 rounded-xl md:col-span-2 hover:bg-blue-700">
+            {/* BUTTON */}
+            <button
+              className="
+                w-full
+                bg-[#F9C62B]
+                hover:bg-[#eab308]
+                text-[#0f172a]
+                py-4
+                rounded-2xl
+                font-bold
+                text-sm
+                sm:text-base
+                transition
+                duration-300
+                shadow-lg
+                hover:scale-[1.01]
+              "
+            >
 
               Add Pet
 
@@ -205,7 +654,9 @@ const AddPetPage = () => {
       </div>
 
     </PrivateRoute>
+
   );
+
 };
 
 export default AddPetPage;

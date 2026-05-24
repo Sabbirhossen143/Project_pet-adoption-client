@@ -9,6 +9,9 @@ import { useRouter } from "next/navigation";
 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
+import { IoCheckmarkCircle }
+from "react-icons/io5";
+
 const RegisterPage = () => {
 
   const { createUser, logoutUser } =
@@ -18,6 +21,12 @@ const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
 const [showConfirmPassword, setShowConfirmPassword] =
+  useState(false);
+
+  const [password, setPassword] =
+  useState("");
+
+  const [passwordFocus, setPasswordFocus] =
   useState(false);
 
 const router = useRouter();
@@ -312,6 +321,17 @@ router.push("/login");
     type={showPassword ? "text" : "password"}
     name="password"
     placeholder="Enter your password"
+    value={password}
+    onChange={(e) =>
+      setPassword(e.target.value)
+    }
+    onFocus={() => setPasswordFocus(true)}
+
+onBlur={() => {
+  if (!password) {
+    setPasswordFocus(false);
+  }
+}}
     className="
       w-full
       bg-[#F4F4F4]
@@ -336,7 +356,9 @@ router.push("/login");
 
   <button
     type="button"
-    onClick={() => setShowPassword(!showPassword)}
+    onClick={() =>
+      setShowPassword(!showPassword)
+    }
     className="
       absolute
       right-4
@@ -347,12 +369,97 @@ router.push("/login");
     "
   >
 
-    {showPassword ? <FaEye /> : <FaEyeSlash />}
+    {showPassword
+      ? <FaEye />
+      : <FaEyeSlash />}
 
   </button>
 
 </div>
 
+{passwordFocus && (
+
+<div className="mt-2 space-y-1">
+
+  {/* 6 CHARACTERS */}
+  <p
+    className={`
+      flex
+      items-center
+      gap-2
+      text-[11px]
+      transition
+      duration-300
+
+      ${
+        password.length >= 6
+          ? "text-[#16C6C0]"
+          : "text-gray-500"
+      }
+    `}
+  >
+
+    <IoCheckmarkCircle />
+
+    At least 6 characters
+
+  </p>
+
+
+
+  {/* UPPERCASE */}
+  <p
+    className={`
+      flex
+      items-center
+      gap-2
+      text-[11px]
+      transition
+      duration-300
+
+      ${
+        /[A-Z]/.test(password)
+          ? "text-[#16C6C0]"
+          : "text-gray-500"
+      }
+    `}
+  >
+
+    <IoCheckmarkCircle />
+
+    One uppercase letter
+
+  </p>
+
+
+
+  {/* LOWERCASE */}
+  <p
+    className={`
+      flex
+      items-center
+      gap-2
+      text-[11px]
+      transition
+      duration-300
+
+      ${
+        /[a-z]/.test(password)
+          ? "text-[#16C6C0]"
+          : "text-gray-500"
+      }
+    `}
+  >
+
+    <IoCheckmarkCircle />
+
+    One lowercase letter
+
+  </p>
+
+</div>
+
+)}
 
 <div className="relative">
 

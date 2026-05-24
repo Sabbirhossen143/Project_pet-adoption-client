@@ -2,9 +2,13 @@
 
 import Link from "next/link";
 
+import { usePathname }
+from "next/navigation";
+
 export default function DashboardLayout({
   children,
 }) {
+  const pathname = usePathname();
 
   return (
 
@@ -45,19 +49,23 @@ export default function DashboardLayout({
 
             <Link
               href="/dashboard/add-pet"
-              className="
-                flex
-                items-center
-                gap-3
-                px-4
-                py-3
-                rounded-2xl
-                hover:bg-[#F9C62B]
-                hover:text-black
-                transition
-                duration-300
-                font-semibold
-              "
+              className={`
+  flex
+  items-center
+  gap-3
+  px-4
+  py-3
+  rounded-2xl
+  transition
+  duration-300
+  font-semibold
+
+  ${
+    pathname === "/dashboard/add-pet"
+      ? "bg-[#F9C62B] text-black shadow-lg"
+      : "hover:bg-[#F9C62B] hover:text-black"
+  }
+`}
             >
 
               <>
@@ -82,19 +90,23 @@ export default function DashboardLayout({
 
             <Link
               href="/dashboard/my-listings"
-              className="
-                flex
-                items-center
-                gap-3
-                px-4
-                py-3
-                rounded-2xl
-                hover:bg-[#F9C62B]
-                hover:text-black
-                transition
-                duration-300
-                font-semibold
-              "
+              className={`
+  flex
+  items-center
+  gap-3
+  px-4
+  py-3
+  rounded-2xl
+  transition
+  duration-300
+  font-semibold
+
+  ${
+    pathname === "/dashboard/my-listings"
+      ? "bg-[#F9C62B] text-black shadow-lg"
+      : "hover:bg-[#F9C62B] hover:text-black"
+  }
+`}
             >
 
               <>
@@ -119,19 +131,23 @@ export default function DashboardLayout({
 
             <Link
               href="/dashboard/my-requests"
-              className="
-                flex
-                items-center
-                gap-3
-                px-4
-                py-3
-                rounded-2xl
-                hover:bg-[#F9C62B]
-                hover:text-black
-                transition
-                duration-300
-                font-semibold
-              "
+              className={`
+  flex
+  items-center
+  gap-3
+  px-4
+  py-3
+  rounded-2xl
+  transition
+  duration-300
+  font-semibold
+
+  ${
+    pathname === "/dashboard/my-requests"
+      ? "bg-[#F9C62B] text-black shadow-lg"
+      : "hover:bg-[#F9C62B] hover:text-black"
+  }
+`}
             >
 
               <>

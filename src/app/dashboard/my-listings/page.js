@@ -17,108 +17,169 @@ const MyListingsPage = () => {
   const { user } = useContext(AuthContext);
 
   const [pets, setPets] = useState([]);
-  const [selectedPet, setSelectedPet] = useState(null);
 
-const [requests, setRequests] = useState([]);
+  const [selectedPet, setSelectedPet] =
+    useState(null);
+
+  const [requests, setRequests] =
+    useState([]);
 
   useEffect(() => {
 
     if (user?.email) {
 
       fetchPets();
+
     }
 
   }, [user]);
 
 
-
-  const fetchPets = async () => {
-
-    try {
-
-      const res = await axiosSecure.get(
-        `/my-pets?email=${user?.email}`
-      );
-
-      setPets(res.data);
-
-    } catch (error) {
-
-      console.log(error);
-    }
-  };
-
-
-  const openRequestsModal = async (pet) => {
-
-  setSelectedPet(pet);
+const fetchPets = async () => {
 
   try {
 
     const res = await axiosSecure.get(
-      `/pet-requests/${pet._id}`
+      `/my-pets?email=${user?.email}`
     );
 
-    setRequests(res.data);
+    const petsWithRequestCount =
+      await Promise.all(
+        res.data.map(async (pet) => {
 
-    document.getElementById("requests_modal").showModal();
+          try {
+
+            const requestRes =
+              await axiosSecure.get(
+                `/pet-requests/${pet._id}`
+              );
+
+            return {
+
+  ...pet,
+
+  requestCount:
+    requestRes.data.filter(
+      (req) =>
+        req.status === "pending"
+    ).length,
+
+};
+
+          } catch {
+
+            return {
+              ...pet,
+              requestCount: 0,
+            };
+
+          }
+
+        })
+      );
+
+    setPets(petsWithRequestCount);
 
   } catch (error) {
 
     console.log(error);
+
   }
+
 };
 
-const handleApprove = async (id) => {
+  const openRequestsModal = async (pet) => {
 
-  try {
+    setSelectedPet(pet);
 
-    await axiosSecure.patch(
-      `/approve-request/${id}`
-    );
+    try {
 
-    toast.success("Request Approved");
+      const res = await axiosSecure.get(
+        `/pet-requests/${pet._id}`
+      );
 
-    fetchPets();
+      setRequests(res.data);
 
-    document.getElementById("requests_modal").close();
+      document
+        .getElementById("requests_modal")
+        .showModal();
 
-  } catch (error) {
+    } catch (error) {
 
-    console.log(error);
-  }
-};
+      console.log(error);
+
+    }
+
+  };
 
 
-const handleReject = async (id) => {
 
-  try {
+  const handleApprove = async (id) => {
 
-    await axiosSecure.patch(
-      `/reject-request/${id}`
-    );
+    try {
 
-    toast.success("Request Rejected");
+      await axiosSecure.patch(
+        `/approve-request/${id}`
+      );
 
-    openRequestsModal(selectedPet);
+      toast.success("Request Approved");
 
-  } catch (error) {
+      fetchPets();
 
-    console.log(error);
-  }
-};
+      document
+        .getElementById("requests_modal")
+        .close();
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
+
+
+
+  const handleReject = async (id) => {
+
+    try {
+
+      await axiosSecure.patch(
+        `/reject-request/${id}`
+      );
+
+      toast.success("Request Rejected");
+
+      openRequestsModal(selectedPet);
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
+
 
 
   const handleDelete = async (id) => {
 
     const result = await Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+
+      title: "Delete Pet ?",
+
+      text: "This action cannot be undone.",
+
       icon: "warning",
+
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+
+      confirmButtonColor: "#F9B000",
+
+      cancelButtonColor: "#ef4444",
+
+      confirmButtonText: "Delete",
+
     });
 
 
@@ -138,6 +199,7 @@ const handleReject = async (id) => {
           toast.success("Pet Deleted");
 
           fetchPets();
+
         }
 
       } catch (error) {
@@ -145,36 +207,431 @@ const handleReject = async (id) => {
         console.log(error);
 
         toast.error("Delete Failed");
+
       }
+
     }
+
   };
 
 
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
 
-      <div className="flex justify-between items-center mb-10">
+    <div className="max-w-7xl mx-auto px-4 py-10">
 
-        <h1 className="text-5xl font-bold">
-          My Listings
-        </h1>
+      {/* HEADER */}
+<div
+  className="
+    flex
+    flex-col
+    sm:flex-row
+    sm:items-center
+    sm:justify-between
+    gap-5
+    mb-10
+  "
+>
+
+  {/* LEFT */}
+  <div className="flex items-center gap-4">
+
+    <img
+      src="/images/my.png"
+      alt="Listings"
+      className="
+        w-14
+        h-14
+        sm:w-16
+        sm:h-16
+        object-contain
+      "
+    />
+
+    <div>
+
+      <h1
+        className="
+          text-3xl
+          sm:text-4xl
+          font-extrabold
+          text-[#0f172a]
+          leading-none
+        "
+      >
+        My Listings
+      </h1>
+
+      <p
+        className="
+          text-gray-500
+          text-sm
+          mt-1
+        "
+      >
+        Manage all your pet listings
+      </p>
+
+    </div>
+
+  </div>
+
+  {/* ADD BUTTON */}
+  <Link href="/dashboard/add-pet">
+  <button
+    className="
+      bg-[#F9B000]
+hover:bg-[#e0a100]
+      hover:scale-105
+      text-white
+      px-6
+      py-3
+      rounded-2xl
+      font-semibold
+      shadow-lg
+      transition-all
+      duration-300
+      flex
+      items-center
+      gap-2
+      text-sm
+    "
+  >
+
+    <img
+      src="/images/add.png"
+      alt="add"
+      className="
+        w-4
+        h-4
+        object-contain
+      "
+    />
+
+    Add New Pet
+
+  </button>
+  </Link>
+
+</div>
+
+
+{/* TOP ACTION + STATS */}
+<div className="mb-10">
+
+    
+
+  </div>
+
+  {/* 3 STATS CARD */}
+<div
+  className="
+    grid
+    grid-cols-1
+    sm:grid-cols-2
+    lg:grid-cols-3
+    gap-4
+    mb-10
+  "
+>
+
+  {/* TOTAL */}
+  <div
+    className="
+      bg-white
+      border
+      border-[#16C6C0]/10
+      rounded-2xl
+      shadow-md
+      p-4
+      text-center
+    "
+  >
+
+    <h2
+      className="
+        text-2xl
+        font-extrabold
+        text-[#F9B000]
+      "
+    >
+      {pets.length}
+    </h2>
+
+    <p
+      className="
+        text-gray-500
+        mt-1
+        text-xs
+        font-medium
+      "
+    >
+      Total Listings
+    </p>
+
+  </div>
+
+  {/* AVAILABLE */}
+  <div
+    className="
+      bg-white
+      border
+      border-[#16C6C0]/10
+      rounded-2xl
+      shadow-md
+      p-4
+      text-center
+    "
+  >
+
+    <h2
+      className="
+        text-2xl
+        font-extrabold
+        text-[#16C6C0]
+      "
+    >
+      {
+        pets.filter(
+          (pet) => !pet.adopted
+        ).length
+      }
+    </h2>
+
+    <p
+      className="
+        text-gray-500
+        mt-1
+        text-xs
+        font-medium
+      "
+    >
+      Available
+    </p>
+
+  </div>
+
+  {/* ADOPTED */}
+  <div
+    className="
+      bg-white
+      border
+      border-[#16C6C0]/10
+      rounded-2xl
+      shadow-md
+      p-4
+      text-center
+    "
+  >
+
+    <h2
+      className="
+        text-2xl
+        font-extrabold
+        text-red-500
+      "
+    >
+      {
+        pets.filter(
+          (pet) => pet.adopted
+        ).length
+      }
+    </h2>
+
+    <p
+      className="
+        text-gray-500
+        mt-1
+        text-xs
+        font-medium
+      "
+    >
+      Adopted
+    </p>
+
+  </div>
+
+</div>
+
+
+      {/* PETS */}
+      <div
+        className="
+          grid
+          md:grid-cols-2
+          lg:grid-cols-4
+          gap-2
+        "
+      >
+
+        {pets.map((pet) => (
+
+  <div
+    key={pet._id}
+    className="
+      bg-white
+      rounded-[28px]
+      overflow-hidden
+      border
+      border-[#F9C62B]
+      border-2
+      shadow-lg
+      hover:shadow-2xl
+      hover:-translate-y-2
+      transition-all
+      duration-500
+      group
+    "
+  >
+
+    {/* IMAGE */}
+    <div className="relative overflow-hidden">
+
+      <img
+        src={pet.image}
+        alt={pet.petName}
+        className="
+          w-full
+          h-56
+          object-cover
+          group-hover:scale-110
+          transition
+          duration-700
+        "
+      />
 
 
 
-        <div className="flex gap-4">
+      {/* STATUS */}
+      <div
+        className={`
+          absolute
+          top-2
+          right-2
+          px-3
+          py-1
+          rounded-full
+          text-[12px]
+          font-bold
+          shadow-lg
 
-          <div className="bg-blue-100 px-6 py-3 rounded-xl">
+          ${
+            pet.adopted
+              ? "bg-red-500 text-white"
+              : "bg-[#16C6C0] text-white"
+          }
+        `}
+      >
 
-            <p className="font-bold">
-              Total Listings
-            </p>
+        {pet.adopted
+          ? "Adopted"
+          : "Available"}
 
-            <p className="text-2xl">
-              {pets.length}
-            </p>
+      </div>
 
-          </div>
+
+
+      {/* LOCATION OVER IMAGE */}
+      <div
+        className="
+          absolute
+          bottom-1
+          left-2
+          bg-white/90
+          backdrop-blur-md
+          text-[#16C6C0]
+          px-3
+          py-1
+          rounded-2xl
+          text-[8px]
+          sm:text-[12px]
+          font-semibold
+          shadow-lg
+          flex
+          items-center
+          gap-1
+        "
+      >
+
+        <img
+          src="/images/location.png"
+          alt="location"
+          className="
+            w-3
+            h-3
+            object-contain
+          "
+        />
+
+        {pet.location}
+
+      </div>
+
+    </div>
+
+
+
+    {/* CONTENT */}
+    <div className="p-3">
+
+      {/* TOP */}
+      <div
+        className="
+          flex
+          justify-between
+          items-start
+          gap-2
+        "
+      >
+
+        <div>
+
+          <h2
+            className="
+              text-xl
+              font-extrabold
+              text-[#0f172a]
+            "
+          >
+
+            {pet.petName}
+
+          </h2>
+
+
+
+          <p
+            className="
+              text-gray-500
+              text-[12px]
+              mt-1
+            "
+          >
+
+            {pet.species}
+            {" • "}
+            {pet.breed}
+
+          </p>
+
+        </div>
+
+
+
+        <div
+          className="
+            text-[#F9B000]
+            font-extrabold
+            text-base
+            whitespace-nowrap
+          "
+        >
+
+          Fee : {
+            pet.adoptionFee === 0
+              ? "Free"
+              : `$${pet.adoptionFee}`
+          }
 
         </div>
 
@@ -182,192 +639,587 @@ const handleReject = async (id) => {
 
 
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-        {
-          pets.map((pet) => (
-
-            <div
-              key={pet._id}
-              className="bg-white rounded-2xl shadow-lg overflow-hidden"
-            >
-
-              <img
-                src={pet.image}
-                alt={pet.petName}
-                className="w-full h-64 object-cover"
-              />
-
-
-
-              <div className="p-5">
-
-                <h2 className="text-2xl font-bold">
-                  {pet.petName}
-                  
-                  {
-  pet.adopted && (
-    <span className="badge badge-success mt-3">
-      Adopted
-    </span>
-  )
-}
-
-                </h2>
-
-                <p className="mt-2">
-                  Species: {pet.species}
-                </p>
-
-                <p className="mt-2">
-                  Fee: ${pet.adoptionFee}
-                </p>
-
-
-
-                <div className="grid grid-cols-4 gap-3 mt-6">
-
-                  <Link
-                    href={`/pet/${pet._id}`}
-                    className="flex-1"
-                  >
-                    
-
-                    <button className="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700">
-
-                      View
-
-                    </button>
-
-                  </Link>
-
-<button
-  onClick={() => openRequestsModal(pet)}
-  className="bg-green-600 text-white py-3 rounded-xl hover:bg-green-700"
+      {/* AGE + REQUEST */}
+<div
+  className="
+    mt-2
+    flex
+    items-center
+    justify-between
+    gap-3
+  "
 >
 
-  Requests
+  {/* AGE */}
+  <div
+    className="
+      inline-flex
+      items-center
+      gap-1
+      bg-[#16C6C0]/10
+      text-[#16C6C0]
+      px-3
+      py-1
+      rounded-2xl
+      text-[11px]
+      font-bold
+    "
+  >
 
-</button>
+    <img
+      src="/images/age.png"
+      alt="age"
+      className="
+        w-3
+        h-3
+        object-contain
+      "
+    />
 
-<Link
-  href={`/dashboard/update-pet/${pet._id}`}
->
+    {pet.age} years
 
-  <button className="w-full bg-yellow-500 text-white py-3 rounded-xl hover:bg-yellow-600">
+  </div>
 
-    Edit
 
-  </button>
 
-</Link>
+  {/* REQUEST BADGE */}
+  <div
+    className="
+      inline-flex
+      items-center
+      gap-1
+      bg-[#F9C62B]/15
+      text-[#F9B000]
+      px-3
+      py-1
+      rounded-2xl
+      text-[11px]
+      font-bold
+    "
+  >
 
-                  <button
-                    onClick={() => handleDelete(pet._id)}
-                    className="flex-1 bg-red-500 text-white py-3 rounded-xl hover:bg-red-600"
-                  >
+    <img
+      src="/images/req.png"
+      alt="requests"
+      className="
+        w-4
+        h-4
+        object-contain
+      "
+    />
 
-                    Delete
+    {pet.requestCount || 0}
+    {" "}Requests
 
-                  </button>
+  </div>
 
-                </div>
+</div>
 
-              </div>
 
-            </div>
-          ))
-        }
+
+      {/* BUTTONS */}
+      <div
+        className="
+          grid
+          grid-cols-2
+          gap-3
+          mt-3
+        "
+      >
+
+        {/* VIEW */}
+        <button
+          className="
+  border
+  border-[#16C6C0]/30
+  hover:bg-[#16C6C0]
+  hover:text-white
+  text-[#16C6C0]
+  py-2
+  rounded-xl
+  text-xs
+  font-semibold
+  transition-all
+  duration-300
+  flex
+  items-center
+  justify-center
+  gap-1.5
+"
+        >
+
+          <img
+            src="/images/view.png"
+            alt="view"
+            className="
+              w-4
+              h-4
+              object-contain
+            "
+          />
+
+          View
+
+        </button>
+
+
+
+        {/* EDIT */}
+        <button
+          className="
+  border
+  border-[#F9C62B]/40
+  hover:bg-[#F9C62B]
+  hover:text-black
+  text-[#F9B000]
+  py-2
+  rounded-xl
+  text-xs
+  font-semibold
+  transition-all
+  duration-300
+  flex
+  items-center
+  justify-center
+  gap-1.5
+"
+        >
+
+          <img
+            src="/images/edit.png"
+            alt="edit"
+            className="
+              w-4
+              h-4
+              object-contain
+            "
+          />
+
+          Edit
+
+        </button>
+
+
+
+        {/* REQUESTS */}
+        <button
+          onClick={() =>
+            openRequestsModal(pet)
+          }
+          className="
+  border
+  border-[#16C6C0]
+  hover:bg-[#16C6C0]
+  hover:text-white
+  text-[#16C6C0]
+  py-2
+  rounded-xl
+  text-xs
+  font-semibold
+  transition-all
+  duration-300
+  flex
+  items-center
+  justify-center
+  gap-1.5
+"
+        >
+
+          <img
+            src="/images/request1.png"
+            alt="request"
+            className="
+              w-4
+              h-4
+              object-contain
+            "
+          />
+
+          Requests
+
+        </button>
+
+
+
+        {/* DELETE */}
+        <button
+          onClick={() =>
+            handleDelete(pet._id)
+          }
+          className="
+  border
+  border-red-300
+  hover:bg-red-500
+  hover:text-white
+  text-red-500
+  py-2
+  rounded-xl
+  text-xs
+  font-semibold
+  transition-all
+  duration-300
+  flex
+  items-center
+  justify-center
+  gap-1.5
+"
+        >
+
+          <img
+            src="/images/delete.png"
+            alt="delete"
+            className="
+              w-4
+              h-4
+              object-contain
+            "
+          />
+
+          Delete
+
+        </button>
 
       </div>
 
-<dialog id="requests_modal" className="modal">
+    </div>
 
-  <div className="modal-box max-w-3xl">
+  </div>
 
-    <h3 className="font-bold text-3xl mb-6">
+))}
 
-      Adoption Requests
-
-    </h3>
+      </div>
 
 
 
-    <div className="space-y-5">
+      {/* MODAL */}
+      <dialog
+  id="requests_modal"
+  className="modal"
+>
 
-      {
+  <div
+    className="
+      modal-box
+      max-w-xl
+      p-0
+      rounded-[28px]
+      bg-white
+      overflow-hidden
+      shadow-2xl
+      border
+      border-[#F9C62B]/20
+    "
+  >
+
+    {/* HEADER */}
+    <div
+      className="
+        flex
+        items-center
+        justify-between
+        px-6
+        py-4
+        border-b
+        border-gray-100
+        bg-[#FFF9E8]
+      "
+    >
+
+      <div>
+
+        <h3
+  className="
+    text-2xl
+    font-extrabold
+    text-[#0f172a]
+  "
+>
+  Adoption Requests for
+  <span className="text-[#F9B000]">
+    {" "}
+    {selectedPet?.petName}
+  </span>
+</h3>
+
+<p
+  className="
+    text-xs
+    text-gray-500
+    mt-1
+  "
+>
+  Manage all incoming requests
+</p>
+
+      </div>
+
+      {/* CLOSE BUTTON */}
+      <form method="dialog">
+
+        <button
+          className="
+            w-9
+            h-9
+            rounded-full
+            bg-red-50
+            hover:bg-red-100
+            text-red-500
+            text-xl
+            font-bold
+            transition
+          "
+        >
+          ×
+        </button>
+
+      </form>
+
+    </div>
+
+    {/* BODY */}
+    <div
+      className="
+        p-5
+        max-h-[65vh]
+        overflow-y-auto
+        space-y-4
+      "
+    >
+
+      {requests.length === 0 ? (
+
+        <div
+          className="
+            text-center
+            py-10
+          "
+        >
+
+          <img
+            src="/images/request1.png"
+            alt="empty"
+            className="
+              w-14
+              h-14
+              mx-auto
+              opacity-40
+            "
+          />
+
+          <p
+            className="
+              mt-4
+              text-gray-500
+              text-sm
+            "
+          >
+            No requests found
+          </p>
+
+        </div>
+
+      ) : (
+
         requests.map((request) => (
 
           <div
             key={request._id}
-            className="border p-5 rounded-xl"
+            className="
+              border
+              border-[#F9C62B]/10
+              rounded-2xl
+              p-4
+              bg-[#FFFEFB]
+              hover:shadow-md
+              transition-all
+            "
           >
 
-            <h2 className="text-xl font-bold">
-              {request.userName}
-            </h2>
+            {/* USER */}
+            <div
+              className="
+                flex
+                items-start
+                justify-between
+                gap-3
+              "
+            >
 
-            <p className="mt-2">
-              {request.userEmail}
-            </p>
+ <div className="flex-1">
 
-            <p className="mt-2">
-              Pickup: {request.pickupDate}
-            </p>
+  {/* TOP ROW */}
+  <div
+    className="
+      flex
+      items-center
+      justify-between
+      gap-3
+    "
+  >
 
-            <p className="mt-2">
-              Status: {request.status}
-            </p>
+    {/* USER NAME */}
+    <h2
+      className="
+        text-base
+        font-bold
+        text-[#0f172a]
+      "
+    >
+      {request.userName || "Unknown User"}
+    </h2>
 
+    {/* STATUS */}
+    <span
+      className={`
+        px-3
+        py-1
+        rounded-full
+        text-[10px]
+        font-bold
 
+        ${
+          request.status === "pending"
+            ? "bg-yellow-100 text-yellow-700"
+            : request.status === "approved"
+            ? "bg-[#16C6C0]/10 text-[#16C6C0]"
+            : "bg-red-100 text-red-500"
+        }
+      `}
+    >
+      {request.status}
+    </span>
 
-            {
-              request.status === "pending" &&
-!selectedPet?.adopted && (
+  </div>
 
-                <div className="flex gap-4 mt-5">
+  {/* EMAIL */}
+  <p
+    className="
+      text-xs
+      text-gray-500
+      mt-1
+    "
+  >
+    {request.userEmail}
+  </p>
+
+  {/* BOTTOM ROW */}
+  <div
+    className="
+      flex
+      items-center
+      justify-between
+      mt-3
+      gap-3
+    "
+  >
+
+    {/* REQUEST DATE */}
+    <p
+      className="
+        text-xs
+        text-gray-500
+      "
+    >
+      Requested Date:
+      <span
+        className="
+          font-semibold
+          text-[#0f172a]
+          ml-1
+        "
+      >
+        {request.createdAt
+          ? new Date(
+              request.createdAt
+            ).toLocaleDateString()
+          : "Today"}
+      </span>
+    </p>
+
+    {/* PICKUP DATE */}
+    <p
+      className="
+        text-xs
+        font-semibold
+        text-[#F9B000]
+        whitespace-nowrap
+      "
+    >
+      Pickup:
+      <span className="ml-1">
+        {request.pickupDate || "N/A"}
+      </span>
+    </p>
+
+  </div>
+
+</div>
+
+</div>
+
+            {/* ACTIONS */}
+            {request.status === "pending" &&
+              !selectedPet?.adopted && (
+
+                <div
+                  className="
+                    flex
+                    gap-3
+                    mt-4
+                  "
+                >
 
                   <button
-                    onClick={() => handleApprove(request._id)}
-                    className="bg-green-600 text-white px-6 py-2 rounded-lg"
+                    onClick={() =>
+                      handleApprove(
+                        request._id
+                      )
+                    }
+                    className="
+                      flex-1
+                      bg-[#16C6C0]
+                      hover:bg-[#11b3ad]
+                      text-white
+                      py-2.5
+                      rounded-xl
+                      text-sm
+                      font-semibold
+                      transition
+                    "
                   >
-
                     Approve
-
                   </button>
 
-
-
                   <button
-                    onClick={() => handleReject(request._id)}
-                    className="bg-red-500 text-white px-6 py-2 rounded-lg"
+                    onClick={() =>
+                      handleReject(
+                        request._id
+                      )
+                    }
+                    className="
+                      flex-1
+                      bg-red-500
+                      hover:bg-red-600
+                      text-white
+                      py-2.5
+                      rounded-xl
+                      text-sm
+                      font-semibold
+                      transition
+                    "
                   >
-
                     Reject
-
                   </button>
 
                 </div>
-              )
-            }
+
+              )}
 
           </div>
+
         ))
-      }
 
-    </div>
-
-
-
-    <div className="modal-action">
-
-      <form method="dialog">
-
-        <button className="btn">
-          Close
-        </button>
-
-      </form>
+      )}
 
     </div>
 
@@ -376,7 +1228,9 @@ const handleReject = async (id) => {
 </dialog>
 
     </div>
+
   );
+
 };
 
 export default MyListingsPage;
