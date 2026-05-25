@@ -44,26 +44,37 @@ const PetCard = ({ pet }) => {
 
 
         {/* AVAILABLE BADGE */}
-        <div
-          className="
-            absolute
-            top-4
-            right-4
-            bg-[#16C6C0]
-            text-white
-            text-[11px]
-            sm:text-[12px]
-            md:text-[13px]
-            px-4
-            py-1
-            rounded-full
-            shadow-lg
-          "
-        >
+        {/* STATUS BADGE */}
+<div
+  className={`
+    absolute
+    top-4
+    right-4
+    text-white
+    text-[11px]
+    sm:text-[12px]
+    md:text-[13px]
+    px-4
+    py-1
+    rounded-full
+    shadow-lg
+    font-semibold
 
-          Available
+    ${
+      pet.adopted
+        ? "bg-red-500"
+        : "bg-[#16C6C0]"
+    }
+  `}
+>
 
-        </div>
+  {
+    pet.adopted
+      ? "Adopted"
+      : "Available"
+  }
+
+</div>
 
 
 

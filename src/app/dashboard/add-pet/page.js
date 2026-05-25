@@ -136,7 +136,7 @@ const AddPetPage = () => {
 
     <PrivateRoute>
 
-      <div className="max-w-5xl mx-auto px-4 py-6">
+      <div className="max-w-6xl mx-auto px-0 md:px-4 py-5">
 
         <div
           className="
@@ -146,7 +146,7 @@ const AddPetPage = () => {
             border-[#F9C62B]/80
             rounded-[32px]
             shadow-[0_20px_60px_rgba(249,198,43,0.18)]
-            p-5
+            p-3
             sm:p-8
             border-1
           "
@@ -167,8 +167,10 @@ const AddPetPage = () => {
               src="/images/add-pet.png"
               alt="Add Pet"
               className="
-                w-14
-                h-14
+                w-11
+                md:w-14
+                h-11
+                md:h-14
                 object-contain
               "
             />
@@ -179,7 +181,8 @@ const AddPetPage = () => {
 
               <h1
                 className="
-                  text-3xl
+                  text-2xl
+                  md:text-3xl
                   sm:text-4xl
                   font-extrabold
                   text-[#0f172a]
@@ -197,7 +200,7 @@ const AddPetPage = () => {
                 className="
                   text-gray-500
                   mt-0.5
-                  text-xs
+                  text-[11px]
                   sm:text-sm
                 "
               >
@@ -215,16 +218,16 @@ const AddPetPage = () => {
           {/* FORM */}
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="space-y-5"
+            className="space-y-3 md:space-y-5"
           >
 
             {/* ROW 1 */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
 
               <input
                 {...register("petName")}
                 placeholder="Pet Name"
-                className={inputStyle}
+                className={`${inputStyle} placeholder:text-[13px] sm:placeholder:text-sm`}
                 required
               />
 
@@ -233,7 +236,7 @@ const AddPetPage = () => {
               <input
                 {...register("species")}
                 placeholder="Species"
-                className={inputStyle}
+                className={`${inputStyle} placeholder:text-[13px] sm:placeholder:text-sm`}
                 required
               />
 
@@ -268,7 +271,8 @@ const AddPetPage = () => {
 
     <span
       className="
-        text-sm
+        text-[13px]
+        md:text-sm
         text-[#0f172a]
       "
     >
@@ -279,7 +283,8 @@ const AddPetPage = () => {
 
 
 
-    <span className="text-[#F9C62B]">
+    <span className="text-[11px]
+    sm:text-sm text-[#F9C62B]">
 
       ▼
 
@@ -328,7 +333,16 @@ const AddPetPage = () => {
         }}
       >
 
-        Male
+        <span
+  className="
+    text-[13px]
+    sm:text-sm
+  "
+>
+
+  Male
+
+</span>
 
       </button>
 
@@ -357,7 +371,16 @@ const AddPetPage = () => {
         }}
       >
 
-        Female
+        <span
+  className="
+    text-[13px]
+    sm:text-sm
+  "
+>
+
+  Female
+
+</span>
 
       </button>
 
@@ -381,19 +404,19 @@ const AddPetPage = () => {
   onChange={(e) =>
     setValue("age", e.target.value)
   }
-  className={`${inputStyle} hidden md:block lg:hidden`}
+  className={`${inputStyle} placeholder:text-[13px] sm:placeholder:text-sm block lg:hidden`}
 />
 
 </div>
 
             {/* ROW 2 */}
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
 
               <input
                 {...register("breed")}
                 placeholder="Breed"
-                className={inputStyle}
+                className={`${inputStyle} placeholder:text-[13px] sm:placeholder:text-sm`}
                 required
               />
 
@@ -426,7 +449,8 @@ const AddPetPage = () => {
 
     <span
       className="
-        text-sm
+        text-[13px]
+        md:text-sm
         text-[#0f172a]
       "
     >
@@ -438,7 +462,8 @@ const AddPetPage = () => {
 
 
 
-    <span className="text-[#F9C62B]">
+    <span className="text-[11px]
+    sm:text-sm text-[#F9C62B]">
 
       ▼
 
@@ -495,7 +520,16 @@ const AddPetPage = () => {
           }}
         >
 
+          <span
+          className="
+            text-[13px]
+            sm:text-sm
+          "
+        >
+
           {item}
+          
+          </span>
 
         </button>
 
@@ -518,7 +552,7 @@ const AddPetPage = () => {
               <input
   {...register("age")}
   placeholder="Age"
-  className={`${inputStyle} md:hidden lg:block`}
+  className={`${inputStyle} placeholder:text-[13px] sm:placeholder:text-sm hidden lg:block`}
   required
 />
 
@@ -527,13 +561,13 @@ const AddPetPage = () => {
 
 
             {/* ROW 3 */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
 
               <input
               type="number"
               {...register("adoptionFee")}
               placeholder="Adoption Fee"
-              className={inputStyle}
+              className={`${inputStyle} placeholder:text-[13px] sm:placeholder:text-sm`}
               required
             />
 
@@ -542,7 +576,7 @@ const AddPetPage = () => {
               <input
                 {...register("healthStatus")}
                 placeholder="Health Status"
-                className={inputStyle}
+                className={`${inputStyle} placeholder:text-[13px] sm:placeholder:text-sm`}
                 required
               />
 
@@ -551,7 +585,7 @@ const AddPetPage = () => {
               <input
                 {...register("location")}
                 placeholder="Location"
-                className={inputStyle}
+                className={`${inputStyle} placeholder:text-[13px] sm:placeholder:text-sm`}
                 required
               />
 
@@ -561,7 +595,7 @@ const AddPetPage = () => {
   onChange={(e) =>
     setValue("image", e.target.value)
   }
-  className={`${inputStyle} hidden md:block lg:hidden`}
+  className={`${inputStyle} placeholder:text-[13px] sm:placeholder:text-sm block lg:hidden`}
 />     
 
             </div>
@@ -569,23 +603,28 @@ const AddPetPage = () => {
 
 
             {/* ROW 4 */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
 
               <input
                 {...register("ownerEmail")}
                 defaultValue={user?.email}
                 readOnly
                 className="
-                  w-full
-                  bg-[#FFF8E6]
-                  border
-                  border-[#F9C62B]/30
-                  px-4
-                  py-3
-                  rounded-2xl
-                  text-sm
-                  text-gray-500
-                "
+    w-full
+    col-span-2
+    md:col-span-1
+
+    bg-[#FFF8E6]
+    border
+    border-[#F9C62B]/30
+
+    px-4
+    py-3
+
+    rounded-2xl
+    text-sm
+    text-gray-500
+  "
               />
 
 
@@ -593,7 +632,7 @@ const AddPetPage = () => {
               <input
               {...register("image")}
               placeholder="Image URL"
-               className={`${inputStyle} md:hidden lg:block`}
+               className={`${inputStyle} placeholder:text-[13px] sm:placeholder:text-sm hidden lg:block`}
               required
             />
 
@@ -617,35 +656,94 @@ const AddPetPage = () => {
                 outline-none
                 p-4
                 rounded-2xl
-                text-sm
+                text-[13px]
+                sm:text-sm
+                placeholder:text-[13px]
+                sm:placeholder:text-sm
               "
               required
             ></textarea>
 
 
+            {/* BUTTONS */}
+<div
+  className="
+    grid
+    grid-cols-2
+    gap-3
+  "
+>
 
-            {/* BUTTON */}
-            <button
-              className="
-                w-full
-                bg-[#F9C62B]
-                hover:bg-[#eab308]
-                text-[#0f172a]
-                py-4
-                rounded-2xl
-                font-bold
-                text-sm
-                sm:text-base
-                transition
-                duration-300
-                shadow-lg
-                hover:scale-[1.01]
-              "
-            >
+  {/* CANCEL */}
+  <button
+    type="button"
+    onClick={() => reset()}
+    className="
+      w-full
+      bg-white
+      border
+      border-red-200
+      hover:bg-red-500
+      hover:text-white
+      text-red-500
 
-              Add Pet
+      py-3
+      sm:py-4
 
-            </button>
+      rounded-2xl
+
+      font-bold
+
+      text-xs
+      sm:text-base
+
+      transition
+      duration-300
+
+      shadow-md
+    "
+  >
+
+    Cancel
+
+  </button>
+
+
+
+  {/* ADD PET */}
+  <button
+    type="submit"
+    className="
+      w-full
+      bg-[#F9C62B]
+      hover:bg-[#eab308]
+
+      text-[#0f172a]
+
+      py-3
+      sm:py-4
+
+      rounded-2xl
+
+      font-bold
+
+      text-xs
+      sm:text-base
+
+      transition
+      duration-300
+
+      shadow-lg
+
+      hover:scale-[1.01]
+    "
+  >
+
+    Add Pet
+
+  </button>
+
+</div>
 
           </form>
 

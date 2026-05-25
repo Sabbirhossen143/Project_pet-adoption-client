@@ -19,8 +19,10 @@ export default function DashboardHome() {
         src="/images/dashboardd.png"
         alt="Dashboard"
         className="
-          w-28
-          h-28
+          w-15
+          h-15
+          md:w-28
+          md:h-28
           object-contain
           mb-6
         "
@@ -30,7 +32,8 @@ export default function DashboardHome() {
 
       <h1
         className="
-          text-4xl
+          text-2xl
+          md:text-4xl
           font-extrabold
           text-[#0f172a]
         "
@@ -47,7 +50,8 @@ export default function DashboardHome() {
           mt-4
           text-gray-500
           max-w-md
-          text-lg
+          text-sm
+          md:text-lg
         "
       >
 

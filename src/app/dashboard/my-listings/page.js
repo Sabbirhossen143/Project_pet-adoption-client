@@ -24,6 +24,9 @@ const MyListingsPage = () => {
   const [requests, setRequests] =
     useState([]);
 
+    const [loading, setLoading] =
+  useState(true);
+
   useEffect(() => {
 
     if (user?.email) {
@@ -37,7 +40,10 @@ const MyListingsPage = () => {
 
 const fetchPets = async () => {
 
+  setLoading(true);
+
   try {
+
 
     const res = await axiosSecure.get(
       `/my-pets?email=${user?.email}`
@@ -80,9 +86,13 @@ const fetchPets = async () => {
 
     setPets(petsWithRequestCount);
 
+    setLoading(false);
+
   } catch (error) {
 
     console.log(error);
+
+    setLoading(false);
 
   }
 
@@ -218,30 +228,110 @@ const fetchPets = async () => {
 
   return (
 
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="max-w-6xl mx-auto px-0 md:px-4 py-5 md:py-6">
+
+      {loading ? (
+
+  <div
+    className="
+      flex
+      flex-col
+      items-center
+      justify-center
+      min-h-[70vh]
+    "
+  >
+
+    {/* SPINNER */}
+    <div className="relative">
+
+      <div
+        className="
+          w-20
+          h-20
+          rounded-full
+          border-[6px]
+          border-[#F9C62B]/20
+        "
+      ></div>
+
+      <div
+        className="
+          absolute
+          inset-0
+          w-20
+          h-20
+          rounded-full
+          border-[6px]
+          border-transparent
+          border-t-[#16C6C0]
+          border-r-[#F9B000]
+          animate-spin
+        "
+      ></div>
+
+      <div
+        className="
+          absolute
+          inset-0
+          flex
+          items-center
+          justify-center
+        "
+      >
+
+        <img
+          src="/images/petss.png"
+          alt="loading"
+          className="
+            w-8
+            h-8
+            animate-pulse
+          "
+        />
+
+      </div>
+
+    </div>
+
+    <p
+      className="
+        mt-5
+        text-sm
+        font-semibold
+        text-gray-500
+      "
+    >
+      Loading your pets...
+    </p>
+
+  </div>
+
+) : (
+  <>
 
       {/* HEADER */}
 <div
   className="
     flex
-    flex-col
-    sm:flex-row
-    sm:items-center
-    sm:justify-between
-    gap-5
-    mb-10
+items-center
+justify-between
+    gap-2
+sm:gap-5
+    mb-4
+    md:mb-6
   "
 >
 
   {/* LEFT */}
-  <div className="flex items-center gap-4">
+  <div className="flex items-center gap-2 sm:gap-4">
 
     <img
       src="/images/my.png"
       alt="Listings"
       className="
-        w-14
-        h-14
+        w-10
+        h-10
         sm:w-16
         sm:h-16
         object-contain
@@ -252,7 +342,7 @@ const fetchPets = async () => {
 
       <h1
         className="
-          text-3xl
+          text-2xl
           sm:text-4xl
           font-extrabold
           text-[#0f172a]
@@ -265,7 +355,8 @@ const fetchPets = async () => {
       <p
         className="
           text-gray-500
-          text-sm
+          text-[12px]
+sm:text-sm
           mt-1
         "
       >
@@ -284,8 +375,10 @@ const fetchPets = async () => {
 hover:bg-[#e0a100]
       hover:scale-105
       text-white
-      px-6
-      py-3
+      px-3
+sm:px-6
+py-2
+sm:py-3
       rounded-2xl
       font-semibold
       shadow-lg
@@ -317,7 +410,7 @@ hover:bg-[#e0a100]
 
 
 {/* TOP ACTION + STATS */}
-<div className="mb-10">
+<div className="mb-0 md:mb-6">
 
     
 
@@ -327,11 +420,11 @@ hover:bg-[#e0a100]
 <div
   className="
     grid
-    grid-cols-1
-    sm:grid-cols-2
-    lg:grid-cols-3
-    gap-4
-    mb-10
+    grid-cols-3
+    gap-2
+    md:gap-4
+    mb-5
+    md:mb-6
   "
 >
 
@@ -350,7 +443,8 @@ hover:bg-[#e0a100]
 
     <h2
       className="
-        text-2xl
+        text-xl
+sm:text-2xl
         font-extrabold
         text-[#F9B000]
       "
@@ -362,7 +456,8 @@ hover:bg-[#e0a100]
       className="
         text-gray-500
         mt-1
-        text-xs
+        text-[10px]
+sm:text-xs
         font-medium
       "
     >
@@ -386,7 +481,8 @@ hover:bg-[#e0a100]
 
     <h2
       className="
-        text-2xl
+        text-xl
+sm:text-2xl
         font-extrabold
         text-[#16C6C0]
       "
@@ -402,7 +498,8 @@ hover:bg-[#e0a100]
       className="
         text-gray-500
         mt-1
-        text-xs
+        text-[10px]
+sm:text-xs
         font-medium
       "
     >
@@ -426,7 +523,8 @@ hover:bg-[#e0a100]
 
     <h2
       className="
-        text-2xl
+        text-xl
+sm:text-2xl
         font-extrabold
         text-red-500
       "
@@ -442,7 +540,8 @@ hover:bg-[#e0a100]
       className="
         text-gray-500
         mt-1
-        text-xs
+        text-[10px]
+sm:text-xs
         font-medium
       "
     >
@@ -458,7 +557,7 @@ hover:bg-[#e0a100]
       <div
         className="
           grid
-          md:grid-cols-2
+          md:grid-cols-3
           lg:grid-cols-4
           gap-2
         "
@@ -1226,6 +1325,10 @@ hover:bg-[#e0a100]
   </div>
 
 </dialog>
+
+</>
+
+)}
 
     </div>
 
