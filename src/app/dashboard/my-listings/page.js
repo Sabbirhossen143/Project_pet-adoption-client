@@ -174,23 +174,68 @@ const fetchPets = async () => {
 
   const handleDelete = async (id) => {
 
-    const result = await Swal.fire({
+  const result = await Swal.fire({
 
-      title: "Delete Pet ?",
+  title: "Delete this Pet?",
 
-      text: "This action cannot be undone.",
+  html: `
+    <div class="flex flex-col items-center">
 
-      icon: "warning",
+      <img
+        src="/images/delete.png"
+        style="
+          width:min(70px,15vw);
+height:min(70px,15vw);
+          margin-bottom:8px;
+          
+        "
+      />
 
-      showCancelButton: true,
+      <p
+        style="
+          color:#64748b;
+          font-size:12px;
+          line-height:1.2;
+          margin-top:4px;
+        "
+      >
+        This pet listing will be permanently removed.
+        This action cannot be undone.
+      </p>
 
-      confirmButtonColor: "#F9B000",
+    </div>
+  `,
 
-      cancelButtonColor: "#ef4444",
+  showCancelButton: true,
 
-      confirmButtonText: "Delete",
+  confirmButtonText: "Delete Pet",
 
-    });
+  cancelButtonText: "Keep Pet",
+
+  buttonsStyling: false,
+
+  showCloseButton: true,
+
+  scrollbarPadding: false,
+
+  heightAuto: false,
+
+  customClass: {
+
+    popup: "swal-delete-popup",
+
+    title:
+      "text-[#0f172a] font-extrabold text-lg mid:text-xl",
+
+    confirmButton:
+      "bg-red-500 hover:bg-red-600 text-white rounded-2xl px-6 py-3 font-bold mr-4 transition-all",
+
+    cancelButton:
+      "bg-[#16C6C0] hover:bg-[#11b3ad] text-white rounded-2xl px-6 py-3 font-bold transition-all",
+
+  },
+
+});
 
 
 
@@ -827,7 +872,11 @@ sm:text-xs
       >
 
         {/* VIEW */}
-        <button
+        <Link
+  href={`/pet/${pet._id}`}
+  className="w-full"
+>
+  <div
           className="
   border
   border-[#16C6C0]/30
@@ -859,12 +908,16 @@ sm:text-xs
 
           View
 
-        </button>
+        </div>
+        </Link>
 
 
 
         {/* EDIT */}
-        <button
+        <Link href={`/dashboard/update-pet/${pet._id}`}
+        className="w-full"
+        >
+        <div
           className="
   border
   border-[#F9C62B]/40
@@ -896,7 +949,8 @@ sm:text-xs
 
           Edit
 
-        </button>
+        </div>
+        </Link>
 
 
 
@@ -1028,7 +1082,8 @@ sm:text-xs
 
         <h3
   className="
-    text-2xl
+    text-lg
+    md:text-2xl
     font-extrabold
     text-[#0f172a]
   "
@@ -1215,7 +1270,8 @@ sm:text-xs
     {/* REQUEST DATE */}
     <p
       className="
-        text-xs
+        text-[11px]
+        md:text-xs
         text-gray-500
       "
     >
@@ -1238,7 +1294,8 @@ sm:text-xs
     {/* PICKUP DATE */}
     <p
       className="
-        text-xs
+        text-[11px]
+        md:text-xs
         font-semibold
         text-[#F9B000]
         whitespace-nowrap
@@ -1281,7 +1338,8 @@ sm:text-xs
                       text-white
                       py-2.5
                       rounded-xl
-                      text-sm
+                      text-xs
+                      md:text-sm
                       font-semibold
                       transition
                     "
@@ -1302,7 +1360,8 @@ sm:text-xs
                       text-white
                       py-2.5
                       rounded-xl
-                      text-sm
+                      text-xs
+                      md:text-sm
                       font-semibold
                       transition
                     "

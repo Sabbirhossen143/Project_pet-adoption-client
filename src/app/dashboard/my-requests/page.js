@@ -49,41 +49,124 @@ const MyRequestsPage = () => {
 
   const handleCancel = async (id) => {
 
-    const result = await Swal.fire({
-      title: "Are you sure?",
-      text: "Request will be deleted!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes, Cancel",
-    });
+  const result = await Swal.fire({
 
+    title: "Cancel Request?",
 
+    html: `
+      <div style="text-align:center">
 
-    if (result.isConfirmed) {
+        <img
+          src="/images/delete.png"
+          alt="cancel"
+          style="
+            width:65px;
+            height:65px;
+            margin:0 auto 12px;
+          "
+        />
 
-      try {
+        <p
+          style="
+            color:#64748b;
+            font-size:14px;
+            margin-bottom:8px;
+          "
+        >
+          Your adoption request will be removed permanently.
+        </p>
 
-        const res = await axiosSecure.delete(
-          `/requests/${id}`
-        );
+        <p
+          style="
+            color:#ef4444;
+            font-size:12px;
+            font-weight:600;
+          "
+        >
+          This action cannot be undone.
+        </p>
 
+      </div>
+    `,
 
+    showCancelButton: true,
 
-        if (res.data.deletedCount > 0) {
+    confirmButtonText: "Yes, Cancel",
 
-          toast.success("Request Cancelled");
+    cancelButtonText: "Keep Request",
 
-          fetchRequests();
-        }
+    reverseButtons: true,
 
-      } catch (error) {
+    background: "#ffffff",
 
-        console.log(error);
+    color: "#0f172a",
 
-        toast.error("Cancel Failed");
+    width: "22rem",
+
+    padding: "1.25rem",
+
+    confirmButtonColor: "#ef4444",
+
+    cancelButtonColor: "#16C6C0",
+
+    customClass: {
+  popup: "swal-delete-popup",
+  title: "font-extrabold",
+},
+
+     heightAuto: false,
+  scrollbarPadding: false,
+
+  });
+
+  if (result.isConfirmed) {
+
+    try {
+
+      const res = await axiosSecure.delete(
+        `/requests/${id}`
+      );
+
+      if (res.data.deletedCount > 0) {
+
+        await Swal.fire({
+
+          icon: "success",
+
+          title: "Request Cancelled",
+
+          text: "Your adoption request has been removed.",
+
+          timer: 1800,
+
+          showConfirmButton: false,
+
+          background: "#fff",
+
+          color: "#0f172a",
+
+          heightAuto: false,
+  scrollbarPadding: false,
+
+        });
+
+        fetchRequests();
+
       }
+
+    } catch (error) {
+
+      console.log(error);
+
+      toast.error("Cancel Failed");
+
     }
-  };
+
+  }
+
+};
+
+
 
 
 return (
@@ -672,6 +755,7 @@ sm:h-4
       </table>
 
     </div>
+    
 
   </div>
 

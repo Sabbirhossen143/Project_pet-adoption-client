@@ -25,6 +25,8 @@ const PetDetailsPage = ({ params }) => {
 
   const [loading, setLoading] = useState(true);
 
+  const [submitted, setSubmitted] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -116,12 +118,14 @@ const PetDetailsPage = ({ params }) => {
 
       if (res.data.insertedId) {
 
-        toast.success(
-          "Adoption Request Submitted"
-        );
+  toast.success(
+    "Adoption Request Submitted"
+  );
 
-        reset();
-      }
+  setSubmitted(true);
+
+  reset();
+}
 
     } catch (error) {
 
@@ -132,64 +136,301 @@ const PetDetailsPage = ({ params }) => {
   };
 
 
+  const petInfoCard = `
+  bg-gradient-to-br
+  from-[#F0FFFE]
+  via-[#DDFCF9]
+  to-[#BDF5F1]
+  p-4
+  rounded-3xl
+  border
+  border-[#16C6C0]/40
+`;
+
+const petInfoTitle = `
+  text-[11px]
+  uppercase
+  tracking-wider
+  text-[#16C6C0]
+  font-bold
+  mb-1
+`;
+
+const petInfoValue = `
+  font-bold
+  text-[#0f172a]
+  text-base
+  md:text-lg
+`;
+
+
+  const inputStyle = `
+  w-full
+  bg-[#F8FAFC]
+  border
+  border-1
+  border-[#F9C62B]
+  focus:ring-4
+  focus:ring-[#F9C62B]/10
+  outline-none
+  px-4
+  py-3
+  rounded-2xl
+  transition
+  duration-300
+  text-sm
+`;
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex justify-center items-center">
-        <span className="loading loading-spinner loading-lg"></span>
-      </div>
-    );
-  }
-
-
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
+    <div className="min-h-screen flex justify-center items-center">
+      <span className="loading loading-spinner loading-lg"></span>
+    </div>
+  );
 
-      <div className="grid lg:grid-cols-2 gap-10">
+}
+    
 
-        {/* Pet Details */}
-        <div>
+    return (
+  <div className="max-w-5xl mx-auto px-2 md:px-4 py-4 md:py-8">
+
+    <div className="grid lg:grid-cols-[1.15fr_0.85fr] md:grid-cols-2 gap-8 md:gap-8">
+
+      {/* PET DETAILS */}
+      <div>
+
+        <div className="relative">
 
           <img
             src={pet.image}
             alt={pet.petName}
-            className="w-full rounded-2xl shadow-lg"
+            className="
+  w-full
+  h-[300px]
+  object-cover
+  rounded-[32px]
+  shadow-2xl
+  border
+  border-[#F9C62B]
+"
           />
 
-          <div className="mt-6">
+          <div
+            className="
+              absolute
+              top-4
+              right-4
+              bg-[#16C6C0]
+              text-white
+              px-4
+              py-1.5
+              rounded-full
+              text-xs
+              font-bold
+            "
+          >
+            {pet.adopted
+              ? "Adopted"
+              : "Available"}
+          </div>
 
-            <h1 className="text-5xl font-bold">
-              {pet.petName}
-            </h1>
+        </div>
 
-            <p className="mt-4">
-              Species: {pet.species}
-            </p>
+        <div className="mt-4">
 
-            <p className="mt-2">
-              Breed: {pet.breed}
-            </p>
+          <div
+            className="
+              flex
+              justify-between
+              items-start
+              gap-3
+            "
+          >
 
-            <p className="mt-2">
+            <div>
 
-  Gender: {pet.gender}
+              <h1
+                className="
+                  text-2xl
+                  md:text-3xl
+                  font-extrabold
+                  text-[#0f172a]
+                "
+              >
+                {pet.petName}
+              </h1>
 
-</p>
+              <div
+                className="
+                  flex
+                  gap-2
+                  mt-2
+                  flex-wrap
+                "
+              >
 
-            <p className="mt-2">
-              Age: {pet.age}
-            </p>
+                <span
+                  className="
+                    bg-[#F9C62B]/15
+                    text-[#F9B000]
+                    px-3
+                    py-1
+                    rounded-full
+                    text-xs
+                    font-semibold
+                  "
+                >
+                  {pet.species}
+                </span>
 
-            <p className="mt-2">
-              Location: {pet.location}
-            </p>
+                <span
+                  className="
+                    bg-[#16C6C0]/10
+                    text-[#16C6C0]
+                    px-3
+                    py-1
+                    rounded-full
+                    text-xs
+                    font-semibold
+                  "
+                >
+                  {pet.gender}
+                </span>
 
-            <p className="mt-2">
-              Fee: ${pet.adoptionFee}
-            </p>
+              </div>
 
-            <p className="mt-5 text-gray-600">
+            </div>
+
+            <div className="text-right">
+
+              <p
+                className="
+                  text-xs
+                  text-gray-500
+                "
+              >
+                Adoption Fee
+              </p>
+
+              <h2
+                className="
+                  text-2xl
+                  md:text-2xl
+                  font-extrabold
+                  text-[#F9B000]
+                "
+              >
+                ${pet.adoptionFee}
+              </h2>
+
+            </div>
+
+          </div>
+
+          
+          {/* INFO CARDS */}
+<div
+  className="
+    grid
+    grid-cols-2
+    gap-2
+    md:gap-3
+    mt-3
+  "
+>
+  <div className={petInfoCard}>
+    <p className={petInfoTitle}>🐾 Species</p>
+    <h3 className={petInfoValue}>{pet.species}</h3>
+  </div>
+
+  <div className={petInfoCard}>
+    <p className={petInfoTitle}>🦴 Breed</p>
+    <h3 className={petInfoValue}>{pet.breed}</h3>
+  </div>
+
+  <div className={petInfoCard}>
+    <p className={petInfoTitle}>🎂 Age</p>
+    <h3 className={petInfoValue}>{pet.age} Years</h3>
+  </div>
+
+  <div className={petInfoCard}>
+    <p className={petInfoTitle}>⚥ Gender</p>
+    <h3 className={petInfoValue}>{pet.gender}</h3>
+  </div>
+
+  <div className={petInfoCard}>
+    <p className={petInfoTitle}>❤️ Health Status</p>
+    <h3 className={petInfoValue}>{pet.healthStatus}</h3>
+  </div>
+
+  <div className={petInfoCard}>
+    <p className={petInfoTitle}>💉 Vaccination Status</p>
+    <h3 className={petInfoValue}>
+      {pet.vaccinationStatus}
+    </h3>
+  </div>
+</div>
+
+
+<div
+  className="
+    mt-2
+    md:mt-3
+    bg-gradient-to-r
+    from-[#E8FFFE]
+    via-[#D9FBF9]
+    to-[#C8F7F4]
+    p-5
+    rounded-3xl
+    border
+    border-[#16C6C0]/30
+  "
+>
+  <p className={petInfoTitle}>
+    📍 Location
+  </p>
+
+  <h3 className={petInfoValue}>
+    {pet.location}
+  </h3>
+</div>
+
+
+    <div
+  className="
+    mt-5
+    bg-gradient-to-br
+    from-[#E8FFFE]
+    via-[#D9FBF9]
+    to-[#C8F7F4]
+    p-5
+    rounded-3xl
+    border
+    border-[#16C6C0]/30
+  "
+>
+
+            <h3
+  className="
+    text-xl
+    md:text-2xl
+    font-extrabold
+    text-[#0f172a]
+    mb-3
+  "
+>
+              About {pet.petName}
+            </h3>
+
+            <p
+  className="
+    text-[#374151]
+    leading-relaxed
+    text-sm
+    md:text-base
+  "
+>
               {pet.description}
             </p>
 
@@ -197,77 +438,528 @@ const PetDetailsPage = ({ params }) => {
 
         </div>
 
+      </div>
 
 
-        {/* Adoption Form */}
-        <div
+{/* RIGHT SIDE */}
+
+<div>
+
+  {pet.adopted ? (
+
+    <div
   className="
-    bg-white/80
-    backdrop-blur-xl
-    p-8
-    rounded-[30px]
-    shadow-2xl
-    h-fit
+    bg-gradient-to-br
+    from-[#FEF2F2]
+    to-[#FFF5F5]
+    rounded-[32px]
+    p-6 md:p-8
+    text-center
+    shadow-[0_20px_60px_rgba(0,0,0,0.08)]
     border
-    border-white/20
+    border-red-200
+    h-fit
+    mb-5
   "
 >
 
-          <h2 className="text-3xl font-bold mb-6">
-            Adoption Request
-          </h2>
+  <div
+    className="
+      w-20
+      h-20
+      mx-auto
+      mb-5
+      rounded-full
+      overflow-hidden
+      bg-red-50
+      border-2
+      border-red-400
+      flex
+      items-center
+      justify-center
+      shadow-md
+    "
+  >
+    <img
+      src="/images/adopt.png"
+      alt="Adopted"
+      className="
+        w-12
+        h-12
+        object-contain
+      "
+    />
+  </div>
+
+  <h2
+    className="
+      text-2xl
+      md:text-3xl
+      font-extrabold
+      text-red-600
+    "
+  >
+    {pet.petName} Has Been Adopted!
+  </h2>
+
+  <p
+    className="
+      text-gray-600
+      text-sm
+      md:text-base
+      mt-3
+      leading-relaxed
+      max-w-md
+      mx-auto
+    "
+  >
+    This pet has found a loving forever home.
+    Explore other wonderful pets waiting
+    for adoption.
+  </p>
+
+  <button
+    onClick={() =>
+      window.location.href = "/all-pets"
+    }
+    className="
+      mt-6
+      w-full
+      py-3
+      rounded-2xl
+      bg-red-500
+      hover:bg-red-600
+      text-white
+      font-bold
+      transition
+      duration-300
+      shadow-lg
+      hover:scale-[1.01]
+    "
+  >
+    Browse Available Pets
+  </button>
+
+</div>
+
+  ) : user?.email === pet?.ownerEmail ? (
+
+    <div
+      className="
+        bg-gradient-to-br
+from-[#FFF8E6]
+to-[#FFFDF6]
+        rounded-[32px]
+        p-6 md:p-8
+        text-center
+        shadow-2xl
+        border
+        border-[#F9C62B]
+        h-fit
+        mb-5
+      "
+    >
+
+      <div
+  className="
+    w-20
+    h-20
+    mx-auto
+    mb-5
+    rounded-full
+    overflow-hidden
+    border-2
+    border-[#F97316]
+    shadow-lg
+    flex
+    items-center
+    justify-center
+    bg-[#FFF3D6]
+  "
+>
+  <img
+    src="/images/own.png"
+    alt="My Pet"
+    className="
+      w-10
+      h-10
+      object-contain
+    "
+  />
+</div>
+
+      <h2 className="
+  text-xl
+  md:text-2xl
+  font-extrabold
+  text-[#0f172a]
+">
+        This Is Your Pet Listing
+      </h2>
+
+      <p className="
+  text-gray-600
+  text-sm
+  mt-3
+  leading-relaxed
+">
+        You are the owner of this pet.
+        Adoption requests are only available
+        for other users.
+      </p>
+
+      <button
+        onClick={() =>
+          window.location.href =
+          "/dashboard/my-listings"
+        }
+        className="
+  mt-5
+  w-full
+  py-3
+  rounded-2xl
+  bg-[#F9C62B]
+  hover:bg-[#eab308]
+  text-[#0f172a]
+  font-bold
+  transition
+  duration-300
+  shadow-lg
+"
+      >
+        View My Listings
+      </button>
+
+    </div>
+
+  ) : submitted ? (
+
+    <div
+  className="
+    bg-gradient-to-br
+from-[#ECFDF5]
+to-[#F0FDF4]
+    rounded-[32px]
+    p-6 md:p-8
+    text-center
+    shadow-[0_20px_60px_rgba(0,0,0,0.08)]
+    border
+    border-[#F9C62B]/40
+    h-fit
+    mb-5
+  "
+>
+
+  <div
+    className="
+      w-20
+      h-20
+      mx-auto
+      mb-5
+      rounded-full
+      bg-[#D1FAE5]
+      border-[#10B981]
+      border-2
+      flex
+      items-center
+      justify-center
+      shadow-md
+    "
+  >
+    <img
+      src="/images/success.png"
+      alt="Success"
+      className="
+        w-10
+        h-10
+        object-contain
+      "
+    />
+  </div>
+
+  <h2
+    className="
+      text-2xl
+      md:text-3xl
+      font-extrabold
+      text-[#065F46]
+    "
+  >
+    Request Submitted!
+  </h2>
+
+  <p
+    className="
+      text-gray-600
+      text-sm
+      md:text-base
+      mt-3
+      leading-relaxed
+      max-w-md
+      mx-auto
+    "
+  >
+    Your adoption request for
+    <span className="font-semibold text-[#10B981]">
+      {" "}{pet.petName}
+    </span>
+    {" "}has been successfully sent to the owner.
+    You can track the request status from your dashboard.
+  </p>
+
+  <button
+    onClick={() =>
+      window.location.href =
+      "/dashboard/my-requests"
+    }
+    className="
+      mt-6
+      w-full
+      py-3
+      rounded-2xl
+      bg-[#10B981]
+hover:bg-[#059669]
+text-white
+      font-bold
+      transition
+      duration-300
+      shadow-lg
+      hover:scale-[1.01]
+    "
+  >
+    View My Requests
+  </button>
+
+</div>
+
+  ) : (   
+
+        
+        <div
+  className="
+  bg-gradient-to-br
+from-white
+to-[#FFFDF6]
+  p-4
+  md:p-4
+  rounded-[32px]
+  shadow-[0_20px_60px_rgba(0,0,0,0.08)]
+  h-fit
+  border
+  border-[#F9C62B]
+"
+>
+
+          <div className="mb-4">
+
+  <h2
+    className="
+      text-2xl
+      md:text-3xl
+      font-extrabold
+      text-[#0f172a]
+    "
+  >
+    Adoption Request
+  </h2>
+
+  <p
+    className="
+      text-gray-500
+      text-sm
+      mt-2
+    "
+  >
+    Complete the form below to adopt
+    {` ${pet.petName}`}
+  </p>
+
+</div>
 
 
 
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="space-y-5"
+            className="space-y-3 md:space-y-4"
           >
 
-            <input
-              value={pet.petName}
-              readOnly
-              className="border p-4 rounded-xl w-full bg-gray-100"
-            />
+            
+
+  <div>
+
+  <label
+    className="
+      block
+      text-[11px] sm:text-xs
+      font-semibold
+      text-gray-600
+      mb-1
+    "
+  >
+    Pet Name
+  </label>
+
+  <input
+    value={pet.petName}
+    readOnly
+    className="
+      w-full
+      bg-[#FFF8E6]
+      border
+      border-[#F9C62B]
+      px-4
+      py-3
+      rounded-2xl
+      text-sm
+      text-gray-600
+      cursor-not-allowed
+    "
+  />
+
+</div>
+
+<div>
+
+  <label
+    className="
+      block
+      text-[11px] sm:text-xs
+      font-semibold
+      text-gray-600
+      mb-1
+    "
+  >
+    Your Name
+  </label>
+
+  <input
+    value={user?.displayName || ""}
+    readOnly
+    className="
+      w-full
+      bg-[#FFF8E6]
+      border
+      border-[#F9C62B]
+      px-4
+      py-3
+      rounded-2xl
+      text-sm
+      text-gray-600
+      cursor-not-allowed
+    "
+  />
+
+</div>
 
 
+<div>
 
-            <input
-              value={user?.displayName || ""}
-              readOnly
-              className="border p-4 rounded-xl w-full bg-gray-100"
-            />
+  <label
+    className="
+      block
+      text-[11px] sm:text-xs
+      font-semibold
+      text-gray-600
+      mb-1
+    "
+  >
+    Email Address
+  </label>
 
+  <input
+    value={user?.email || ""}
+    readOnly
+    className="
+      w-full
+      bg-[#FFF8E6]
+      border
+      border-[#F9C62B]
+      px-4
+      py-3
+      rounded-2xl
+      text-sm
+      text-gray-600
+      cursor-not-allowed
+    "
+  />
 
+</div>
 
-            <input
-              value={user?.email || ""}
-              readOnly
-              className="border p-4 rounded-xl w-full bg-gray-100"
-            />
+<div>
 
-
-
+  <label
+    className="
+      block
+      text-[11px] sm:text-xs
+      font-semibold
+      text-gray-600
+      mb-1
+    "
+  >
+    Preferred Pickup Date
+  </label>
             <input
               type="date"
               {...register("pickupDate")}
-              className="border p-4 rounded-xl w-full"
+              className="
+  w-full
+  bg-[#FFF8E6]
+  border
+  border-[#F9C62B]
+  px-4
+  py-3
+  rounded-2xl
+  text-sm
+  text-gray-600
+  
+"
               required
             />
+            </div>
 
 
 
-            <textarea
-              {...register("message")}
-              placeholder="Message"
-              rows={5}
-              className="border p-4 rounded-xl w-full"
-              required
-            ></textarea>
+            <div>
+
+  <label
+    className="
+      block
+      text-xs
+      font-semibold
+      text-gray-600
+      mb-2
+    "
+  >
+    Why do you want to adopt?
+  </label>
+
+  <textarea
+    {...register("message")}
+    rows={4}
+    placeholder="Tell the owner why you would be a good match..."
+    className={inputStyle}
+    required
+  />
+
+</div>
 
 
 
-            <button className="bg-[#F9C62B] text-black font-bold py-4 rounded-xl w-full hover:bg-[#eab308]">
+            <button className="
+  w-full
+  bg-[#F9C62B]
+  hover:bg-[#eab308]
+  text-[#0f172a]
+  py-4
+  rounded-2xl
+  font-bold
+  text-sm
+  sm:text-base
+  transition
+  duration-300
+  shadow-lg
+  hover:scale-[1.01]
+">
 
               Adopt Now
 
@@ -275,11 +967,16 @@ const PetDetailsPage = ({ params }) => {
 
           </form>
 
-        </div>
+                </div>
 
-      </div>
+            )}
 
     </div>
+
+  </div>
+
+</div>
+
   );
 };
 

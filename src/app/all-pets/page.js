@@ -669,8 +669,6 @@ duration-300
           text-gray-500
           mt-3
           max-w-md
-sm:max-w-lg
-
         "
       >
 

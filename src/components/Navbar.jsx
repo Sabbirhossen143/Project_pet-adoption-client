@@ -329,6 +329,9 @@ const Navbar = () => {
 
     <Link
       href="/dashboard"
+      onClick={() => {
+    document.activeElement?.blur();
+  }}
       className="
         flex
         items-center
