@@ -119,7 +119,7 @@ const PetDetailsPage = ({ params }) => {
       if (res.data.insertedId) {
 
   toast.success(
-    "Adoption Request Submitted"
+    "🐾 Adoption Request Submitted"
   );
 
   setSubmitted(true);
@@ -131,7 +131,7 @@ const PetDetailsPage = ({ params }) => {
 
       console.log(error);
 
-      toast.error("Failed To Request");
+      toast.error("❌ Failed To Request");
     }
   };
 
@@ -445,7 +445,73 @@ const petInfoValue = `
 
 <div>
 
-  {pet.adopted ? (
+  {!user ? (
+
+  <div
+    className="
+      bg-white
+      rounded-[32px]
+      p-6 md:p-8
+      text-center
+      border
+      border-[#16C6C0]/20
+      h-fit
+      mb-5
+    "
+  >
+
+    <img
+      src="/images/login-pet.png"
+      alt="Login"
+      className="
+        w-20
+        h-20
+        mx-auto
+        mb-5
+      "
+    />
+
+    <h2
+      className="
+        text-2xl
+        font-extrabold
+        text-[#0f172a]
+      "
+    >
+      Login Required
+    </h2>
+
+    <p
+      className="
+        text-gray-600
+        mt-3
+      "
+    >
+      Please login to submit an adoption request
+      for this pet.
+    </p>
+
+    <button
+      onClick={() =>
+        window.location.href = "/login"
+      }
+      className="
+        mt-6
+        w-full
+        py-3
+        rounded-2xl
+        bg-[#16C6C0]
+        hover:bg-[#14b3ae]
+        text-white
+        font-bold
+      "
+    >
+      Login Now
+    </button>
+
+  </div>
+
+) : pet.adopted ? (
 
     <div
   className="

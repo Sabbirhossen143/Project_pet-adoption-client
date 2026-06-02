@@ -26,72 +26,67 @@ const Navbar = () => {
 
       await logoutUser();
 
-      toast.success(
-
-  `Logout Successful !!\nThanks for visiting PawConnect..`,
-
+     toast(
+  "Logout Successful!\nThanks for visiting PawConnect.",
   {
-    duration: 3000,
-
-    position: "top-right",
-
     icon: (
-      <img
-        src="/images/logout.png"
-        alt="Pet"
-        className="
-  w-5
-  h-5
-  sm:w-7
-  sm:h-7
-          rounded-full
-          object-cover
-        "
-      />
-    ),
+  <img
+    src="/images/logout.png"
+    alt="Pet"
+    className={`
+      rounded-full
+      object-cover
+      ${
+        window.innerWidth < 640
+          ? "w-5 h-5"
+          : "w-7 h-7"
+      }
+    `}
+  />
+),
+
     style: {
-  marginTop:
+  borderRadius:
     window.innerWidth < 640
-      ? "58px"
-      : "70px",
+      ? "14px"
+      : "20px",
+
+  background:
+    "linear-gradient(135deg,#16C6C0,#0EA5A4)",
+
+  color: "#fff",
+
+  border: "2px solid #7DE7E2",
+
+  fontWeight: "700",
 
   padding:
     window.innerWidth < 640
-      ? "8px 10px"
-      : "14px 16px",
-
-  borderRadius: "14px",
-
-  background: "#fff",
-
-  color: "#0f172a",
+      ? "8px 12px"
+      : "14px 18px",
 
   fontSize:
     window.innerWidth < 640
-      ? "10px"
+      ? "11px"
       : "14px",
-
-  fontWeight: "600",
-
-  lineHeight: "1.15",
 
   minWidth:
     window.innerWidth < 640
-      ? "190px"
+      ? "240px"
       : "280px",
 
   maxWidth:
     window.innerWidth < 640
-      ? "210px"
-      : "320px",
+      ? "280px"
+      : "340px",
 
-  boxShadow:
-    "0 10px 30px rgba(249,176,0,0.18)",
+  lineHeight: "1.2",
+  marginTop:
+  window.innerWidth < 640
+    ? "10px"
+    : "35px",
 },
-    
-
   }
-
 );
 
     } catch (error) {
@@ -374,7 +369,7 @@ sm:w-5 sm:h-5 object-contain"
         w-full
         flex
         items-center
-        gap-3
+        gap-2
         px-3
 py-2
 text-[12px]
@@ -393,8 +388,8 @@ sm:text-sm
       <img
         src="/images/log-out.png"
         alt="Logout"
-        className="w-4 h-4
-sm:w-5 sm:h-5 object-contain"
+        className="w-5 h-5
+md:w-6 md:h-6 object-contain"
       />
 
       Logout

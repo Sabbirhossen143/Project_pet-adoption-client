@@ -1,3 +1,4 @@
+
 const PetCareTips = () => {
 
   const tips = [

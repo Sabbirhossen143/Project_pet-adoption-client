@@ -1,8 +1,32 @@
 import Link from "next/link";
 import { FaLocationDot } from "react-icons/fa6";
+import { useContext } from "react";
+import { useRouter } from "next/navigation";
+import { AuthContext } from "@/providers/AuthProvider";
+import toast from "react-hot-toast";
 
 
 const PetCard = ({ pet }) => {
+
+  const { user } = useContext(AuthContext);
+
+const router = useRouter();
+
+const handlePetDetails = () => {
+
+  if (!user) {
+
+    toast("Please login first", {
+  icon: "🔒",
+});
+
+    router.push("/login");
+
+    return;
+  }
+
+  router.push(`/pet/${pet._id}`);
+};
 
   return (
 
@@ -296,65 +320,57 @@ text-black/90
         >
 
           {/* VIEW DETAILS */}
-          <Link href={`/pet/${pet._id}`}>
-
-            <button
-              className="
-                w-full
-                py-1.5
-                sm:py-2.5
-                md:py-3
-                rounded-2xl
-                bg-white/10
-                hover:bg-white/20
-                border-1
-                border-[#F9C62B]
-                text-white
-                font-semibold
-                transition
-                duration-300
-                text-[13px]
-sm:text-[13px]
-md:text-[14px]
-              "
-            >
-
-              View Details
-
-            </button>
-
-          </Link>
+          <button
+  onClick={handlePetDetails}
+  className="
+    w-full
+    py-1.5
+    sm:py-2.5
+    md:py-3
+    rounded-2xl
+    bg-white/10
+    hover:bg-white/20
+    border-1
+    border-[#F9C62B]
+    text-white
+    font-semibold
+    transition
+    duration-300
+    text-[13px]
+    sm:text-[13px]
+    md:text-[14px]
+  "
+>
+  View Details
+</button>
 
 
 
           {/* ADOPT NOW */}
-          <Link href={`/pet/${pet._id}`}>
+          <button
+  onClick={handlePetDetails}
+  className="
+    w-full
+    py-1.5
+    sm:py-2.5
+    md:py-3
+    rounded-2xl
+    bg-[#F9C62B]
+    hover:bg-[#eab308]
+    text-black
+    font-bold
+    transition
+    duration-300
+    shadow-lg
+    text-[13px]
+    sm:text-[13px]
+    md:text-[14px]
+  "
+>
+  Adopt Now
+</button>
 
-            <button
-              className="
-                w-full
-                py-1.5
-                sm:py-2.5
-                md:py-3
-                rounded-2xl
-                bg-[#F9C62B]
-                hover:bg-[#eab308]
-                text-black
-                font-bold
-                transition
-                duration-300
-                shadow-lg
-                text-[13px]
-sm:text-[13px]
-md:text-[14px]
-              "
-            >
 
-              Adopt Now
-
-            </button>
-
-          </Link>
 
         </div>
 
