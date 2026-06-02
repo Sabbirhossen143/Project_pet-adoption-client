@@ -13,12 +13,15 @@ import { AuthContext } from "@/providers/AuthProvider";
 
 import toast from "react-hot-toast";
 
+import { useRouter } from "next/navigation";
+
 const Navbar = () => {
 
   const { user, logoutUser } =
     useContext(AuthContext);
   const pathname = usePathname();
 
+  const router = useRouter();
 
   const handleLogout = async () => {
 
@@ -88,6 +91,10 @@ const Navbar = () => {
 },
   }
 );
+
+   setTimeout(() => {
+  router.push("/");
+}, 500);
 
     } catch (error) {
 
