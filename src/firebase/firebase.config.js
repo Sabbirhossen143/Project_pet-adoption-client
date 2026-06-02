@@ -11,6 +11,16 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
+console.log(
+  "FIREBASE_API_KEY =",
+  process.env.NEXT_PUBLIC_FIREBASE_API_KEY
+);
+
+console.log(
+  "FIREBASE_AUTH_DOMAIN =",
+  process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+);
+
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
