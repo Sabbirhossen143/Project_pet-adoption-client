@@ -32,8 +32,8 @@ export default function DashboardLayout({
     bg-white/95
     backdrop-blur-xl
 
-    border
-    border-[#F9C62B]/20
+    border-1
+    border-[#16C6C0]/60
 
     shadow-[0_10px_40px_rgba(0,0,0,0.08)]
 
@@ -142,15 +142,15 @@ sm:gap-3
                 gap-1
                 md:gap-3
                 px-2.5
-sm:px-3
-py-1.5
-sm:py-2
+                sm:px-3
+                py-1.5
+                sm:py-2
                 rounded-2xl
                 transition-all
                 duration-300
                 font-semibold
                 text-[10px]
-sm:text-xs
+                sm:text-xs
                 border
 
                 ${
@@ -273,7 +273,7 @@ sm:h-4
       {/* PAGE CONTENT */}
       <main
         className="
-          max-w-7xl
+          max-w-6xl
           mx-auto
           px-4
           pt-[130px]

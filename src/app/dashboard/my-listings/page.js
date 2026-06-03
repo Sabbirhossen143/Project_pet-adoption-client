@@ -477,8 +477,8 @@ sm:py-3
   <div
     className="
       bg-white
-      border
-      border-[#16C6C0]/10
+      border-1
+      border-[#F9C62B]/80
       rounded-2xl
       shadow-md
       p-4
@@ -515,8 +515,8 @@ sm:text-xs
   <div
     className="
       bg-white
-      border
-      border-[#16C6C0]/10
+      border-1
+      border-[#16C6C0]/50
       rounded-2xl
       shadow-md
       p-4
@@ -527,7 +527,7 @@ sm:text-xs
     <h2
       className="
         text-xl
-sm:text-2xl
+        sm:text-2xl
         font-extrabold
         text-[#16C6C0]
       "
@@ -557,8 +557,8 @@ sm:text-xs
   <div
     className="
       bg-white
-      border
-      border-[#16C6C0]/10
+      border-1
+      border-red-300
       rounded-2xl
       shadow-md
       p-4

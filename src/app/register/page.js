@@ -76,9 +76,6 @@ const router = useRouter();
   `Registration Successful !\nPlease login to continue..`,
 
   {
-    duration: 3000,
-
-    position: "top-right",
 
     icon: (
       <img
@@ -96,47 +93,49 @@ const router = useRouter();
     ),
 
     style: {
-  marginTop:
-    window.innerWidth < 640
-      ? "58px"
-      : "70px",
+      borderRadius:
+        window.innerWidth < 640
+          ? "14px"
+          : "20px",
 
-  padding:
-    window.innerWidth < 640
-      ? "8px 10px"
-      : "14px 16px",
+      background:
+        "linear-gradient(135deg,#16C6C0,#0EA5A4)",
 
-  borderRadius: "14px",
+      color: "#fff",
 
-  background: "#fff",
+      border:
+        "2px solid #7DE7E2",
 
-  color: "#0f172a",
+      fontWeight: "700",
 
-  fontSize:
-    window.innerWidth < 640
-      ? "10px"
-      : "14px",
+      padding:
+        window.innerWidth < 640
+          ? "8px 12px"
+          : "14px 18px",
 
-  fontWeight: "600",
+      fontSize:
+        window.innerWidth < 640
+          ? "11px"
+          : "14px",
 
-  lineHeight: "1.15",
+      minWidth:
+        window.innerWidth < 640
+          ? "240px"
+          : "280px",
 
-  minWidth:
-    window.innerWidth < 640
-      ? "190px"
-      : "280px",
+      maxWidth:
+        window.innerWidth < 640
+          ? "280px"
+          : "340px",
 
-  maxWidth:
-    window.innerWidth < 640
-      ? "210px"
-      : "320px",
+      lineHeight: "1.2",
 
-  boxShadow:
-    "0 10px 30px rgba(249,176,0,0.18)",
-},
-
+      marginTop:
+        window.innerWidth < 640
+          ? "10px"
+          : "35px",
+    },
   }
-
 );
 
 await logoutUser();

@@ -257,8 +257,8 @@ return (
       <div
         className="
           bg-white
-          border
-          border-[#F9C62B]/20
+          border-1
+          border-[#F9C62B]/80
           rounded-2xl
           md:rounded-3xl
           p-2
@@ -302,8 +302,8 @@ return (
       <div
         className="
           bg-white
-          border
-          border-[#F9C62B]/20
+          border-1
+          border-[#F9C62B]/80
           rounded-2xl
           md:rounded-3xl
           p-2
@@ -352,8 +352,8 @@ return (
       <div
         className="
           bg-white
-          border
-          border-[#16C6C0]/20
+          border-1
+          border-[#16C6C0]/50
           rounded-2xl
           sm:rounded-3xl
           p-2
@@ -402,8 +402,8 @@ return (
       <div
         className="
           bg-white
-          border
-          border-red-200
+          border-1
+          border-red-300
           rounded-2xl
           sm:rounded-3xl
           p-2
