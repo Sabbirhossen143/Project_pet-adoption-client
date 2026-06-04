@@ -251,7 +251,31 @@ height:min(70px,15vw);
 
         if (res.data.deletedCount > 0) {
 
-          toast.success("Pet Deleted");
+          toast.success(
+  "Pet Deleted Successfully",
+  {
+    icon: (
+      <img
+        src="/images/delete.png"
+        alt="delete"
+        className="
+          w-5 h-5
+          md:w-7 md:h-7
+          rounded-full
+        "
+      />
+    ),
+    style: {
+      borderRadius: "20px",
+      background:
+        "linear-gradient(135deg,#ef4444,#dc2626)",
+      color: "#fff",
+      border:
+        "2px solid #fecaca",
+      fontWeight: "700",
+    },
+  }
+);
 
           fetchPets();
 

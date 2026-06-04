@@ -12,6 +12,9 @@ const AllPetsPage = () => {
 
   const [pets, setPets] = useState([]);
 
+  const [allSpecies, setAllSpecies] = useState([]);
+  const [allLocations, setAllLocations] = useState([]);
+
   const [loading, setLoading] = useState(true);
 
   const [search, setSearch] = useState("");
@@ -20,6 +23,34 @@ const AllPetsPage = () => {
 
   const [location, setLocation] = useState("");
 
+  const fetchSpecies = async () => {
+  try {
+    const res = await axios.get(
+      "https://project-pet-adoption-server.onrender.com/species"
+    );
+
+    setAllSpecies(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const fetchLocations = async () => {
+  try {
+    const res = await axios.get(
+      "https://project-pet-adoption-server.onrender.com/locations"
+    );
+
+    setAllLocations(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};  
+
+useEffect(() => {
+  fetchSpecies();
+  fetchLocations();
+}, []);
 
 
   useEffect(() => {
@@ -98,7 +129,8 @@ const AllPetsPage = () => {
   className="
     grid
     grid-cols-1
-    md:grid-cols-[2.6fr_0.6fr_0.8fr]
+    md:grid-cols-[1.6fr_1fr_1fr]
+    lg:grid-cols-[2.6fr_0.6fr_0.8fr]
     gap-4
     items-center
     mb-12
@@ -111,10 +143,13 @@ const AllPetsPage = () => {
     <FaSearch
       className="
         absolute
-        left-5
+        left-4
+sm:left-5
         top-1/2
         -translate-y-1/2
         text-[#16C6C0]
+        text-sm
+sm:text-base
       "
     />
 
@@ -126,24 +161,29 @@ const AllPetsPage = () => {
       value={search}
       onChange={(e) => setSearch(e.target.value)}
       className="
-        w-full
-        bg-white
-        border-2
-        border-[#16C6C0]/30
-        focus:border-[#16C6C0]
-        focus:ring-4
-        focus:ring-[#16C6C0]/10
-        outline-none
-        rounded-2xl
-        pl-14
-        pr-5
-        py-4
-        shadow-lg
-        transition
-        duration-300
-        text-sm
-        sm:text-base
-      "
+  w-full
+  bg-white
+  border-2
+  border-[#16C6C0]/30
+  focus:border-[#16C6C0]
+  focus:ring-4
+  focus:ring-[#16C6C0]/10
+  outline-none
+  rounded-2xl
+  pl-12
+  sm:pl-14
+  pr-4
+  sm:pr-5
+  py-2.5
+  sm:py-3
+  md:py-4
+  shadow-lg
+  transition
+  duration-300
+  text-[13px]
+  sm:text-sm
+  md:text-base
+"
     />
 
   </div>
@@ -168,27 +208,30 @@ const AllPetsPage = () => {
         role="button"
         className="
           w-full
-          h-[56px]
+          h-[44px]
+          sm:h-[50px]
+          md:h-[56px]
           bg-white/95
           border
           border-[#16C6C0]/40
           rounded-2xl
           shadow-md
-          px-4
+          px-3
+          md:px-4
           flex
           items-center
           justify-between
           cursor-pointer
           hover:border-[#16C6C0]
-focus-within:border-[#16C6C0]
-focus-within:border-2
-hover:shadow-lg
-transition-all
-duration-300
+          focus-within:border-[#16C6C0]
+          focus-within:border-2
+          hover:shadow-lg
+          transition-all
+          duration-300
         "
       >
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 md:gap-3">
 
           <span className="text-[#16C6C0]">
 
@@ -200,8 +243,9 @@ duration-300
 
           <span
             className="
-              text-sm
-              sm:text-base
+              text-[13px]
+              sm:text-sm
+              md:text-base
               font-medium
               text-[#0f172a]
             "
@@ -215,7 +259,7 @@ duration-300
 
 
 
-        <span className="text-[#16C6C0]">
+        <span className="text-[#16C6C0] text-[14px] md:text-base">
 
           ▼
 
@@ -230,7 +274,7 @@ duration-300
         className="
           dropdown-content
           z-[20]
-          menu
+          
           p-2
           shadow-2xl
           bg-white
@@ -239,149 +283,69 @@ duration-300
           mt-2
           border
           border-[#16C6C0]/20
-          space-y-1
+          
         "
       >
 
         <li>
+  <button
+    className="
+      w-full
+      text-left
+      px-2
+      py-1.5
+      sm:px-3
+      sm:py-2
+      rounded-xl
+      hover:bg-[#16C6C0]
+      hover:text-white
+      transition
+      duration-300
+      text-[12px]
+      md:text-sm
+      mb-1
+    "
+    onClick={() => {
+      setSpecies("");
+      document.activeElement.blur();
+    }}
+  >
+    All Species
+  </button>
+</li>
 
-          <button
-          className="
-    w-full
-    text-left
-    px-3
-    py-2
-    rounded-xl
-    hover:bg-[#16C6C0]
-    hover:text-white
-    transition
-    duration-300
-  "
-            onClick={() => {
-              setSpecies("");
-              document.activeElement.blur();
-            }}
-          >
+{/* Other Species */}
+  <div className="grid grid-cols-2 gap-1">
 
-            All Species
+    {allSpecies.map((item) => (
+      <button
+        key={item}
+        className="
+          text-left
+          px-2
+          py-1.5
+          sm:px-3
+          sm:py-2
+          rounded-xl
+          hover:bg-[#16C6C0]
+          hover:text-white
+          transition
+          duration-300
+          text-[12px]
+          md:text-sm
+        "
+        onClick={() => {
+          setSpecies(item);
+          document.activeElement.blur();
+        }}
+      >
+        {item}
+      </button>
+    ))}
 
-          </button>
+  </div>
 
-        </li>
-
-
-
-        <li>
-
-          <button
-          className="
-    w-full
-    text-left
-    px-3
-    py-2
-    rounded-xl
-    hover:bg-[#16C6C0]
-    hover:text-white
-    transition
-    duration-300
-  "
-            onClick={() => {
-              setSpecies("Dog");
-              document.activeElement.blur();
-            }}
-          >
-
-            Dog
-
-          </button>
-
-        </li>
-
-
-
-        <li>
-
-          <button
-          className="
-    w-full
-    text-left
-    px-3
-    py-2
-    rounded-xl
-    hover:bg-[#16C6C0]
-    hover:text-white
-    transition
-    duration-300
-  "
-            onClick={() => {
-              setSpecies("Cat");
-              document.activeElement.blur();
-            }}
-          >
-
-            Cat
-
-          </button>
-
-        </li>
-
-
-
-        <li>
-
-          <button
-          className="
-    w-full
-    text-left
-    px-3
-    py-2
-    rounded-xl
-    hover:bg-[#16C6C0]
-    hover:text-white
-    transition
-    duration-300
-  "
-            onClick={() => {
-              setSpecies("Bird");
-              document.activeElement.blur();
-            }}
-          >
-
-            Bird
-
-          </button>
-
-        </li>
-
-
-
-        <li>
-
-          <button
-          className="
-    w-full
-    text-left
-    px-3
-    py-2
-    rounded-xl
-    hover:bg-[#16C6C0]
-    hover:text-white
-    transition
-    duration-300
-  "
-            onClick={() => {
-              setSpecies("Rabbit");
-              document.activeElement.blur();
-            }}
-          >
-
-            Rabbit
-
-          </button>
-
-        </li>
-
-      </ul>
+</ul>
 
     </div>
 
@@ -395,13 +359,15 @@ duration-300
         role="button"
         className="
           w-full
-          h-[56px]
+          h-[44px]
+          sm:h-[50px]
+          md:h-[56px]
           bg-white/95
           border
           border-[#F9B000]/40
           rounded-2xl
           shadow-md
-          px-4
+          px-3 md:px-4
           flex
           items-center
           justify-between
@@ -415,7 +381,7 @@ duration-300
         "
       >
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 md:gap-3">
 
           <FaLocationDot className="text-[#F9B000]" />
 
@@ -423,8 +389,9 @@ duration-300
 
           <span
             className="
-              text-sm
-              sm:text-base
+              text-[13px]
+              sm:text-sm
+              md:text-base
               font-medium
               text-[#0f172a]
             "
@@ -438,7 +405,7 @@ duration-300
 
 
 
-        <span className="text-[#F9B000]">
+        <span className="text-[#F9B000] text-[14px] md:text-base">
 
           ▼
 
@@ -453,8 +420,7 @@ duration-300
         className="
           dropdown-content
           z-[20]
-          menu
-          p-2
+          p-1
           shadow-2xl
           bg-white
           rounded-2xl
@@ -462,7 +428,7 @@ duration-300
           mt-2
           border
           border-[#F9B000]/20
-          space-y-1
+          
         "
       >
 
@@ -472,13 +438,18 @@ duration-300
           className="
     w-full
     text-left
-    px-3
-    py-2
+    px-2
+    py-1.5
+    sm:px-3
+    sm:py-2
     rounded-xl
     hover:bg-[#F9B000]
     hover:text-black
     transition
     duration-300
+    text-[12px]
+    md:text-sm
+    mb-1
   "
             onClick={() => {
               setLocation("");
@@ -493,116 +464,37 @@ duration-300
         </li>
 
 
+        {/* Other Locations */}
+<div className="grid grid-cols-2 gap-1">
 
-        <li>
+  {allLocations.map((item) => (
+    <button
+      key={item}
+      className="
+        text-left
+        px-1
+        py-1.5
+        sm:px-3
+        sm:py-2
+        rounded-xl
+        hover:bg-[#F9B000]
+        hover:text-black
+        transition
+        duration-300
+        text-[11px]
+sm:text-[12px]
+md:text-sm
+      "
+      onClick={() => {
+        setLocation(item);
+        document.activeElement.blur();
+      }}
+    >
+      {item}
+    </button>
+  ))}
 
-          <button
-          className="
-    w-full
-    text-left
-    px-3
-    py-2
-    rounded-xl
-    hover:bg-[#F9B000]
-    hover:text-black
-    transition
-    duration-300
-  "
-            onClick={() => {
-              setLocation("Dhaka");
-              document.activeElement.blur();
-            }}
-          >
-
-            Dhaka
-
-          </button>
-
-        </li>
-
-
-
-        <li>
-
-          <button
-          className="
-    w-full
-    text-left
-    px-3
-    py-2
-    rounded-xl
-    hover:bg-[#F9B000]
-    hover:text-black
-    transition
-    duration-300
-  "
-            onClick={() => {
-              setLocation("Chattogram");
-              document.activeElement.blur();
-            }}
-          >
-
-            Chattogram
-
-          </button>
-
-        </li>
-
-
-
-        <li>
-
-          <button
-          className="
-    w-full
-    text-left
-    px-3
-    py-2
-    rounded-xl
-    hover:bg-[#F9B000]
-    hover:text-black
-    transition
-    duration-300
-  "
-            onClick={() => {
-              setLocation("Sylhet");
-              document.activeElement.blur();
-            }}
-          >
-
-            Sylhet
-
-          </button>
-
-        </li>
-
-
-
-        <li>
-
-          <button
-          className="
-    w-full
-    text-left
-    px-3
-    py-2
-    rounded-xl
-    hover:bg-[#F9B000]
-    hover:text-black
-    transition
-    duration-300
-  "
-            onClick={() => {
-              setLocation("Rajshahi");
-              document.activeElement.blur();
-            }}
-          >
-
-            Rajshahi
-
-          </button>
-
-        </li>
+</div>
 
       </ul>
 

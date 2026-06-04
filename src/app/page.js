@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import FeaturedPets from "@/components/FeaturedPets";
 import Newsletter from "@/components/Newsletter";
 import PetCareTips from "@/components/PetCareTips";
@@ -89,26 +90,26 @@ export default function Home() {
 
 
 
-        <button
-          className="
-            mt-8
-            bg-[#F9B000]
-            hover:bg-[#e5a400]
-            text-black
-            px-6
-            sm:px-8
-            py-3
-            rounded-full
-            font-bold
-            transition
-            duration-300
-            shadow-2xl
-          "
-        >
-
-          Adopt Now
-
-        </button>
+        <Link
+  href="/all-pets"
+  className="
+    inline-block
+    mt-8
+    bg-[#F9B000]
+    hover:bg-[#e5a400]
+    text-black
+    px-6
+    sm:px-8
+    py-3
+    rounded-full
+    font-bold
+    transition
+    duration-300
+    shadow-2xl
+  "
+>
+  Adopt Now
+</Link>
 
       </motion.div>
 

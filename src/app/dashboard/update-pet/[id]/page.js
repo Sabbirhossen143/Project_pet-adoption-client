@@ -23,6 +23,9 @@ const UpdatePetPage = ({ params }) => {
 
   const [loading, setLoading] = useState(true);
 
+  const [gender, setGender] = useState("");
+  const [vaccination, setVaccination] = useState("");
+
   const {
     register,
   handleSubmit,
@@ -66,6 +69,11 @@ const inputStyle = `
 
       reset(res.data);
 
+      setGender(res.data.gender || "");
+      setVaccination(
+      res.data.vaccinationStatus || ""
+      );
+
       setLoading(false);
 
     } catch (error) {
@@ -82,7 +90,18 @@ const inputStyle = `
 
     delete data._id;
 
+    if (!gender) {
+    return toast.error("Please select gender");
+  }
+
+  if (!vaccination) {
+    return toast.error("Please select vaccination status");
+  }
+
     try {
+
+      data.gender = gender;
+      data.vaccinationStatus = vaccination;
 
       const res = await axiosSecure.put(
         `/pets/${id}`,
@@ -93,7 +112,7 @@ const inputStyle = `
 
       if (res.data.modifiedCount > 0) {
 
-        toast.success("Pet Updated");
+        toast.success("Pet Updated Successfully 🐾");
 
         router.push("/dashboard/my-listings");
       }
@@ -230,6 +249,287 @@ const inputStyle = `
     <input {...register("age")} placeholder="Age" className={inputStyle} />
   </div>
 
+  <div>
+  <label className="block text-[11px] sm:text-xs font-semibold text-gray-600 mb-1.5">
+    Gender *
+  </label>
+
+  <div className="dropdown w-full">
+
+  <div
+    tabIndex={0}
+    role="button"
+    className="
+      w-full
+      
+      py-3
+      bg-[#F8FAFC]
+      border
+      border-gray-200
+      rounded-2xl
+      shadow-sm
+      px-4
+      flex
+      items-center
+      justify-between
+      cursor-pointer
+      hover:border-[#F9C62B]
+      focus-within:border-[#F9C62B]
+      focus-within:border-1
+      hover:shadow-md
+      transition-all
+      duration-300
+    "
+  >
+
+    <span
+      className="
+        text-[13px]
+        md:text-sm
+        text-[#0f172a]
+      "
+    >
+
+      {gender || "Select Gender"}
+
+    </span>
+
+
+
+    <span className="text-[11px]
+    sm:text-sm text-[#F9C62B]">
+
+      ▼
+
+    </span>
+
+  </div>
+
+
+
+  <ul
+    tabIndex={0}
+    className="
+      dropdown-content
+      z-[20]
+      menu
+      p-2
+      shadow-2xl
+      bg-white
+      rounded-2xl
+      w-full
+      mt-2
+      border
+      border-[#F9C62B]/20
+      space-y-1
+    "
+  >
+
+    <li>
+
+      <button
+        type="button"
+        className="
+          w-full
+          text-left
+          px-3
+          py-2
+          rounded-xl
+          hover:bg-[#F9C62B]
+          hover:text-black
+          transition
+          duration-300
+        "
+        onClick={() => {
+          setGender("Male");
+          document.activeElement.blur();
+        }}
+      >
+
+        <span
+  className="
+    text-[13px]
+    sm:text-sm
+  "
+>
+
+  Male
+
+</span>
+
+      </button>
+
+    </li>
+
+
+
+    <li>
+
+      <button
+        type="button"
+        className="
+          w-full
+          text-left
+          px-3
+          py-2
+          rounded-xl
+          hover:bg-[#F9C62B]
+          hover:text-black
+          transition
+          duration-300
+        "
+        onClick={() => {
+          setGender("Female");
+          document.activeElement.blur();
+        }}
+      >
+
+        <span
+  className="
+    text-[13px]
+    sm:text-sm
+  "
+>
+
+  Female
+
+</span>
+
+      </button>
+
+    </li>
+
+  </ul>
+
+
+
+  <input
+  type="hidden"
+  value={gender}
+  {...register("gender")}
+/>
+
+</div>
+
+</div>
+
+
+<div>
+  <label className="block text-[11px] sm:text-xs font-semibold text-gray-600 mb-1.5">
+    Vaccination Status *
+  </label>
+
+  <div className="dropdown w-full">
+
+    <div
+      tabIndex={0}
+      role="button"
+      className="
+        w-full
+        py-3
+        bg-[#F8FAFC]
+        border
+        border-gray-200
+        rounded-2xl
+        shadow-sm
+        px-4
+        flex
+        items-center
+        justify-between
+        cursor-pointer
+        hover:border-[#F9C62B]
+        focus-within:border-[#F9C62B]
+        focus-within:border-1
+        hover:shadow-md
+        transition-all
+        duration-300
+      "
+    >
+      <span className="text-[13px] md:text-sm text-[#0f172a]">
+        {vaccination || "Vaccination Status"}
+      </span>
+
+      <span className="text-[11px] sm:text-sm text-[#F9C62B]">
+        ▼
+      </span>
+    </div>
+
+    <ul
+    tabIndex={0}
+    className="
+      dropdown-content
+      z-[20]
+      menu
+      p-2
+      shadow-2xl
+      bg-white
+      rounded-2xl
+      w-full
+      mt-2
+      border
+      border-[#F9C62B]/20
+      space-y-1
+    "
+  >
+
+    {[
+      "Unvaccinated",
+      "Partially Vaccinated",
+      "Fully Vaccinated",
+      "Boosted",
+      "Up-to-Date",
+    ].map((item) => (
+
+      <li key={item}>
+
+        <button
+          type="button"
+          className="
+            w-full
+            text-left
+            px-3
+            py-2
+            rounded-xl
+            hover:bg-[#F9C62B]
+            hover:text-black
+            transition
+            duration-300
+          "
+          onClick={() => {
+            setVaccination(item);
+            document.activeElement.blur();
+          }}
+        >
+
+          <span
+          className="
+            text-[13px]
+            sm:text-sm
+          "
+        >
+
+          {item}
+          
+          </span>
+
+        </button>
+
+      </li>
+
+    ))}
+
+  </ul>
+
+    <input
+      type="hidden"
+      value={vaccination}
+      {...register("vaccinationStatus")}
+    />
+
+  </div>
+</div>
+
+
   <div className="lg:hidden">
   <label className="block text-[11px] sm:text-xs font-semibold text-gray-600 mb-1.5">
     Location *
@@ -277,22 +577,33 @@ const inputStyle = `
 
 </div>
 
-  {/* ROW 3 */}
-  <div className="grid grid-cols-1 gap-3">
+ <div className="grid grid-cols-2 gap-3 sm:gap-4">
 
-    <div>
-  <label className="block text-[11px] sm:text-xs font-semibold text-gray-600 mb-1.5">
-    Image URL *
-  </label>
+  <div>
+    <label className="block text-[11px] sm:text-xs font-semibold text-gray-600 mb-1.5">
+      Health Status *
+    </label>
 
-  <input
-    {...register("image")}
-    placeholder="Image URL"
-    className={inputStyle}
-  />
-</div>
-
+    <input
+      {...register("healthStatus")}
+      placeholder="Health Status"
+      className={inputStyle}
+    />
   </div>
+
+  <div>
+    <label className="block text-[11px] sm:text-xs font-semibold text-gray-600 mb-1.5">
+      Image URL *
+    </label>
+
+    <input
+      {...register("image")}
+      placeholder="Image URL"
+      className={inputStyle}
+    />
+  </div>
+
+</div>
 
   {/* DESCRIPTION */}
   <div>

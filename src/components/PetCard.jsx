@@ -236,9 +236,17 @@ text-black/90
 
 
 
-  <span className="font-bold text-white text-[13px]
+  <span className="font-bold text-white 
+    text-[13px]
     sm:text-[14px]
-    md:text-[16px]">
+    md:text-[15px] 
+    
+     max-w-none
+
+    md:truncate
+    md:max-w-[180px]
+    lg:max-w-[220px]
+    ">
 
     {pet.breed || "Unknown"}
 

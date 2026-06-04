@@ -119,8 +119,66 @@ const PetDetailsPage = ({ params }) => {
       if (res.data.insertedId) {
 
   toast.success(
-    "🐾 Adoption Request Submitted"
-  );
+  "Adoption Request Submitted",
+  {
+    icon: (
+      <img
+        src="/images/request1.png"
+        alt="request"
+        className="
+          w-5 h-5
+          md:w-7 md:h-7
+          rounded-full
+          object-cover
+        "
+      />
+    ),
+
+    style: {
+      borderRadius:
+        window.innerWidth < 640
+          ? "14px"
+          : "20px",
+
+      background:
+        "linear-gradient(135deg,#16C6C0,#0EA5A4)",
+
+      color: "#fff",
+
+      border:
+        "2px solid #7DE7E2",
+
+      fontWeight: "700",
+
+      padding:
+        window.innerWidth < 640
+          ? "8px 12px"
+          : "14px 18px",
+
+      fontSize:
+        window.innerWidth < 640
+          ? "11px"
+          : "14px",
+
+      minWidth:
+        window.innerWidth < 640
+          ? "240px"
+          : "280px",
+
+      maxWidth:
+        window.innerWidth < 640
+          ? "280px"
+          : "340px",
+
+      lineHeight: "1.2",
+
+      marginTop:
+        window.innerWidth < 640
+          ? "10px"
+          : "35px",
+    },
+  }
+);
 
   setSubmitted(true);
 
