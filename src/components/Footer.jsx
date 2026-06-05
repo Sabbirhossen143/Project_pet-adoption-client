@@ -24,7 +24,8 @@ const Footer = () => {
           grid-cols-1
           md:grid-cols-2
           lg:grid-cols-4
-          gap-10
+          gap-6
+          md:gap-10
         "
       >
 
@@ -33,7 +34,8 @@ const Footer = () => {
 
           <h2
             className="
-              text-3xl
+              text-2xl
+              md:text-3xl
               font-extrabold
             "
           >
@@ -54,7 +56,8 @@ const Footer = () => {
 
 
 
-          <p className="mt-3 md:mt-5 text-white/70 leading-relaxed">
+          <p className="mt-3 md:mt-5 text-white/70 text-sm
+    sm:text-base leading-relaxed">
 
             Helping pets find loving homes and creating
             happier families every single day.
@@ -71,9 +74,10 @@ const Footer = () => {
 
   <h3
     className="
-      text-xl
+      text-lg
+      md:text-xl
       font-bold
-      mb-4
+      mb-2
       md:mb-6
       text-[#F9C62B]
     "
@@ -97,6 +101,8 @@ const Footer = () => {
       items-center
       gap-2
       mb-2
+      text-sm
+      sm:text-base
     "
   >
 
@@ -130,6 +136,8 @@ const Footer = () => {
       items-center
       gap-2
       mb-2
+      text-sm
+      sm:text-base
     "
   >
 
@@ -163,6 +171,8 @@ const Footer = () => {
       items-center
       gap-2
       mb-2
+      text-sm
+      sm:text-base
     "
   >
 
@@ -195,6 +205,8 @@ const Footer = () => {
       flex
       items-center
       gap-2
+      text-sm
+      sm:text-base
     "
   >
 
@@ -222,7 +234,8 @@ const Footer = () => {
 
           <h3
             className="
-              text-xl
+              text-lg
+              sm:text-xl
               font-bold
               mb-4
               md:mb-6
@@ -235,7 +248,13 @@ const Footer = () => {
           </h3>
 
 
-<div className="space-y-4 text-white/70">
+<div className="
+  space-y-3
+  text-white/70
+  text-sm
+  sm:text-base
+  break-words
+">
 
   {/* EMAIL */}
   <a
@@ -243,7 +262,8 @@ const Footer = () => {
     className="
       flex
       items-center
-      gap-3
+      gap-2
+      sm:gap-3
       hover:text-[#F9C62B]
       transition
       duration-300
@@ -251,16 +271,23 @@ const Footer = () => {
   >
 
     <Image
-      src="/images/mail.png"
-      alt="Mail"
-      width={22}
-      height={22}
-      className="object-contain"
-    />
+  src="/images/mail.png"
+  alt="Mail"
+  width={22}
+  height={22}
+  className="
+    object-contain
+    w-5
+    h-5
+    md:w-[22px]
+    md:h-[22px]
+    flex-shrink-0
+  "
+/>
 
 
 
-    <span>
+    <span >
 
       pawconnect@gmail.com
 
@@ -278,7 +305,8 @@ const Footer = () => {
     className="
       flex
       items-center
-      gap-3
+      gap-2
+      sm:gap-3
       hover:text-[#25D366]
       transition
       duration-300
@@ -290,7 +318,14 @@ const Footer = () => {
       alt="WhatsApp"
       width={22}
       height={22}
-      className="object-contain"
+      className="
+    object-contain
+    w-5
+    h-5
+    md:w-[22px]
+    md:h-[22px]
+    flex-shrink-0
+  "
     />
 
 
@@ -313,7 +348,8 @@ const Footer = () => {
     className="
       flex
       items-center
-      gap-3
+      gap-2
+      sm:gap-3
       hover:text-[#F9C62B]
       transition
       duration-300
@@ -325,7 +361,14 @@ const Footer = () => {
       alt="Location"
       width={22}
       height={22}
-      className="object-contain"
+      className="
+    object-contain
+    w-5
+    h-5
+    md:w-[22px]
+    md:h-[22px]
+    flex-shrink-0
+  "
     />
 
 
@@ -350,7 +393,8 @@ const Footer = () => {
 
           <h3
             className="
-              text-xl
+              text-lg
+              sm:text-xl
               font-bold
               mb-4
               md:mb-6
@@ -364,48 +408,60 @@ const Footer = () => {
 
 
 
-          <div className="flex gap-4">
+          <div className="flex gap-2 md:gap-4">
+
+            <a
+  href="#"
+  className="
+    w-9
+    h-9
+    sm:w-10
+    sm:h-10
+    md:w-12
+    md:h-12
+    rounded-full
+    bg-white/10
+    text-[#F9C62B]
+    text-sm
+    sm:text-base
+    md:text-lg
+    flex
+    items-center
+    justify-center
+    hover:bg-[#F9C62B]
+    hover:text-black
+    transition
+    duration-300
+  "
+>
+  <FaFacebookF />
+</a>
+
+
 
             <a
               href="#"
               className="
-                w-12
-                h-12
-                rounded-full
-                bg-white/10
-                text-[#F9C62B]
-                flex
-                items-center
-                justify-center
-                hover:bg-[#F9C62B]
-                hover:text-black
-                transition
-                duration-300
-              "
-            >
-
-              <FaFacebookF />
-
-            </a>
-
-
-
-            <a
-              href="#"
-              className="
-                w-12
-                h-12
-                rounded-full
-                bg-white/10
-                text-[#F9C62B]
-                flex
-                items-center
-                justify-center
-                hover:bg-[#F9C62B]
-                hover:text-black
-                transition
-                duration-300
-              "
+    w-9
+    h-9
+    sm:w-10
+    sm:h-10
+    md:w-12
+    md:h-12
+    rounded-full
+    bg-white/10
+    text-[#F9C62B]
+    text-sm
+    sm:text-base
+    md:text-lg
+    flex
+    items-center
+    justify-center
+    hover:bg-[#F9C62B]
+    hover:text-black
+    transition
+    duration-300
+  "
             >
 
               <FaInstagram />
@@ -417,19 +473,26 @@ const Footer = () => {
             <a
               href="#"
               className="
-                w-12
-                h-12
-                rounded-full
-                bg-white/10
-                text-[#F9C62B]
-                flex
-                items-center
-                justify-center
-                hover:bg-[#F9C62B]
-                hover:text-black
-                transition
-                duration-300
-              "
+    w-9
+    h-9
+    sm:w-10
+    sm:h-10
+    md:w-12
+    md:h-12
+    rounded-full
+    bg-white/10
+    text-[#F9C62B]
+    text-sm
+    sm:text-base
+    md:text-lg
+    flex
+    items-center
+    justify-center
+    hover:bg-[#F9C62B]
+    hover:text-black
+    transition
+    duration-300
+  "
             >
 
               <FaTwitter />
@@ -446,27 +509,41 @@ const Footer = () => {
 
       {/* BOTTOM */}
       <div
-        className="
-          border-t
-          border-white/10
-          py-5
-          text-center
-          text-white/60
-          text-sm
-        "
-      >
+  className="
+    border-t
+    border-white/10
+    py-4
+    sm:py-5
+    text-center
+    text-white/60
+    text-xs
+    sm:text-sm
+    px-4
+  "
+>
+  <p
+    className="
+      flex
+      flex-wrap
+      items-center
+      justify-center
+      gap-1
+      sm:gap-2
+    "
+  >
+    © 2026 PawConnect. Made with
 
-        <p className="flex items-center justify-center gap-2">
+    <FaHeart
+      className="
+        text-[#F9C62B]
+        text-xs
+        sm:text-sm
+      "
+    />
 
-          © 2026 PawConnect. Made with
-
-          <FaHeart className="text-[#F9C62B]" />
-
-          for pets.
-
-        </p>
-
-      </div>
+    for pets.
+  </p>
+</div>
 
     </footer>
   );
