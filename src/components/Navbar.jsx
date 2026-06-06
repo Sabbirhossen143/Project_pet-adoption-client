@@ -2,20 +2,33 @@
 
 import Link from "next/link";
 import Image from "next/image";
-
-import { useContext } from "react";
-
+import {useContext,useState,useEffect} from "react";
 import { usePathname } from "next/navigation";
-
 import ThemeToggle from "./ThemeToggle";
-
 import { AuthContext } from "@/providers/AuthProvider";
-
 import toast from "react-hot-toast";
-
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+
+  const [showWishlist, setShowWishlist] =
+  useState(false);
+
+  const [wishlistPets, setWishlistPets] =
+  useState([]);
+
+
+
+  useEffect(() => {
+
+  const wishlist =
+    JSON.parse(
+      localStorage.getItem("wishlist")
+    ) || [];
+
+  setWishlistPets(wishlist);
+
+}, [showWishlist]);
 
   const { user, logoutUser } =
     useContext(AuthContext);
@@ -102,9 +115,41 @@ const Navbar = () => {
     }
   };
 
+  const totalFee = wishlistPets.reduce(
+  (sum, pet) =>
+    sum + Number(pet.adoptionFee || 0),
+  0
+);
+
+
+const removeFromWishlist = (id) => {
+
+  const updatedWishlist =
+    wishlistPets.filter(
+      (pet) => pet._id !== id
+    );
+
+  localStorage.setItem(
+    "wishlist",
+    JSON.stringify(updatedWishlist)
+  );
+
+  setWishlistPets(updatedWishlist);
+
+  window.dispatchEvent(
+  new Event("wishlistUpdated")
+);
+
+  toast.success(
+    "Removed from Wishlist"
+  );
+};
 
 
   return (
+
+      <>
+      
     <nav className="sticky top-0 z-50 bg-white/20 backdrop-blur-xl border-b border-white/20 backdrop-blur-md shadow-md">
 
       <div className="max-w-7xl mx-auto px-1 md:px-4">
@@ -203,30 +248,31 @@ const Navbar = () => {
           
             {/* DARK MODE */}
 <button
+  onClick={() =>
+    setShowWishlist(true)
+  }
   className="
-    px-2 sm:px-2 md:px-3 lg:px-4
-    py-[3px] sm:py-1 md:py-2
+    px-2
+    sm:px-2
+    md:px-3
+    lg:px-4
+    py-[3px]
+    sm:py-1
+    md:py-2
     rounded-full
-    hover:bg-[#e5a400]
+    hover:scale-110
     transition
     duration-300
-    flex items-center justify-center
   "
 >
-
-  <Image
-    src="/images/moon.png"
-    alt="Dark Mode"
-    width={0}
-    height={0}
-    sizes="100vw"
+  <img
+    src="/images/wishlist.png"
+    alt="Wishlist"
     className="
-      w-4 h-4
-      sm:w-5 sm:h-5
-      md:w-5 md:h-5
+      w-5 h-5
+      sm:w-6 sm:h-6
     "
   />
-
 </button>
 
 
@@ -463,6 +509,368 @@ md:w-6 md:h-6 object-contain"
       </div>
 
     </nav>
+
+    {showWishlist && (
+
+  <div
+  className="
+    fixed
+    inset-0
+    z-[9999]
+    bg-black/60
+    flex
+    items-center
+    justify-center
+    pt-16
+    sm:pt-24
+    md:pt-28
+  "
+>
+
+    <div
+      className="
+  bg-white
+  rounded-3xl
+  w-[85%]
+  sm:w-[88%]
+  md:w-[80%]
+  lg:w-full
+  max-w-5xl
+  max-h-[80vh]
+  overflow-y-auto
+  p-3
+"
+    >
+
+      {/* HEADER */}
+<div
+  className="
+    sticky
+    top-2
+    z-20
+    mb-8
+    md:mb-10
+    px-1
+    md:px-2
+    py-3
+    bg-white/60
+    backdrop-blur-2xl
+    border-1
+    border-[#F9C62B]/70
+    rounded-2xl
+    shadow-[0_8px_25px_rgba(249,198,43,0.15)]
+  "
+>
+
+  <div className="flex justify-between items-start">
+
+    <div className="pl-1 sm:pl-1 md:pl-1">
+
+      <h2
+        className="
+          text-lg
+          sm:text-xl
+          md:text-2xl
+          font-bold
+          text-[#0f172a]
+        "
+      >
+        My Wishlist ❤️
+      </h2>
+
+      <div className="flex items-center gap-2 mt-2 flex-wrap">
+
+  <div
+    className="
+      bg-[#16C6C0]
+      text-white
+      px-3
+      py-1
+      rounded-full
+      text-xs
+      sm:text-sm
+      font-semibold
+    "
+  >
+    Total Pets : {wishlistPets.length}
+  </div>
+
+  <div
+    className="
+      bg-[#F9C62B]
+      text-black
+      px-3
+      py-1
+      rounded-full
+      text-xs
+      sm:text-sm
+      font-semibold
+    "
+  >
+    Total Fee : ${totalFee}
+  </div>
+
+</div>
+
+    </div>
+
+    <button
+      onClick={() =>
+        setShowWishlist(false)
+      }
+      className="
+        -mt-1
+        w-7 h-7
+        sm:w-8 sm:h-8
+        rounded-full
+        bg-red-500
+        text-white
+        font-bold
+        hover:bg-red-600
+        transition
+        flex
+        items-center
+        justify-center
+        flex-shrink-0
+      "
+    >
+      ✕
+    </button>
+
+  </div>
+
+</div>
+
+
+
+{/* CARDS */}
+
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+
+  {wishlistPets.length > 0 ? (
+
+    wishlistPets.map((pet) => (
+
+      <div
+        key={pet._id}
+        className="
+          border
+          border-[#F9C62B]
+          rounded-2xl
+          overflow-hidden
+          bg-white
+        "
+      >
+
+        <div className="relative p-3">
+
+  {/* REMOVE BUTTON */}
+  <button
+    onClick={() => removeFromWishlist(pet._id)}
+    className="
+  absolute
+  top-2
+  right-2
+  px-2
+  py-1
+  rounded-full
+  bg-red-500
+  text-white
+  text-[11px]
+  font-semibold
+  hover:bg-red-600
+  transition
+"
+  >
+    Remove
+  </button>
+
+  <div className="flex gap-4">
+
+    {/* IMAGE */}
+    <img
+      src={pet.image}
+      alt={pet.petName}
+      className="
+        w-24
+        h-24
+        sm:w-28
+        sm:h-28
+        object-cover
+        rounded-2xl
+        flex-shrink-0
+      "
+    />
+
+    {/* INFO */}
+    <div className="flex-1">
+
+      <h3
+        className="
+          text-lg
+          font-bold
+          text-[#0f172a]
+          pr-8
+        "
+      >
+        {pet.petName}
+      </h3>
+
+      <div className="mt-2 space-y-1">
+
+        <div
+  className="
+    flex
+    items-center
+    gap-1
+    text-sm
+  "
+>
+  🐾 {pet.species}
+
+  <span
+    className="
+      text-gray-500
+      text-[11px]
+      
+    "
+  >
+    ({pet.breed})
+  </span>
+</div>
+
+        <div
+          className="
+            flex
+            items-center
+            gap-2
+            text-sm
+          "
+        >
+          📍 {pet.location}
+        </div>
+
+        <div
+          className="
+            flex
+            items-center
+            gap-2
+            text-sm
+            font-bold
+            text-[#F9B000]
+          "
+        >
+          💰 ${pet.adoptionFee}
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+          <div
+            className="
+              grid
+              grid-cols-2
+              gap-3
+              mt-4
+            "
+          >
+
+            <button
+              onClick={() => {
+
+                if (!user) {
+
+                  setShowWishlist(false);
+
+                  router.push("/login");
+                  return;
+                }
+
+                setShowWishlist(false);
+                router.push(`/pet/${pet._id}`);
+              }}
+              className="
+  py-1.5
+  text-xs
+  sm:text-sm
+  rounded-lg
+  border
+  border-[#16C6C0]
+  text-[#16C6C0]
+  font-semibold
+  hover:bg-[#16C6C0]
+  hover:text-white
+  transition
+  duration-300
+"
+            >
+              View Details
+            </button>
+
+
+
+            <button
+              onClick={() => {
+
+                if (!user) {
+
+                  setShowWishlist(false);
+                  router.push("/login");
+                  return;
+                }
+
+                setShowWishlist(false);
+
+                router.push(`/pet/${pet._id}`);
+              }}
+              className="
+  py-1.5
+  text-xs
+  sm:text-sm
+  rounded-lg
+  bg-[#F9C62B]
+  font-bold
+  text-black
+  hover:bg-[#E5A400]
+  transition
+  duration-300
+"
+            >
+              Adopt Now
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    ))
+
+  ) : (
+
+    <div className="col-span-2 text-center py-10">
+
+      No pets in wishlist ❤️
+
+    </div>
+
+  )}
+
+  </div>
+
+      </div>
+
+    </div>
+
+  )}
+
+</>
   );
 };
 

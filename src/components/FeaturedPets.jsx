@@ -43,21 +43,6 @@ const FeaturedPets = () => {
   };
 
 
-
-  if (loading) {
-
-    return (
-
-      <div className="py-20 flex justify-center">
-
-        <span className="loading loading-spinner loading-lg text-[#16C6C0]"></span>
-
-      </div>
-    );
-  }
-
-
-
   return (
 
     <section className="py-16 sm:py-20 bg-[#f8fbfb]">
@@ -125,26 +110,106 @@ const FeaturedPets = () => {
 
 
         {/* PET GRID */}
-        <div
+
+{loading ? (
+
+  <div
+    className="
+      flex
+      flex-col
+      items-center
+      justify-center
+      py-20
+    "
+  >
+
+    <div className="relative">
+
+      <div
+        className="
+          w-20
+          h-20
+          rounded-full
+          border-[6px]
+          border-[#F9C62B]/20
+        "
+      ></div>
+
+      <div
+        className="
+          absolute
+          inset-0
+          w-20
+          h-20
+          rounded-full
+          border-[6px]
+          border-transparent
+          border-t-[#16C6C0]
+          border-r-[#F9B000]
+          animate-spin
+        "
+      ></div>
+
+      <div
+        className="
+          absolute
+          inset-0
+          flex
+          items-center
+          justify-center
+        "
+      >
+        <img
+          src="/images/petss.png"
+          alt="loading"
           className="
-            grid md:grid-cols-2 lg:grid-cols-4 gap-4
-    md:gap-5
-    lg:gap-2       
+            w-8
+            h-8
+            animate-pulse
           "
-        >
+        />
+      </div>
 
-          {
-            pets.map((pet) => (
+    </div>
 
-              <PetCard
-                key={pet._id}
-                pet={pet}
-              />
+    <p
+      className="
+        mt-5
+        text-sm
+        font-semibold
+        text-gray-500
+      "
+    >
+      Loading featured pets...
+    </p>
 
-            ))
-          }
+  </div>
 
-        </div>
+) : (
+
+  <div
+    className="
+      grid
+      md:grid-cols-2
+      lg:grid-cols-4
+      gap-4
+      md:gap-5
+      lg:gap-2
+    "
+  >
+
+    {pets.map((pet) => (
+
+      <PetCard
+        key={pet._id}
+        pet={pet}
+      />
+
+    ))}
+
+  </div>
+
+)}
 
       </div>
 

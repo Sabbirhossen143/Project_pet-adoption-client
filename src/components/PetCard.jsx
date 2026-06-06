@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FaLocationDot } from "react-icons/fa6";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@/providers/AuthProvider";
 import toast from "react-hot-toast";
@@ -8,9 +8,85 @@ import toast from "react-hot-toast";
 
 const PetCard = ({ pet }) => {
 
-  const { user } = useContext(AuthContext);
+const { user } = useContext(AuthContext);
 
 const router = useRouter();
+
+const [wishlisted, setWishlisted] =
+  useState(false);
+
+
+
+const addToWishlist = (pet) => {
+
+  const wishlist =
+    JSON.parse(
+      localStorage.getItem("wishlist")
+    ) || [];
+
+  const exists = wishlist.find(
+    (item) => item._id === pet._id
+  );
+
+  if (!exists) {
+
+    localStorage.setItem(
+      "wishlist",
+      JSON.stringify([
+        ...wishlist,
+        pet,
+      ])
+    );
+
+    window.dispatchEvent(
+  new Event("wishlistUpdated")
+);
+
+    setWishlisted(true);
+
+    toast.success(
+      "Added to Wishlist ❤️"
+    );
+  }
+};
+
+
+
+useEffect(() => {
+
+  const checkWishlist = () => {
+
+    const wishlist =
+      JSON.parse(
+        localStorage.getItem("wishlist")
+      ) || [];
+
+    const exists = wishlist.find(
+      (item) => item._id === pet._id
+    );
+
+    setWishlisted(!!exists);
+  };
+
+  checkWishlist();
+
+  window.addEventListener(
+    "wishlistUpdated",
+    checkWishlist
+  );
+
+  return () => {
+
+    window.removeEventListener(
+      "wishlistUpdated",
+      checkWishlist
+    );
+
+  };
+
+}, [pet._id]);
+
+
 
 const handlePetDetails = () => {
 
@@ -65,6 +141,36 @@ const handlePetDetails = () => {
           "
         />
 
+        <button
+  onClick={() => addToWishlist(pet)}
+  className="
+    absolute
+    bottom-2
+    right-2
+    z-20
+    transition
+    duration-300
+    hover:scale-110
+  "
+>
+  <img
+  src={
+    wishlisted
+      ? "/images/heart-on.png"
+      : "/images/heart-off.png"
+  }
+  alt="Wishlist"
+  className={`
+    object-contain
+    ${
+      wishlisted
+        ? "w-8 h-8 md:w-9 md:h-9"
+        : "w-6 h-6 md:w-6 md:h-6"
+    }
+  `}
+/>
+
+</button>
 
 
         {/* AVAILABLE BADGE */}
@@ -151,8 +257,8 @@ md:text-2xl
       <div className="p-5 sm:p-2 bg-[#16C6C0] text-white">
 
         {/* INFO */}
-        <div className="space-y-2.5
-sm:space-y-3 md:space-y-3">
+        <div className="space-y-2
+sm:space-y-2.5 md:space-y-2.5">
 
   {/* FIRST ROW */}
   <div className="flex items-center justify-between">
@@ -224,7 +330,7 @@ text-black/90
     gap-1
     text-[12px]
     sm:text-sm
-    md:text-base
+    md:text-sm
   "
 >
 
@@ -238,8 +344,8 @@ text-black/90
 
   <span className="font-bold text-white 
     text-[13px]
-    sm:text-[14px]
-    md:text-[15px] 
+    sm:text-[13px]
+    md:text-[13px] 
     
      max-w-none
 
@@ -286,7 +392,7 @@ text-black/90
   {/* FEE */}
   <div className="flex items-center justify-between pt-0">
 
-    <span className="text-white text-[13px] sm:text-[14px] md:text-[16px]">
+    <span className="text-white text-[13px] sm:text-[14px] md:text-[14px]">
 
       Adoption Fee
 
@@ -299,8 +405,7 @@ text-black/90
         text-[#F9C62B]
         font-extrabold
         text-lg
-        sm:text-xl
-        md:text-2xl
+        md:text-xl
       "
     >
 

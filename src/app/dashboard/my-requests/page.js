@@ -18,6 +18,8 @@ const MyRequestsPage = () => {
 
   const [requests, setRequests] = useState([]);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
 
     if (user?.email) {
@@ -31,19 +33,25 @@ const MyRequestsPage = () => {
 
   const fetchRequests = async () => {
 
-    try {
+  setLoading(true);
 
-      const res = await axiosSecure.get(
-        `/requests?email=${user?.email}`
-      );
+  try {
 
-      setRequests(res.data);
+    const res = await axiosSecure.get(
+      `/requests?email=${user?.email}`
+    );
 
-    } catch (error) {
+    setRequests(res.data);
 
-      console.log(error);
-    }
-  };
+    setLoading(false);
+
+  } catch (error) {
+
+    console.log(error);
+
+    setLoading(false);
+  }
+};
 
 
 
@@ -167,7 +175,86 @@ const MyRequestsPage = () => {
 };
 
 
+if (loading) {
+  return (
 
+    <div
+      className="
+        flex
+        flex-col
+        items-center
+        justify-center
+        min-h-[70vh]
+      "
+    >
+
+      {/* SPINNER */}
+      <div className="relative">
+
+        <div
+          className="
+            w-20
+            h-20
+            rounded-full
+            border-[6px]
+            border-[#F9C62B]/20
+          "
+        ></div>
+
+        <div
+          className="
+            absolute
+            inset-0
+            w-20
+            h-20
+            rounded-full
+            border-[6px]
+            border-transparent
+            border-t-[#16C6C0]
+            border-r-[#F9B000]
+            animate-spin
+          "
+        ></div>
+
+        <div
+          className="
+            absolute
+            inset-0
+            flex
+            items-center
+            justify-center
+          "
+        >
+
+          <img
+            src="/images/petss.png"
+            alt="loading"
+            className="
+              w-8
+              h-8
+              animate-pulse
+            "
+          />
+
+        </div>
+
+      </div>
+
+      <p
+        className="
+          mt-5
+          text-sm
+          font-semibold
+          text-gray-500
+        "
+      >
+        Loading requests...
+      </p>
+
+    </div>
+
+  );
+}
 
 return (
 

@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 import {
   FaFacebookF,
@@ -410,8 +413,18 @@ const Footer = () => {
 
           <div className="flex gap-2 md:gap-4">
 
-            <a
+  <motion.a
   href="#"
+  whileHover={{
+    scale: 1.15,
+    rotate: 8,
+  }}
+  whileTap={{
+    scale: 0.95,
+  }}
+  transition={{
+    duration: 0.2,
+  }}
   className="
     w-9
     h-9
@@ -435,12 +448,22 @@ const Footer = () => {
   "
 >
   <FaFacebookF />
-</a>
+</motion.a>
 
 
 
-            <a
-              href="#"
+            <motion.a
+  href="#"
+  whileHover={{
+    scale: 1.15,
+    rotate: 8,
+  }}
+  whileTap={{
+    scale: 0.95,
+  }}
+  transition={{
+    duration: 0.2,
+  }}
               className="
     w-9
     h-9
@@ -466,12 +489,22 @@ const Footer = () => {
 
               <FaInstagram />
 
-            </a>
+            </motion.a>
 
 
 
-            <a
+            <motion.a
               href="#"
+  whileHover={{
+    scale: 1.15,
+    rotate: 8,
+  }}
+  whileTap={{
+    scale: 0.95,
+  }}
+  transition={{
+    duration: 0.2,
+  }}
               className="
     w-9
     h-9
@@ -497,7 +530,7 @@ const Footer = () => {
 
               <FaTwitter />
 
-            </a>
+            </motion.a>
 
           </div>
 

@@ -83,16 +83,6 @@ useEffect(() => {
 
 
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex justify-center items-center">
-        <span className="loading loading-spinner loading-lg"></span>
-      </div>
-    );
-  }
-
-
-
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
 
@@ -504,7 +494,85 @@ md:text-sm
 
 </div>
 
+      
+
       {/* Pets */}
+
+{loading ? (
+
+  <div
+    className="
+      flex
+      flex-col
+      items-center
+      justify-center
+      py-20
+    "
+  >
+
+    <div className="relative">
+
+      <div
+        className="
+          w-20
+          h-20
+          rounded-full
+          border-[6px]
+          border-[#F9C62B]/20
+        "
+      ></div>
+
+      <div
+        className="
+          absolute
+          inset-0
+          w-20
+          h-20
+          rounded-full
+          border-[6px]
+          border-transparent
+          border-t-[#16C6C0]
+          border-r-[#F9B000]
+          animate-spin
+        "
+      ></div>
+
+      <div
+        className="
+          absolute
+          inset-0
+          flex
+          items-center
+          justify-center
+        "
+      >
+        <img
+          src="/images/petss.png"
+          alt="loading"
+          className="
+            w-8
+            h-8
+            animate-pulse
+          "
+        />
+      </div>
+
+    </div>
+
+    <p
+      className="
+        mt-5
+        text-sm
+        font-semibold
+        text-gray-500
+      "
+    >
+      Loading pets...
+    </p>
+
+  </div>
+
+) : (
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4
     md:gap-5
     lg:gap-2">
@@ -584,6 +652,8 @@ md:text-sm
 }
 
       </div>
+
+      )}
 
     </div>
   );

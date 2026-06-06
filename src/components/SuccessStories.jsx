@@ -1,9 +1,9 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { motion } from "framer-motion";
 import { Autoplay } from "swiper/modules";
-
+import { FaStar } from "react-icons/fa";
 import "swiper/css";
 
 const SuccessStories = () => {
@@ -118,11 +118,17 @@ justify-between
                 "
               >
 
-                <div className="text-4xl md:text-5xl">
-
-                  ⭐
-
-                </div>
+                <motion.div
+  animate={{ rotate: 360 }}
+  transition={{
+    repeat: Infinity,
+    duration: 3,
+    ease: "linear",
+  }}
+  className="w-fit text-yellow-400 text-4xl md:text-5xl"
+>
+  <FaStar />
+</motion.div>
 
 
 
